@@ -1,0 +1,30 @@
+{
+  "name": "uml-ninja",
+  "version": "1.0.0",
+  "description": "UML Ninja",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ArasBazyan/uml-ninja.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ArasBazyan/uml-ninja/issues"
+  },
+  "homepage": "https://github.com/ArasBazyan/uml-ninja#readme",
+  "dependencies": {
+    "cookie-parser": "^1.4.3",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "morgan": "^1.9.0",
+    "nodemon": "^1.12.1",
+    "serve-favicon": "^2.4.5",
+    "mongodb": "^3.0.4"
+  }
+}

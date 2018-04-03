@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
+  <style>
+
+/* On small screens, set height to 'auto' for the grid */
+@media screen and (max-width: 767px) {
+  .row.content {height: auto;}
+}
+  </style>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+</head>
+<body>
+
+<div id="main" class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-12">
+      <div style="margin-top: 10px;"  class="well">
+        <h4>Dashboard</h4>
+        <p>Info about the repo..</p>
+      </div>
+
+
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <h4>Documentation Updates</h4>
+            <div id="chartContainerLine" style="height: 370px; width: 100%;"></div>
+          </div>
+        </div>
+
+        <div class="col-sm-8">
+          <div class="well">
+            <h4>UML class diagram quality</h4>
+               <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+          </div>
+        </div>
+
+
+        <div class="col-sm-8">
+          <div  class="well">
+            <h4>Another box</h4>
+              <p> Graphs and stuff</p>
+          </div>
+        </div>
+
+    
+        <div style=" margin-left: 66%; width: 34%;position: absolute;" class="col-sm-4">
+          <div class="well">
+            <h4>The level of your project's documentation practices is... </h4>
+            <p  id="docLevel" style="text-align: center; font-size: 20px; font-weight: bold;"> GOOOD</p>
+          </div>
+        </div>
+      </div>
+  
+      <!-- <div class="row">
+        <div class="col-sm-8">
+          <div class="well">
+            <p>more box</p> 
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="well">
+            <p>more </p> 
+          </div>
+        </div>
+      </div> -->
+
+    </div>
+</div>
+
+<script>
+    /*
+    $.getJSON("http://localhost:3000/allrepos", function(result){
+        console.log(result)
+        $.each(result, function(i, field){
+            console.log(field);
+            //$("div").append(field + " ");
+        });
+    });
+    */
+
+
+//CJS json
+window.onload = function() {
+
+var dataPoints = [];
+
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  theme: "light2",
+  title: {
+    text: "BUILDS OVER TIME"
+  },
+  axisY: {
+    title: "Units",
+    titleFontSize: 24
+  },
+  data: [{
+    type: "spline",
+    yValueFormatString: "#,### Units",
+    dataPoints: dataPoints
+  }]
+});
+
+function addData(data) {
+  for (var i = 0; i < data.length; i++) {
+    console.log( data[i] );
+    console.log(data[i].Total_Commits);
+    dataPoints.push({
+      x: data[i].Total_Commits,
+      y: value["Doc Commits"].length
+    });
+  }
+  chart.render();
+
+}
+
+$.getJSON("data.json", addData);
+
+
+
+
+// Lined Chart
+var dataPointsLine = [];
+var dataPointsLine2 = [];
+$.getJSON("data.json", function(data) {  
+  $.each(data, function(key, value){
+    console.log(value["Doc Commits"].length);
+    dataPointsLine.push({x: value.Total_Commits, y: value["Doc Commits"].length  });
+    dataPointsLine2.push({x: value["Doc Commits"].length , y:  value.Total_Commits });
+
+  });
+  var chart = new CanvasJS.Chart("chartContainerLine",{
+    animationEnabled: true,
+    zoomEnabled: true,
+  theme: "light2",
+    title:{
+      text:"TVUM"
+    },
+    data: [
+    {
+      type: "spline",
+      dataPoints : dataPointsLine,
+    }
+
+    ]
+  });
+  chart.render();
+});
+
+}
+
+
+
+
+</script>
+
+</body>
+</html>
