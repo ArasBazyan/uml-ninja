@@ -7,24 +7,30 @@ var uri = "mongodb+srv://nimishAras:thesis_project@cluster0-gj7hf.mongodb.net/te
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    
-    console.log("dash")
-    console.log("RENDER DASH!!!!")
+    console.log("Rendering dash")
   res.render('dashView');
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id/:ib', function(req, res, next) {
     MongoClient.connect(uri, function(err, client) {
         if (err) {
             console.error(err);
         }
-
         var id = req.params.id;
-        console.log('Retrieving wine: ' + id);
+        var ib = req.params.ib;
+        var fullname = id + '/' + ib;
+        console.log(fullname);
+        console.log('Retrieving project: ' + id);
         client.db("Thesis").collection('Repos', function(err, collection) {
-            collection.findOne({'repo_id': id}, function(err, item) {
-                console.log(item)
-                res.json(item);
+            collection.findOne({'fullname': fullname}, function(err, item) {
+                console.log("THE DATA: ");
+
+                console.log(item);
+                console.log(JSON.stringify(item));
+                res.render('dashView', {
+                    data: item
+                });
+                //res.json(item);
             });
         });
 

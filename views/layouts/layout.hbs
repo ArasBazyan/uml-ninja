@@ -7,8 +7,8 @@
     {{{ head }}}
 
     <style>
-
     body {
+        font-family: Avenir, sans-serif;
         margin: 0;
         height: 100%;
         width: 100%;
@@ -21,13 +21,13 @@
 
     /* Style the topnav links */
     .topnav a {
-    font-size: 15px;    
-    font-family: Verdana,sans-serif;
+    font-family: Avenir, sans-serif;
     float: right;
     display: block;
+    font-size: 15px;
     color: #f2f2f2;
     text-align: center;
-    padding: 16px 26px;
+    padding: 12px 28px;
     text-decoration: none;
     }
 
@@ -35,34 +35,31 @@
     .topnav a:hover {
     background-color: #deba00;
     color: black;
+    text-decoration: none;
     }
    </style>
 </head>
 <body>
 <div id="navbar" class="topnav">
+
+  <a href="#">About us </a>
+  <a href="#">Why? </a>
+  <a href="/">Home </a>
+
+<!--
   <button style="background-color: #deba00 !important; font-size: 26px !important; ;" id="openNav" class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
-
-  <a href="#">Link </a>
-  <a href="#">Link </a>
-  <a href="#">Link </a>
-
-
   <button style="background-color: #deba00 !important; font-size: 25px !important; display:none; " id="closeNav" class="w3-button w3-teal w3-xlarge" onclick="w3_close()">&#9776;</button>
-
-
+-->
 </div>
+
+<!--
   <div class="w3-sidebar w3-bar-block w3-card w3-animate-left" style="display:none; z-index: 1; background-color:#f5f5f5;" id="mySidebar">
 
-  <!--
-  <button  class="w3-bar-item w3-button w3-large"
-  onclick="w3_close()">Close &times;</button> -->
   <a href="#" class="w3-bar-item w3-button">Link 1 SIDE</a>
   <a href="#" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
+  <a href="" class="w3-bar-item w3-button">Link 3</a>
 </div>
-
-
-
+-->
 {{{ body }}}
 
 <script>
@@ -81,9 +78,7 @@ function w3_close() {
   document.getElementById("closeNav").style.display = "none";
 
 
-
 }
-
 
 
 </script>

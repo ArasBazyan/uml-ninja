@@ -23,8 +23,8 @@ router.get('/allrepos', function(req, res, next) {
                 if (err) {
                   return console.log("error: " + err);
                 }
-                console.log(item)
-                console.log(JSON.stringify(item)); 
+                //console.log(item)
+                //console.log(JSON.stringify(item));
                 /*               
                 res.render('index', {
                     data: item
@@ -55,11 +55,11 @@ router.get('/allcommits', function(req, res, next) {
                 }
                 console.log(item)
                 console.log(JSON.stringify(item));                
-                res.render('index', {
-                    data: item
-                });
+                //res.render('index', {
+                 //   data: item
+                //});
                 //console.log(item)
-                //res.json(item);
+                res.json(item);
             });
         });
 

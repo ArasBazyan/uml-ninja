@@ -1,82 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+    <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+
 
   <style>
+      body {
+          font-family: Avenir, sans-serif !important;
+          background: whitesmoke;
+      }
 
-/* On small screens, set height to 'auto' for the grid */
-@media screen and (max-width: 767px) {
-  .row.content {height: auto;}
-}
+      /* Left column */
+      .leftcolumn {
+          padding: 16px;
+          float: right;
+          width: 30%;
+          height:100%;
+      }
+
+      /* Right column */
+      .rightcolumn {
+          padding: 16px;
+          float: right;
+          width: 70%;
+      }
+
+      .card {
+          border: 1px solid #e3e3e3;
+          background-color: white;
+          padding: 15px;
+          margin-top: 10px;
+      }
+
+      /* Clear floats after the columns */
+      .row:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+
+      /* Responsive design */
+      @media screen and (max-width: 700px) {
+          .leftcolumn, .rightcolumn {
+              width: 100%;
+              padding: 0;
+          }
+      }
+
   </style>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 </head>
 <body>
 
+
 <div id="main" class="container-fluid">
-  <div class="row content">
-    <div class="col-sm-12">
-      <div style="margin-top: 10px;"  class="well">
-        <h4>Dashboard</h4>
-        <p>Info about the repo..</p>
-      </div>
+    <div class="row content">
+        <div class="col-sm-12">
+            <div style="margin-bottom: 0; margin-top: 10px"  class="well">
+                <h3>UML Dashboard</h3>
+                <p>Information about repository <b>{{ data.fullname }}</b></p>
+                <b><a href="{{ data.url }}">{{ data.url }}</a></b>
 
+            </div>
 
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="well">
-            <h4>Documentation Updates</h4>
-            <div id="chartContainerLine" style="height: 370px; width: 100%;"></div>
-          </div>
+            <div class="row">
+                <div class="rightcolumn">
+                    <div class="card">
+                        <h3>Documentation Updates</h3>
+                        <h5>Description</h5>
+                        <div id="chartContainerLine" style="height: 370px; width: 100%;"></div>
+
+                    </div>
+                    <div class="card">
+                        <h3>UML class diagram quality</h3>
+                        <h5>Description</h5>
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+                    </div>
+                </div>
+
+                <div class="leftcolumn">
+                    <div style="min-height: 483px" class="card">
+                        <h3>Project Level</h3>
+                        <p>The level of your project's documentation practices is..</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
-        <div class="col-sm-8">
-          <div class="well">
-            <h4>UML class diagram quality</h4>
-               <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-          </div>
-        </div>
-
-
-        <div class="col-sm-8">
-          <div  class="well">
-            <h4>Another box</h4>
-              <p> Graphs and stuff</p>
-          </div>
-        </div>
-
-    
-        <div style=" margin-left: 66%; width: 34%;position: absolute;" class="col-sm-4">
-          <div class="well">
-            <h4>The level of your project's documentation practices is... </h4>
-            <p  id="docLevel" style="text-align: center; font-size: 20px; font-weight: bold;"> GOOOD</p>
-          </div>
-        </div>
-      </div>
-  
-      <!-- <div class="row">
-        <div class="col-sm-8">
-          <div class="well">
-            <p>more box</p> 
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="well">
-            <p>more </p> 
-          </div>
-        </div>
-      </div> -->
+        <script>
+            console.log(JSON.stringify({{ data }}));
+            console.log("{{data.fullname}}");
+        </script>
 
     </div>
 </div>
@@ -102,7 +126,7 @@ var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
   theme: "light2",
   title: {
-    text: "BUILDS OVER TIME"
+    text: "Some other graph"
   },
   axisY: {
     title: "Units",
@@ -117,49 +141,64 @@ var chart = new CanvasJS.Chart("chartContainer", {
 
 function addData(data) {
   for (var i = 0; i < data.length; i++) {
-    console.log( data[i] );
-    console.log(data[i].Total_Commits);
+
+    console.log( "COMM " + ["Doc Commits"].length);
+    //console.log(data[i].Total_Commits);
     dataPoints.push({
       x: data[i].Total_Commits,
-      y: value["Doc Commits"].length
+      y: data[i].Total_Commits
     });
   }
   chart.render();
 
 }
 
-$.getJSON("data.json", addData);
+$.getJSON("/data.json", addData);
 
 
 
 
 // Lined Chart
-var dataPointsLine = [];
-var dataPointsLine2 = [];
-$.getJSON("data.json", function(data) {  
-  $.each(data, function(key, value){
-    console.log(value["Doc Commits"].length);
-    dataPointsLine.push({x: value.Total_Commits, y: value["Doc Commits"].length  });
-    dataPointsLine2.push({x: value["Doc Commits"].length , y:  value.Total_Commits });
+    var dataPointsLine = [];
+    var dataPointsLine2 = [];
+    $.getJSON("/data.json", function(data) {
+        $.each(data, function(key, value){
+            console.log("LEEEE  " + value["Doc Commits"].length);
+            dataPointsLine.push({x: value.Total_Commits, y: value["Doc Commits"].length  });
+            dataPointsLine2.push({x: value["Doc Commits"].length , y:  value.Total_Commits });
 
-  });
-  var chart = new CanvasJS.Chart("chartContainerLine",{
-    animationEnabled: true,
-    zoomEnabled: true,
-  theme: "light2",
-    title:{
-      text:"TVUM"
-    },
-    data: [
-    {
-      type: "spline",
-      dataPoints : dataPointsLine,
-    }
+        });
+        var chart = new CanvasJS.Chart("chartContainerLine",{
+            animationEnabled: true,
+            zoomEnabled: true,
+            theme: "light2",
+            title:{
+                text:"UML commit history"
+            },
+            axisX: {
+                title: "UML Commits",
+                titleFontSize: 24
+            },
+            axisY: {
+                title: "Commit Frequency",
+                titleFontSize: 24
+            },
+            data: [
+                {
+                    type: "spline",
+                    dataPoints : dataPointsLine,
+                },
+                {
+                    type: "spline",
+                    dataPoints : dataPointsLine2,
+                }
 
-    ]
-  });
-  chart.render();
-});
+            ]
+        });
+        chart.render();
+    });
+
+
 
 }
 
@@ -168,5 +207,7 @@ $.getJSON("data.json", function(data) {
 
 </script>
 
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </body>
 </html>
