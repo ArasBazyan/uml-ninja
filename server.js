@@ -5,6 +5,35 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
+/*
+var mysql = require('mysql');
+
+var mcon = mysql.createConnection({
+    host : 'localhost',
+    user: "root",
+    password: "root",
+    database : 'umlData'
+
+});
+
+mcon.connect(function(err) {
+    if (err) throw err;
+
+    console.log("MySQL connected");
+
+    var sql = "SELECT * FROM Commits WHERE id < 10";
+    mcon.query(sql , function (err , result) {
+        if(err) throw err;
+
+        console.log("Result: ");
+        console.log(result);
+
+    });
+    console.log("after");
+
+
+});
+*/
 
 var index = require('./routes/index');
 var dash = require('./routes/dash');

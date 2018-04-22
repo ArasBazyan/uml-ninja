@@ -55,36 +55,59 @@
           }
       }
 
+
   </style>
 
 </head>
 <body>
-
 
 <div id="main" class="container-fluid">
     <div class="row content">
         <div class="col-sm-12">
             <div style="margin-bottom: 0; margin-top: 10px"  class="well">
                 <h3>UML Dashboard</h3>
-                <p>Information about repository <b>{{ data.fullname }}</b></p>
-                <b><a href="{{ data.url }}">{{ data.url }}</a></b>
+                <p>Information about repository <b>{{ data.ProjectName }}</b></p>
+                <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b>
+
+                <!-- FILTER CHECKBOXES -->
+                <form style="margin-top: 20px">
+                    <p><b>Filter the analysis</b></p>
+                    <label class="checkbox-inline">
+                        <input type="checkbox"  id="checkbox1" value="">Filter 1
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Filter 2
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Filter 3
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="">Filter 4
+                    </label>
+                </form>
+
+                <button style="margin-top: 20px" class="btn btn-info" id="filterButton"> Apply Filters </button>
+
 
             </div>
 
             <div class="row">
                 <div class="rightcolumn">
                     <div class="card">
+                        <h3>UML Documentation Process Practice</h3>
+                        <h5 id="commitRatio" >Commit Ratio </h5>
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+
+                    </div>
+
+
+                    <div class="card">
                         <h3>Documentation Updates</h3>
                         <h5>Description</h5>
                         <div id="chartContainerLine" style="height: 370px; width: 100%;"></div>
 
                     </div>
-                    <div class="card">
-                        <h3>UML class diagram quality</h3>
-                        <h5>Description</h5>
-                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
-                    </div>
                 </div>
 
                 <div class="leftcolumn">
@@ -96,31 +119,134 @@
             </div>
 
         </div>
-
-        <script>
-            console.log(JSON.stringify({{ data }}));
-            console.log("{{data.fullname}}");
-        </script>
-
     </div>
 </div>
 
 <script>
-    /*
-    $.getJSON("http://localhost:3000/allrepos", function(result){
-        console.log(result)
-        $.each(result, function(i, field){
-            console.log(field);
-            //$("div").append(field + " ");
-        });
+
+
+    var check = document.getElementById("checkbox1");
+    console.log(check.checked);
+
+    $("#filterButton").click( function () {
+        if (check.checked) {
+            console.log(check.checked);
+        } else {
+            console.log(check.checked);
+        }
     });
-    */
 
 
-//CJS json
+    allData = {
+        idProject : {{ data.idProject }},
+        projectName : "{{data.ProjectName}}",
+        projectURL : "{{ data.ProjectUrl }}",
+        contributors : {{ data.Contributers }},
+        documentName : "{{ data.DocumentName }}",
+        allCommits : {{ data.NumberOfCommits }},
+        umlCommits : {{ data.UMLCommits }},
+        docSize : {{ data.DocumenSize }}
+
+    };
+
+    temp = [];
+    temp.push(allData);
+    console.log(temp);
+
+    var arrayData = [];
+    arrayData.push({{ data.idProject }});
+    arrayData.push("{{ data.ProjectName }}");
+    arrayData.push("{{ data.ProjectUrl }}");
+    arrayData.push({{ data.Contributers }});
+    arrayData.push("{{ data.DocumentName }}");
+    arrayData.push({{ data.NumberOfCommits }});
+    arrayData.push({{ data.UMLCommits }});
+    arrayData.push({{ data.DocumenSize }});
+
+    
+    console.log("Project ID  " + {{ data.idProject }});
+
+
+
+
+    /* RATIO VALUES */
+    var commitRatio = allData.allCommits / allData.umlCommits;
+
+
+
+
 window.onload = function() {
+    var dataPointsLine = [];
+    var dataPointsLine2 = [];
+    var dataPointsPie = [];
 
-var dataPoints = [];
+        temp.forEach( function (arrayItem)
+        {
+            dataPointsPie.push({y: arrayItem.allCommits , name : "All Commits"  });
+            dataPointsPie.push({y: arrayItem.umlCommits , name : "UML Commits"  });
+
+        });
+
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "All Commits VS UML Commits"
+        },
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "pie",
+            showInLegend: true,
+            startAngle: 240,
+            percentFormatString: "#0.##",
+            toolTipContent: "{y}",
+            yValueFormatString: "##0 Commits",
+            indexLabel: "#percent%",
+            dataPoints: dataPointsPie
+
+        }]
+    });
+
+    var comr = document.getElementById("commitRatio");
+    comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big();
+    chart.render();
+
+
+
+
+    //From Canvasjs
+function explodePie (e) {
+    if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+    } else {
+        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+    }
+    e.chart.render();
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+/* OLD stuff. Remove later
+
+    var dataPoints = [];
 
 var chart = new CanvasJS.Chart("chartContainer", {
   animationEnabled: true,
@@ -140,10 +266,11 @@ var chart = new CanvasJS.Chart("chartContainer", {
 });
 
 function addData(data) {
+    console.log("BEFORE " + data.length);
   for (var i = 0; i < data.length; i++) {
-
-    console.log( "COMM " + ["Doc Commits"].length);
-    //console.log(data[i].Total_Commits);
+    console.log(data.length);
+    console.log(data[i].NumberOfCommits)
+    console.log(data[i].UMLCommits);
     dataPoints.push({
       x: data[i].Total_Commits,
       y: data[i].Total_Commits
@@ -199,10 +326,7 @@ $.getJSON("/data.json", addData);
     });
 
 
-
-}
-
-
+*/
 
 
 </script>

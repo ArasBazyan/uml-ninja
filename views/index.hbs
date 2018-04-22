@@ -1,113 +1,100 @@
 <!DOCTYPE html>
 <html>
-
-
 <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <head>
 
+<style>
+  body {
+      font-family: Avenir, sans-serif;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+  }
 
-      <style>
+  /*  Particles.js container.
+  Taken and modified from https://codepen.io/technovore/pen/aOdGjY
+  */
 
-          body {
-              font-family: Avenir, sans-serif;
-              margin: 0;
-              height: 100%;
-              width: 100%;
-          }
+  #particles-js {
+      position: fixed;
+      height: 200%;
+      width: 100%;
+      background-color: #000000;
+      background-image: url("");
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: 50% 50%;
+      z-index: -1;
+  }
 
+  .center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 40%;
 
-          /* ---- particles.js container ----
-          Taken and modified from https://codepen.io/technovore/pen/aOdGjY
-          */
+      /* bring your own prefixes */
+      transform: translate(-50%, -50%);
+  }
 
-          #particles-js {
-              position: fixed;
-              height: 200%;
-              width: 100%;
-              background-color: #000000;
-              background-image: url("");
-              background-repeat: no-repeat;
-              background-size: cover;
-              background-position: 50% 50%;
-              z-index: -1;
-          }
-
-          .center {
-              position: absolute;
-              top: 50%;
-              left: 50%;
-              width: 40%;
-
-              /* bring your own prefixes */
-              transform: translate(-50%, -50%);
-
-          }
-
-
-          .center:after {
-              background-color: white;
-              width: 100%;
-              height: 100%;
-              content: '';
-              /* display: block; */
-              position: fixed;
-              top: 10px;
-              /* left: 10px; */
-              /* right: 10px; */
-              /* bottom: 10px; */
-              z-index: -1;
-              /* margin: 20% auto 0 auto; */
-              /* position: fixed; */
-              /* top: 50%; */
-              /* left: 50%; */
-              opacity: 0.15;
-              /* padding: 10px 0 50px 54px; */
+  .center:after {
+      background-color: white;
+      width: 100%;
+      height: 100%;
+      content: '';
+      /* display: block; */
+      position: fixed;
+      top: 10px;
+      /* left: 10px; */
+      /* right: 10px; */
+      /* bottom: 10px; */
+      z-index: -1;
+      /* margin: 20% auto 0 auto; */
+      /* position: fixed; */
+      /* top: 50%; */
+      /* left: 50%; */
+      opacity: 0.15;
+      /* padding: 10px 0 50px 54px; */
 
 
-          }
+  }
 
+  button {
+      box-sizing: border-box;
+      display: inline-block;
+      background: #deba00;
+      color: #1F1F1C;
+      border: none;
+      margin-right: 0.7rem;
+      padding: 0 1.5rem;
+      font-size: 0.9rem;
+      line-height: 3rem;
+      font-weight: 400;
+      cursor: pointer;
+  }
 
-          button {
-              box-sizing: border-box;
-              display: inline-block;
-              background: #deba00;
-              color: #1F1F1C;
-              border: none;
-              margin-right: 0.7rem;
-              padding: 0 1.5rem;
-              font-size: 0.9rem;
-              line-height: 3rem;
-              font-weight: 400;
-              cursor: pointer;
-          }
+  button:hover{
+      opacity: 0.9;
+  }
 
+  .p100d {
+      font-size: 0.9rem;
 
-          button:hover{
-              opacity: 0.9;
-          }
+      font-family: Avenir, sans-serif;
+      width: 100%;
+      height: 50px;
+      margin-top: 10px;
+      display: block;
+      border: none;
+      text-align: center;
+  }
 
-          .p100d {
-              font-size: 0.9rem;
+</style>
 
-              font-family: Avenir, sans-serif;
-              width: 100%;
-              height: 50px;
-              margin-top: 10px;
-              display: block;
-              border: none;
-              text-align: center;
-          }
-
-      </style>
   </head>
-
 	<body>
-
-    <div id="particles-js">
-
-
-    </div>
+    <div id="particles-js"></div>
 
     <section class="center">
         <p id="repoDetails" style="color: white; margin: 40px auto; text-align: center; height:50%">  Please enter a Github username </p>
@@ -115,20 +102,11 @@
             <input class="p100d" type="text" placeholder="Github Username" id="term"><br>
             <button id="search" class="p100d">Search</button>
             <button id="showRepos" class="p100d">Show Test Repos</button>
-
         </div>
-
         <p id="testRepos" style="color: white; margin: 20px auto; text-align: center;"></p>
-
     </section>
 
-
-
     <div id="username"></div>
-
-
-
-
 
 
 
@@ -250,189 +228,82 @@
 
 
 
-        $(document).ready(function(){
-
+$(document).ready(function(){
     $("#showRepos").click(function(){
-      $.getJSON("http://localhost:3000/allrepos", function(result){
+      $.getJSON("http://localhost:3000/projectData", function(result){
           console.log(result)
-          for (var i = 0; i < 10; i++) {
-            $("#testRepos").append("<li id='repo" + i + "'>" + result[i].fullname + "</li>");
-          };
+          var index = 0;
+          console.log(result.length)
+          for (var i = 0; i < result.length; i++) {
+            $("#testRepos").append("<li id=" + i + ">" + result[i].ProjectName + "</li>");
+          }
+        // clickable repo name
+        $("#testRepos").children().click(function(){
+            // selected repo
+            var repoChoice = $(this.id);
+            var pid = $("#"+this.id).attr('id');
+            pid = parseInt(pid) + 1;
+            console.log(pid);
+            //alert(repoChoice);
+           window.location = "/dash/" + pid;
+        });
+    });
 
-            // clickable repo name
-            $("#testRepos").children().click(function(){
+});
 
+$("#openNav").hide();
 
-                // selected repo
+    // execute when user clicks on search button
+    $("#search").click(function(){
+        // find out the searchterm
+        var searchterm = $("#term").val() ? $("#term").val() : "github";
+        //alert(searchterm);
+        // get user
+        function getUserData(callback) {
+            $.get("https://api.github.com/users/" + searchterm,
+                function(data, status){
+                    console.log(status);
+
+                    success: callback(data, status);
+                });
+        };
+
+        // get repos
+        function getUserRepos(callback){
+            $.get("https://api.github.com/users/" + searchterm + "/repos",
+                    function(data, status){
+                        console.log(status);
+                        success: callback(data,status);
+                    });
+        };
+
+        // callback function to show repos
+        function showRepos(data, status){
+            console.log(status);
+            for (var i = 0; i < data.length; i++) {
+                $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
+            };
+
+            // function when user clicks a repo choice
+            $("#repoDetails").children().click(function(){
+
+                // clear out any prior details - no longer required
+                // $("#langDetails").children().remove();
+
+                // get the chosen repo id by reference to the id of the element in list that was clicked
                 var repoChoice = $("#"+this.id).html();
 
-                //alert(repoChoice);
-                var res = repoChoice.split('/')
-                        //repoChoice.replace(/\//g,"");
-                console.log(res[0]);
-                window.location = "/dash/" + repoChoice;
-
-                // go to dashboard, show detail for the selected repo
-                //getRepoCommits(showCommits, repoChoice);
-
-            });
-    
-          /*
-        $.each(result, function(i, field){
-          console.log(field.fullname);
-           $("#testRepos").append("<li id='repo" + i + "'>" + field.fullname + "</li>");
-           // $("div").append(field.fullname + " ");
-        });
-        */
-
-    });
-
-    });
-
-
-
-
-
-
-          $("#openNav").hide();
-
-            // execute when user clicks on search button
-            $("#search").click(function(){
-
-
-                // find out the searchterm
-                var searchterm = $("#term").val() ? $("#term").val() : "github";
-                //alert(searchterm);
-                // get user
-                function getUserData(callback) {
-                    $.get("https://api.github.com/users/" + searchterm,
-                            function(data, status){
-                                console.log(status);
-
-                                success: callback(data, status);
-                            });
-                };
-
-                // get repos
-                function getUserRepos(callback){
-                    $.get("https://api.github.com/users/" + searchterm + "/repos",
-                            function(data, status){
-                                console.log(status);
-                                success: callback(data,status);
-                            });
-                };
-
-                // get commits
-                function getRepoCommits(callback,repo){
-                    $.get("https://api.github.com/repos/" + searchterm + "/" + repo + "/commits",
-                            function(data, status){
-                                console.log(status);
-                                success: callback(data,status,repo);
-                            });
-                };
-
-                // callback function to show user
-                function showUser(data, status){
-                    console.log(status);
-                    var username = "<h3>" + data.login + "</h3>";
-                    $("#repoDetails").append(username);
-                    // debugger;
-                };
-
-
-
-
-                function showCommits(data, status,repo){
-
-                    // setup empty dataset array variable for d3
-                    var dataset = [];
-
-                    // loop through data object and append items to li
-                    for (var key in data) {
-                        if (data.hasOwnProperty(key)) { // ensure it is key from data, not prototype being used
-
-                            // code to display language counts as list - not used at moment
-                            // $("#langDetails").append("<li>" + key + ": " + data[key] + "</li>");
-
-                            // push items into dataset array
-                            var item = new Object();
-                            item.key = key;
-                            item.value = data[key];
-                            dataset.push(item);
-                        };
-                    };
-                    jsonData = JSON.stringify(dataset);
-                    console.log(dataset);
-
-                    //console.log(dataset[3].value.author.login); // for checking
-                    console.log(dataset[2].value.commit.committer.name); // for checking
-                    console.log(dataset[3].value.commit.committer.name); // for checking
-                    console.log(dataset[4].value.commit.committer.name); // for checking
-                    console.log(dataset[5].value.commit.committer.name); // for checking
-
-
-
-
-
-                    for(var i = 0; i < dataset.length; ++i) {
-
-                        console.log(dataset[i].value.commit.committer.name);
-                    }
-
-                }
-
-
-                // callback function to show repos
-                function showRepos(data, status){
-                    console.log(status);
-                    for (var i = 0; i < data.length; i++) {
-                        $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
-                    };
-
-                    // function when user clicks a repo choice
-                    $("#repoDetails").children().click(function(){
-
-                        // clear out any prior details - no longer required
-                        // $("#langDetails").children().remove();
-
-                        // get the chosen repo id by reference to the id of the element in list that was clicked
-                        var repoChoice = $("#"+this.id).html();
-
-                        alert(repoChoice);
-
-
-                        // call the languages function to get data for chosen repo
-                        getRepoCommits(showCommits, repoChoice);
-
-                    });
-                };
-
-
-
-
-
-
-
-
-                getUserData(showUser);
-                getUserRepos(showRepos);
-
-
+                alert(repoChoice);
 
 
 
             });
-        });
+        };
 
+        getUserRepos(showRepos);
+    });
 
-
-
-
-
-
-
+});
     </script>
-
-
     </body>
 </html>
