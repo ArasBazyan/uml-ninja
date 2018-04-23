@@ -7,56 +7,62 @@
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 
-  <style>
-      body {
-          font-family: Avenir, sans-serif !important;
-          background: whitesmoke;
-      }
+<style>
+body {
+  font-family: Avenir, sans-serif !important;
+  background: whitesmoke;
+}
 
-      /* Left column */
-      .leftcolumn {
-          padding: 16px;
-          float: right;
-          width: 30%;
-          height:100%;
-      }
+/* Left column */
+.leftcolumn {
+  padding: 16px;
+  float: right;
+  width: 30%;
+  height:100%;
+}
 
-      /* Right column */
-      .rightcolumn {
-          padding: 16px;
-          float: right;
-          width: 70%;
-      }
+/* Right column */
+.rightcolumn {
+  padding: 16px;
+  float: right;
+  width: 70%;
+}
 
-      .card {
-          border: 1px solid #e3e3e3;
-          background-color: white;
-          padding: 15px;
-          margin-top: 10px;
-      }
+.card {
+  border: 1px solid #e3e3e3;
+  background-color: white;
+  padding: 15px;
+  margin-top: 10px;
+}
 
-      /* Clear floats after the columns */
-      .row:after {
-          content: "";
-          display: table;
-          clear: both;
-      }
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-      /* Responsive design */
-      @media screen and (max-width: 700px) {
-          .leftcolumn, .rightcolumn {
-              width: 100%;
-              padding: 0;
-          }
-      }
+/* Responsive design */
+@media screen and (max-width: 700px) {
+  .leftcolumn, .rightcolumn {
+      width: 100%;
+      padding: 0;
+  }
+}
 
 
-  </style>
+.btn{
+  margin-top: 15px;
+}
+
+
+</style>
 
 </head>
 <body>
@@ -70,26 +76,62 @@
                 <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b>
 
                 <!-- FILTER CHECKBOXES -->
-                <form style="margin-top: 20px">
+                <form  id="checkform" style="margin-top: 20px">
                     <p><b>Filter the analysis</b></p>
                     <label class="checkbox-inline">
-                        <input type="checkbox"  id="checkbox1" value="">Filter 1
+                        <input id="checkbox1"  value="DP" type="checkbox" />Documentation Process
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">Filter 2
+                        <input type="checkbox" value="UML">UML Class Diagram
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">Filter 3
+                        <input type="checkbox" value="Filter3">Filter 3
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="">Filter 4
+                        <input type="checkbox" value="Filter4">Filter 4
                     </label>
                 </form>
 
-                <button style="margin-top: 20px" class="btn btn-info" id="filterButton"> Apply Filters </button>
-
+                <button class="btn btn-warning"data-toggle="modal" data-target="#addAnalyzerModal">Add New Filter</button>
+                <button class="btn btn-info" id="filterButton">Apply Filters</button>
 
             </div>
+
+
+            <!-- MODAL TO ADD NEW ANALYZER -->
+            <div class="modal fade" id="addAnalyzerModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Analyzer</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text in the modal.</p>
+
+                            <form>
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Analyzer Name</label>
+                                    <input type="text" class="form-control" id="analyzer-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Threshold</label>
+                                    <input type="text" class="form-control" id="threshold-number">
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveAnalyzer" data-dismiss="modal">Save changes</button>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
 
             <div class="row">
                 <div class="rightcolumn">
@@ -114,7 +156,18 @@
                     <div style="min-height: 483px" class="card">
                         <h3>Project Level</h3>
                         <p>The level of your project's documentation practices is..</p>
+
+
+
+
+                        <a id="umlBestPractices" target="_blank" href="https://bellekens.com/uml-best-practices/"> UML Best practices </a>
+
+
+
+                        <br>
+                        <i id="levelIcon" class="material-icons" style="font-size:50px; margin: 15px 34%;">sentiment_very_satisfied</i>
                     </div>
+
                 </div>
             </div>
 
@@ -124,17 +177,50 @@
 
 <script>
 
+    /* Global variables used to manipulate UI views */
+    var levelIcon = $("#levelIcon");
+    var levelIconDeffaultText = "error_outline";
 
-    var check = document.getElementById("checkbox1");
-    console.log(check.checked);
+
+
+    // Add new analysis filter
+    $("#saveAnalyzer").click(function () {
+        var val = $("#analyzer-name").val();
+        $("#checkform").append('<input type="checkbox" value="' + val + '"/>' + val);
+    });
+
+    // Check filter checkboxes
+    function checkChecked(formname) {
+        var anyBoxesChecked = false;
+        $('#' + formname + ' input[type="checkbox"]').each(function() {
+            if ($(this).is(":checked")) {
+               var filter = $(this).attr("value")
+                if(filter == "DP"){
+                   console.log("Call function to analyze DP");
+                }
+                if(filter == "UML"){
+                    console.log("Call function for UML");
+                }
+
+                //alert($(this).val());
+           //     alert($(this).attr("value"));
+
+                anyBoxesChecked = true;
+            }
+        });
+
+        if (anyBoxesChecked == false) {
+            alert("Please select at least one filter")
+            //console.log("gotta check some boxes first ")
+        }
+    }
+
+
 
     $("#filterButton").click( function () {
-        if (check.checked) {
-            console.log(check.checked);
-        } else {
-            console.log(check.checked);
-        }
+          checkChecked('checkform');
     });
+
 
 
     allData = {
@@ -228,8 +314,6 @@ function explodePie (e) {
     e.chart.render();
 
 }
-
-
 
 
 
