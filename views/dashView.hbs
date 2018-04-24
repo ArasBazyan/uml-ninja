@@ -2,67 +2,67 @@
 <html lang="en">
 <head>
     <title>Bootstrap Example</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
 
-<style>
-body {
-  font-family: Avenir, sans-serif !important;
-  background: whitesmoke;
-}
+    <style>
+        body {
+            font-family: Avenir, sans-serif !important;
+            background: whitesmoke;
+        }
 
-/* Left column */
-.leftcolumn {
-  padding: 16px;
-  float: right;
-  width: 30%;
-  height:100%;
-}
+        /* Left column */
+        .leftcolumn {
+            padding: 16px;
+            float: right;
+            width: 30%;
+            height:100%;
+        }
 
-/* Right column */
-.rightcolumn {
-  padding: 16px;
-  float: right;
-  width: 70%;
-}
+        /* Right column */
+        .rightcolumn {
+            padding: 16px;
+            float: right;
+            width: 70%;
+        }
 
-.card {
-  border: 1px solid #e3e3e3;
-  background-color: white;
-  padding: 15px;
-  margin-top: 10px;
-}
+        .card {
+            border: 1px solid #e3e3e3;
+            background-color: white;
+            padding: 15px;
+            margin-top: 10px;
+        }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
 
-/* Responsive design */
-@media screen and (max-width: 700px) {
-  .leftcolumn, .rightcolumn {
-      width: 100%;
-      padding: 0;
-  }
-}
-
-
-.btn{
-  margin-top: 15px;
-}
+        /* Responsive design */
+        @media screen and (max-width: 700px) {
+            .leftcolumn, .rightcolumn {
+                width: 100%;
+                padding: 0;
+            }
+        }
 
 
-</style>
+        .btn{
+            margin-top: 15px;
+        }
+
+
+    </style>
 
 </head>
 <body>
@@ -71,18 +71,21 @@ body {
     <div class="row content">
         <div class="col-sm-12">
             <div style="margin-bottom: 0; margin-top: 10px"  class="well">
-                <h3>UML Dashboard</h3>
-                <p>Information about repository <b>{{ data.ProjectName }}</b></p>
-                <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b>
+                <h3> Dashboard </h3>
+                <p> Information about repository <b>{{ data.ProjectName }}</b></p>
+                <p> Number of contributors: <b> {{  data.Contributers }} </p></b>
+                <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a> </p></b>
 
                 <!-- FILTER CHECKBOXES -->
                 <form  id="checkform" style="margin-top: 20px">
-                    <p><b>Filter the analysis</b></p>
+                    <p id="pfilter" style="display: none;"><b>Custome analysis</b></p>
+
+                    <!-- checkboxes
                     <label class="checkbox-inline">
-                        <input id="checkbox1"  value="DP" type="checkbox" />Documentation Process
+                        <input id="checkbox1"  value="DP" type="checkbox" /> Targets
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="UML">UML Class Diagram
+                        <input type="checkbox" value="UML">Builds
                     </label>
                     <label class="checkbox-inline">
                         <input type="checkbox" value="Filter3">Filter 3
@@ -90,11 +93,10 @@ body {
                     <label class="checkbox-inline">
                         <input type="checkbox" value="Filter4">Filter 4
                     </label>
+                    -->
                 </form>
-
-                <button class="btn btn-warning"data-toggle="modal" data-target="#addAnalyzerModal">Add New Filter</button>
-                <button class="btn btn-info" id="filterButton">Apply Filters</button>
-
+                <button class="btn btn-info" id="filterButton" style="display: none;">Apply Analysis</button>
+                <button class="btn btn-warning"data-toggle="modal" data-target="#addAnalyzerModal">Add New Analyzer</button>
             </div>
 
 
@@ -108,11 +110,10 @@ body {
                             <h4 class="modal-title">Add Analyzer</h4>
                         </div>
                         <div class="modal-body">
-                            <p>Some text in the modal.</p>
-
+                            <p>Some text</p>
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Analyzer Name</label>
+                                    <label class="col-form-label">Analyzer Name</label>
                                     <input type="text" class="form-control" id="analyzer-name">
                                 </div>
                                 <div class="form-group">
@@ -120,12 +121,10 @@ body {
                                     <input type="text" class="form-control" id="threshold-number">
                                 </div>
                             </form>
-
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary" id="saveAnalyzer" data-dismiss="modal">Save changes</button>
-
                         </div>
                     </div>
 
@@ -133,39 +132,68 @@ body {
             </div>
 
 
+
+            <!-- MODAL TO ADD NEW THREASHOLD -->
+            <div class="modal fade" id="addThreasholdModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add New Threashold</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text</p>
+                            <form>
+                                <div class="form-group">
+                                    <label class="col-form-label">Documentation Process</label>
+                                    <input type="text" class="form-control" id="dpThreashold">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">UML Threashold</label>
+                                    <input type="text" class="form-control" id="umlThreashold">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="applyThreashold" data-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="rightcolumn">
                     <div class="card">
-                        <h3>UML Documentation Process Practice</h3>
-                        <h5 id="commitRatio" >Commit Ratio </h5>
+                        <h3> Documentation Process </h3>
+                        <h5> Document Size: <b> {{data.DocumenSize}}Mb </b></h5>
                         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-
                     </div>
-
 
                     <div class="card">
-                        <h3>Documentation Updates</h3>
+                        <h3> UML Content</h3>
                         <h5>Description</h5>
                         <div id="chartContainerLine" style="height: 370px; width: 100%;"></div>
-
                     </div>
-
                 </div>
 
                 <div class="leftcolumn">
                     <div style="min-height: 483px" class="card">
-                        <h3>Project Level</h3>
-                        <p>The level of your project's documentation practices is..</p>
+                        <h3>Analysis Results</h3>
+                        <p id="commitRatio" >Commit Ratio </p>
+                        <p id="docEvolution">Document Evolution </p>
+                        <p id="docEvolution">Document Evolution </p>
+                        <p id="docEvolution">Document Evolution </p>
+                        <p id="docEvolution">Document Evolution </p>
 
 
 
-
-                        <a id="umlBestPractices" target="_blank" href="https://bellekens.com/uml-best-practices/"> UML Best practices </a>
-
-
-
+                        <a id="umlBestPractices" target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a>
                         <br>
-                        <i id="levelIcon" class="material-icons" style="font-size:50px; margin: 15px 34%;">sentiment_very_satisfied</i>
+                        <i id="levelIcon" class="material-icons" style="font-size:60px; margin: 15px 34%;">sentiment_very_satisfied</i>
+
+                        <button style="width: 100%; margin-top: 50%" class="btn btn-warning"data-toggle="modal" data-target="#addThreasholdModal">Add New Threashold</button>
                     </div>
 
                 </div>
@@ -178,50 +206,16 @@ body {
 <script>
 
     /* Global variables used to manipulate UI views */
+    var commitRatio = 30;
+    var umlThreasholdDef = 50;
+    var dpThreasholdDef = 50;
     var levelIcon = $("#levelIcon");
     var levelIconDeffaultText = "error_outline";
 
 
 
-    // Add new analysis filter
-    $("#saveAnalyzer").click(function () {
-        var val = $("#analyzer-name").val();
-        $("#checkform").append('<input type="checkbox" value="' + val + '"/>' + val);
-    });
 
-    // Check filter checkboxes
-    function checkChecked(formname) {
-        var anyBoxesChecked = false;
-        $('#' + formname + ' input[type="checkbox"]').each(function() {
-            if ($(this).is(":checked")) {
-               var filter = $(this).attr("value")
-                if(filter == "DP"){
-                   console.log("Call function to analyze DP");
-                }
-                if(filter == "UML"){
-                    console.log("Call function for UML");
-                }
-
-                //alert($(this).val());
-           //     alert($(this).attr("value"));
-
-                anyBoxesChecked = true;
-            }
-        });
-
-        if (anyBoxesChecked == false) {
-            alert("Please select at least one filter")
-            //console.log("gotta check some boxes first ")
-        }
-    }
-
-
-
-    $("#filterButton").click( function () {
-          checkChecked('checkform');
-    });
-
-
+    /* End of GLobal variable section */
 
     allData = {
         idProject : {{ data.idProject }},
@@ -236,9 +230,166 @@ body {
     };
 
     temp = [];
+    //push all data in array for when it's needed
     temp.push(allData);
     console.log(temp);
 
+    /* RATIO VALUES */
+    var commitRatio = allData.allCommits / allData.umlCommits;
+    var docSize = allData.docSize;
+    var documentEvolution = allData.docSize / allData.umlCommits;
+
+    console.log("Project ID  " + allData.idProject);
+
+
+    // Add new analysis filter
+    $("#saveAnalyzer").click(function () {
+        var val = $("#analyzer-name").val();
+        if (val == "") {
+            alert("Please provide a name to your analyzer");
+        } else {
+            $("#checkform").append('<input type="checkbox" value="' + val + '"/>' + " " + val + "<br>");
+        }
+
+
+        if ($('#checkform' + ' input[type="checkbox"]').length > 0 ){
+            $("#pfilter").css("display" , "block");
+            $('#filterButton').css("display" , "block")
+        }
+    });
+
+    // Check filter checkboxes
+    function checkChecked(formname) {
+        var anyBoxesChecked = false;
+        $('#' + formname + ' input[type="checkbox"]').each(function() {
+            if ($(this).is(":checked")) {
+                var filter = $(this).attr("value")
+                if(filter == "DP"){
+
+                    console.log("Call function to analyze DP");
+                }
+                if(filter == "UML"){
+                    console.log("Call function for UML");
+                }
+
+                console.log($(this).val());
+
+                anyBoxesChecked = true;
+            }
+        });
+
+        if (anyBoxesChecked == false) {
+            alert("Please select at least one filter")
+            //console.log("gotta check some boxes first ")
+        }
+    }
+
+    $("#filterButton").click( function () {
+        checkChecked('checkform');
+    });
+
+
+    $("#applyThreashold").click( function () {
+        var dpThreashold = $('#dpThreashold').val();
+        var umlThreashold = $('#umlThreashold').val();
+        if (dpThreashold == "") {
+            dpThreashold = dpThreasholdDef;
+            console.log("dpThreashold is Empty");
+        }
+        if (umlThreashold == "") {
+            umlThreashold = umlThreasholdDef;
+            console.log("mlThreashold is Empty");
+        }
+
+        if (dpThreashold > dpThreasholdDef) {
+            console.log("Larger Threshold");
+        }
+        if (dpThreashold > dpThreasholdDef && umlThreashold > umlThreasholdDef) {
+            console.log("Both Larger")
+        }
+    });
+
+
+
+
+
+
+
+
+
+
+
+    // create graphs
+    window.onload = function() {
+        var dataPointsLine = [];
+        var dataPointsLine2 = [];
+        var dataPointsPie = [];
+
+        $('#docEvolution').text("Build Evolution :" + documentEvolution.toFixed(3));
+
+        temp.forEach( function (arrayItem)
+        {
+            dataPointsPie.push({y: arrayItem.allCommits , name : "All Commits" });
+            dataPointsPie.push({y: arrayItem.umlCommits , name : "UML Commits" });
+        });
+
+
+        var chart = new CanvasJS.Chart("chartContainer", {
+            exportEnabled: true,
+            animationEnabled: true,
+            title: {
+                text: "All Commits vs. UML Commits"
+            },
+            theme: "theme2",
+            legend: {
+                cursor : "pointer",
+                itemclick: explodePie
+            },
+            data: [{
+                type: "pie",
+                showInLegend: true,
+                startAngle: 240,
+                percentFormatString: "#0.##",
+                toolTipContent: "{y}",
+                yValueFormatString: "##0 Commits",
+                indexLabel: "#percent%",
+                dataPoints: dataPointsPie
+
+            }]
+        });
+
+        var comr = document.getElementById("commitRatio");
+        comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big();
+
+        //var docSizeEl = document.getElementById("docSize");
+        //docSizeEl.innerHTML = "Build Size:  " + docSize.toFixed(1).bold().big();
+        chart.render();
+
+
+
+
+        //From Canvasjs
+        function explodePie (e) {
+            if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
+            } else {
+                e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
+            }
+            e.chart.render();
+
+        }
+
+
+
+    }
+
+
+
+
+
+
+
+    // Another way to get alldata, as an array
     var arrayData = [];
     arrayData.push({{ data.idProject }});
     arrayData.push("{{ data.ProjectName }}");
@@ -249,168 +400,90 @@ body {
     arrayData.push({{ data.UMLCommits }});
     arrayData.push({{ data.DocumenSize }});
 
-    
-    console.log("Project ID  " + {{ data.idProject }});
 
+    /* OLD stuff. Remove later
 
-
-
-    /* RATIO VALUES */
-    var commitRatio = allData.allCommits / allData.umlCommits;
-
-
-
-
-window.onload = function() {
-    var dataPointsLine = [];
-    var dataPointsLine2 = [];
-    var dataPointsPie = [];
-
-        temp.forEach( function (arrayItem)
-        {
-            dataPointsPie.push({y: arrayItem.allCommits , name : "All Commits"  });
-            dataPointsPie.push({y: arrayItem.umlCommits , name : "UML Commits"  });
-
-        });
-
+        var dataPoints = [];
 
     var chart = new CanvasJS.Chart("chartContainer", {
-        exportEnabled: true,
-        animationEnabled: true,
-        title: {
-            text: "All Commits VS UML Commits"
-        },
-        legend: {
-            cursor : "pointer",
-            itemclick: explodePie
-        },
-        data: [{
-            type: "pie",
-            showInLegend: true,
-            startAngle: 240,
-            percentFormatString: "#0.##",
-            toolTipContent: "{y}",
-            yValueFormatString: "##0 Commits",
-            indexLabel: "#percent%",
-            dataPoints: dataPointsPie
-
-        }]
+      animationEnabled: true,
+      theme: "light2",
+      title: {
+        text: "Some other graph"
+      },
+      axisY: {
+        title: "Units",
+        titleFontSize: 24
+      },
+      data: [{
+        type: "spline",
+        yValueFormatString: "#,### Units",
+        dataPoints: dataPoints
+      }]
     });
 
-    var comr = document.getElementById("commitRatio");
-    comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big();
-    chart.render();
+    function addData(data) {
+        console.log("BEFORE " + data.length);
+      for (var i = 0; i < data.length; i++) {
+        console.log(data.length);
+        console.log(data[i].NumberOfCommits)
+        console.log(data[i].UMLCommits);
+        dataPoints.push({
+          x: data[i].Total_Commits,
+          y: data[i].Total_Commits
+        });
+      }
+      chart.render();
 
-
-
-
-    //From Canvasjs
-function explodePie (e) {
-    if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
-        e.dataSeries.dataPoints[e.dataPointIndex].exploded = true;
-    } else {
-        e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
     }
-    e.chart.render();
 
-}
-
+    $.getJSON("/data.json", addData);
 
 
 
 
+    // Lined Chart
+        var dataPointsLine = [];
+        var dataPointsLine2 = [];
+        $.getJSON("/data.json", function(data) {
+            $.each(data, function(key, value){
+                console.log("LEEEE  " + value["Doc Commits"].length);
+                dataPointsLine.push({x: value.Total_Commits, y: value["Doc Commits"].length  });
+                dataPointsLine2.push({x: value["Doc Commits"].length , y:  value.Total_Commits });
 
-
-
-
-
-}
-
-
-
-/* OLD stuff. Remove later
-
-    var dataPoints = [];
-
-var chart = new CanvasJS.Chart("chartContainer", {
-  animationEnabled: true,
-  theme: "light2",
-  title: {
-    text: "Some other graph"
-  },
-  axisY: {
-    title: "Units",
-    titleFontSize: 24
-  },
-  data: [{
-    type: "spline",
-    yValueFormatString: "#,### Units",
-    dataPoints: dataPoints
-  }]
-});
-
-function addData(data) {
-    console.log("BEFORE " + data.length);
-  for (var i = 0; i < data.length; i++) {
-    console.log(data.length);
-    console.log(data[i].NumberOfCommits)
-    console.log(data[i].UMLCommits);
-    dataPoints.push({
-      x: data[i].Total_Commits,
-      y: data[i].Total_Commits
-    });
-  }
-  chart.render();
-
-}
-
-$.getJSON("/data.json", addData);
-
-
-
-
-// Lined Chart
-    var dataPointsLine = [];
-    var dataPointsLine2 = [];
-    $.getJSON("/data.json", function(data) {
-        $.each(data, function(key, value){
-            console.log("LEEEE  " + value["Doc Commits"].length);
-            dataPointsLine.push({x: value.Total_Commits, y: value["Doc Commits"].length  });
-            dataPointsLine2.push({x: value["Doc Commits"].length , y:  value.Total_Commits });
-
-        });
-        var chart = new CanvasJS.Chart("chartContainerLine",{
-            animationEnabled: true,
-            zoomEnabled: true,
-            theme: "light2",
-            title:{
-                text:"UML commit history"
-            },
-            axisX: {
-                title: "UML Commits",
-                titleFontSize: 24
-            },
-            axisY: {
-                title: "Commit Frequency",
-                titleFontSize: 24
-            },
-            data: [
-                {
-                    type: "spline",
-                    dataPoints : dataPointsLine,
+            });
+            var chart = new CanvasJS.Chart("chartContainerLine",{
+                animationEnabled: true,
+                zoomEnabled: true,
+                theme: "light2",
+                title:{
+                    text:"UML commit history"
                 },
-                {
-                    type: "spline",
-                    dataPoints : dataPointsLine2,
-                }
+                axisX: {
+                    title: "UML Commits",
+                    titleFontSize: 24
+                },
+                axisY: {
+                    title: "Commit Frequency",
+                    titleFontSize: 24
+                },
+                data: [
+                    {
+                        type: "spline",
+                        dataPoints : dataPointsLine,
+                    },
+                    {
+                        type: "spline",
+                        dataPoints : dataPointsLine2,
+                    }
 
-            ]
+                ]
+            });
+            chart.render();
         });
-        chart.render();
-    });
 
 
-*/
+    */
 
 
 </script>
