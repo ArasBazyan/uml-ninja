@@ -82,10 +82,10 @@
 
                     <!-- checkboxes
                     <label class="checkbox-inline">
-                        <input id="checkbox1"  value="DP" type="checkbox" /> Targets
+                        <input id="checkbox1"  value="DP" type="checkbox" /> Documentation
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" value="UML">Builds
+                        <input type="checkbox" value="UML">UML
                     </label>
                     <label class="checkbox-inline">
                         <input type="checkbox" value="Filter3">Filter 3
@@ -325,7 +325,7 @@
         var dataPointsLine2 = [];
         var dataPointsPie = [];
 
-        $('#docEvolution').text("Build Evolution :" + documentEvolution.toFixed(3));
+        $('#docEvolution').text("Document Evolution :" + documentEvolution.toFixed(3));
 
         temp.forEach( function (arrayItem)
         {
@@ -362,7 +362,7 @@
         comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big();
 
         //var docSizeEl = document.getElementById("docSize");
-        //docSizeEl.innerHTML = "Build Size:  " + docSize.toFixed(1).bold().big();
+        //docSizeEl.innerHTML = "doc Size:  " + docSize.toFixed(1).bold().big();
         chart.render();
 
 
