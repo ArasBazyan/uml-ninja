@@ -2,7 +2,7 @@
 Automatically assess UML documentation practices in open source projects
 
 
-#Set up and deployment:
+# Set up and deployment:
  • Clone the repo: https://github.com/ArasBazyan/uml-ninja
  • run ‘npm install’ in the folder. You have to install npm if you don’t have it
  (https://nodejs.org/en/)
