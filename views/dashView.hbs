@@ -182,10 +182,10 @@
                     <div style="min-height: 483px" class="card">
                         <h3>Analysis Results</h3>
                         <p id="commitRatio" >Commit Ratio </p>
-                        <p id="docEvolution">Document Evolution </p>
-                        <p id="docEvolution">Document Evolution </p>
-                        <p id="docEvolution">Document Evolution </p>
-                        <p id="docEvolution">Document Evolution </p>
+                        <p id="docEvolution">AvsC</p>
+                        <p id="docEvolution">ASvsC</p>
+                        <p id="docEvolution">MEvsC</p>
+                        <p id="docEvolution">APPM</p>
 
 
 
@@ -325,7 +325,7 @@
         var dataPointsLine2 = [];
         var dataPointsPie = [];
 
-        $('#docEvolution').text("Document Evolution :" + documentEvolution.toFixed(3));
+        $('#docEvolution').html("Document Evolution: " + documentEvolution.toFixed(3).bold().big());
 
         temp.forEach( function (arrayItem)
         {
