@@ -235,7 +235,7 @@
     console.log(temp);
 
     /* RATIO VALUES */
-    var commitRatio = allData.allCommits / allData.umlCommits;
+    var commitRatio = allData.umlCommits / allData.allCommits;
     var docSize = allData.docSize;
     var documentEvolution = allData.docSize / allData.umlCommits;
 
@@ -359,7 +359,8 @@
         });
 
         var comr = document.getElementById("commitRatio");
-        comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big();
+        commitRatio = commitRatio * 100;
+        comr.innerHTML = "Commit ratio:  " + commitRatio.toFixed(2).bold().big() + '<b>%</b>';
 
         //var docSizeEl = document.getElementById("docSize");
         //docSizeEl.innerHTML = "doc Size:  " + docSize.toFixed(1).bold().big();
@@ -382,11 +383,6 @@
 
 
     }
-
-
-
-
-
 
 
     // Another way to get alldata, as an array
