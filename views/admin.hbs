@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+
+
+    <style>
+        body {
+            font-family: Avenir, sans-serif !important;
+            background: whitesmoke;
+        }
+
+        /* Left column */
+        .leftcolumn {
+            padding: 16px;
+            float: right;
+            width: 30%;
+            height:100%;
+        }
+
+        /* Right column */
+        .rightcolumn {
+            padding: 16px;
+            float: right;
+            width: 70%;
+        }
+
+        .card {
+            border: 1px solid #e3e3e3;
+            background-color: white;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 700px) {
+            .leftcolumn, .rightcolumn {
+                width: 100%;
+                padding: 0;
+            }
+        }
+
+
+        .btn{
+            margin-top: 15px;
+        }
+
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="jumbotron">
+        <h2>UML Ninja Admin Page</h2>
+        <p>Here you can add new analyzers and thresholds</p>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#addAnalyzerModal">Add New Analyzer</button>
+        <button class="btn btn-warning" data-toggle="modal" data-target="#addThreasholdModal">Add New Threshold</button>
+        <form  id="checkform" style="margin-top: 20px">
+            <p id="pfilter" style="display: none;"><b>Custom analysis</b></p>
+
+
+            <!-- checkboxes
+            <label class="checkbox-inline">
+                <input id="checkbox1"  value="DP" type="checkbox" /> Documentation
+            </label>
+          <label class="checkbox-inline">
+              <input type="checkbox" value="UML">UML
+          </label>
+          <label class="checkbox-inline">
+              <input type="checkbox" value="Filter3">Filter 3
+          </label>
+          <label class="checkbox-inline">
+              <input type="checkbox" value="Filter4">Filter 4
+          </label>
+          -->
+
+        </form>
+        <button class="btn btn-info" id="filterButton" style="display: none;">Apply Analysis</button>
+    </div>
+</div>
+
+
+
+<div id="main" class="container-fluid">
+    <div class="row content">
+        <div class="col-sm-12">
+
+            <!-- MODAL TO ADD NEW ANALYZER -->
+            <div class="modal fade" id="addAnalyzerModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add Analyzer</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label class="col-form-label">Analyzer Name</label>
+                                    <input type="text" class="form-control" id="analyzer-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">Threshold</label>
+                                    <input type="text" class="form-control" id="threshold-number">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveAnalyzer" data-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- MODAL TO ADD NEW THREASHOLD -->
+            <div class="modal fade" id="addThreasholdModal" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Add New Threashold</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Some text</p>
+                            <form>
+                                <div class="form-group">
+                                    <label class="col-form-label">Documentation Process</label>
+                                    <input type="text" class="form-control" id="dpThreashold">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message-text" class="col-form-label">UML Threashold</label>
+                                    <input type="text" class="form-control" id="umlThreashold">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="applyThreashold" data-dismiss="modal">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!-- UML Content Results -->
+                <div class="card">
+                    <h3> Admin Guide </h3>
+                    <h5>Description</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    // Add new analysis filter
+    $("#saveAnalyzer").click(function () {
+        var val = $("#analyzer-name").val();
+        if (val == "") {
+            alert("Please provide a name to your analyzer");
+        } else {
+            $("#checkform").append('<input type="checkbox" value="' + val + '"/>' + " " + val + "<br>");
+        }
+
+        if ($('#checkform' + ' input[type="checkbox"]').length > 0 ){
+            $("#pfilter").css("display" , "block");
+            $('#filterButton').css("display" , "block")
+        }
+    });
+
+    // Check filter checkboxes
+    function checkChecked(formname) {
+        var anyBoxesChecked = false;
+        $('#' + formname + ' input[type="checkbox"]').each(function() {
+            if ($(this).is(":checked")) {
+                var filter = $(this).attr("value")
+                if(filter == "DP"){
+
+                    console.log("Call function to analyze DP");
+                }
+                if(filter == "UML"){
+                    console.log("Call function for UML");
+                }
+
+                console.log($(this).val());
+
+                anyBoxesChecked = true;
+            }
+        });
+
+        if (anyBoxesChecked == false) {
+            alert("Please select at least one filter")
+            //console.log("gotta check some boxes first ")
+        }
+    }
+
+    $("#filterButton").click( function () {
+        checkChecked('checkform');
+    });
+
+
+    $("#applyThreashold").click( function () {
+        var dpThreashold = $('#dpThreashold').val();
+        var umlThreashold = $('#umlThreashold').val();
+        if (dpThreashold == "") {
+            dpThreashold = dpThreasholdDef;
+            console.log("dpThreashold is Empty");
+        }
+        if (umlThreashold == "") {
+            umlThreashold = umlThreasholdDef;
+            console.log("mlThreashold is Empty");
+        }
+
+        if (dpThreashold > dpThreasholdDef) {
+            console.log("Larger Threshold");
+        }
+        if (dpThreashold > dpThreasholdDef && umlThreashold > umlThreasholdDef) {
+            console.log("Both Larger")
+        }
+    });
+
+</script>
+
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
+</body>
+</html>
