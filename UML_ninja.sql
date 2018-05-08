@@ -1,20 +1,27 @@
 CREATE TABLE Project (
 	idProject integer PRIMARY KEY ,
-	ProjectName string,
-	ProjectUrl string,
+	ProjectName char,
+	ProjectUrl char,
 	Contributers integer
 );
 
 CREATE TABLE UML (
 	idUML integer PRIMARY KEY ,
 	idProject integer NOT NULL REFERENCES Project(idProject),
-	NoC string
+	AvsC Decimal,
+	ASvsC Decimal,
+	MevsC Decimal,
+	APPM Decimal,
+	NOC integer,
+	NOA integer,
+	NOM integer,
+	diagramLoc char
 );
 
 CREATE TABLE Process (
 	idDocument integer PRIMARY KEY ,
 	idProject integer NOT NULL REFERENCES Project(idProject),
-	DocumentName string,
+	DocumentName char,
 	NumberOfCommits integer,
 	UMLCommits integer,
 	DocumenSize integer

@@ -12,15 +12,20 @@
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-
 <style>
     body {
         font-family: Avenir, sans-serif !important;
         background: whitesmoke;
     }
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 12px;
+
+    }
     .row {
-        margin-right: -15px;
-        margin-left: -10px;
+        margin-right: -12px;
+        margin-left: -12px;
     }
 
     .center {
@@ -40,7 +45,7 @@
         background-color: white;
         margin: 6px;
         float: left;
-        width: 32%;
+        width: 38%;
         padding: 20px;
     }
 
@@ -79,17 +84,20 @@
 
             <div class="row">
                 <!-- Score column -->
-                <div class="column">
+                <div class="column" style="text-align: center; width: 300px; min-height: 400px">
                     <div>
                         <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
                     </div>
-                    <h3 id="score">Score
-                        <div style="float: right">
-                            <a style="width: 100%; margin-top: 50%; float: right; font-size:0" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                        </div>
+                    <h3 style="text-align: center; padding: 6px;" id="score">Score
                     </h3>
+                    <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                     <br>
-                    <a id="umlBestPractices" target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a>
+                    <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+
                 </div>
 
                 <div class="column">
@@ -134,8 +142,27 @@
 
             </div>
 
-            <!-- MODAL - Commit Ratio Detail-->
-            <div class="modal fade" id="commit-ratio" role="dialog">
+            <!-- MODAL - Commit Ratio INFO -->
+            <div class="modal fade" id="commit-ratio-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">UML Commit Ratio Indicator</h4>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <h5>UML Commit Ratio is the ratio between UML commits to all commits in a project  </h5>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL - Commit Ratio DETAIL-->
+            <div class="modal fade" id="commit-ratio-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -155,7 +182,28 @@
                 </div>
             </div>
 
-            <!-- MODAL - Doc Evolution Detail-->
+
+
+            <!-- MODAL - Doc Evolution INFO -->
+            <div class="modal fade" id="doc-evolution-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Document Evolution Indicator</h4>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <h5>Document Evolution is the ratio between UML commits to document size </h5>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL - Doc Evolution DETAIL -->
             <div class="modal fade" id="doc-evolution" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -180,69 +228,37 @@
 </div>
 
 <script>
-    //Define table header
-    function createTableHeader(arrayHeader,elementId){
-        const thead = document.createElement("THEAD");
-        const tr = document.createElement("TR");
-        for(let i = 0; i < arrayHeader.length; i++){
-            let th = document.createElement("TH");
-            let text = document.createTextNode(arrayHeader[i]);
 
-            th.appendChild(text);
-            tr.appendChild(th);
-        }
-        thead.appendChild(tr);
-        document.getElementById(elementId).appendChild(thead);
-    }
-
-    function insertTableData(headerLength, arrayTablesData, elementId){
-        const tablesDataKeys = Object.keys(arrayTablesData[0]);
-        const tbody = document.createElement("TBODY");
-
-        for(let i = 0; i < arrayTablesData.length; i++){
-            let tr = document.createElement("TR");
-            for(let j = 1; j < headerLength+1; j++){
-                let tableData = arrayTablesData[i];
-                let td = document.createElement("TD");
-                let text = document.createTextNode(tableData[j]);
-
-                td.appendChild(text);
-
-                tr.appendChild(td);
-            }
-            tbody.appendChild(tr);
-        }
-        document.getElementById(elementId).appendChild(tbody);
-    }
-
-
-    var objj =
-            [{
-                "indicatorName": "UML Commit Ratio",
-                "indicatorLink": "/commit-ratio/",
-                "modalTarget": "commit-ratio",
-                "indicatorLevel": 1
+    //That's how the data object should look like.
+var exampleDataObject =
+        [{
+            "indicatorName": "UML Commit Ratio",
+            "indicatorInfoModal": "commit-ratio-info",
+            "IndicatorDetailModal": "commit-ratio-detail",
+            "indicatorLevel": 1
+        },
+            {
+                "indicatorName": "Document Evolution",
+                "indicatorInfoModal": "/doc-evolution/",
+                "IndicatorDetailModal": "doc-evolution",
+                "indicatorLevel": 2
             },
-                {
-                    "indicatorName": "Document Evolution",
-                    "indicatorLink": "/doc-evolution/",
-                    "modalTarget": "doc-evolution",
-                    "indicatorLevel": 2
-                },
-                {
-                    "indicatorName": "Document Evolution",
-                    "indicatorLink": "/doc-evolution/",
-                    "modalTarget": "doc-evolution",
-                    "indicatorLevel": 3
-                },
-                {
-                    "indicatorName": "Document Evolution",
-                    "indicatorLink": "/doc-evolution/",
-                    "modalTarget": "doc-evolution",
-                    "indicatorLevel": 4
-                }];
+            {
+                "indicatorName": "Document Evolution",
+                "indicatorInfoModal": "/doc-evolution/",
+                "IndicatorDetailModal": "doc-evolution",
+                "indicatorLevel": 3
+            },
+            {
+                "indicatorName": "Document Evolution",
+                "indicatorInfoModal": "/doc-evolution/",
+                "IndicatorDetailModal": "doc-evolution",
+                "indicatorLevel": 4
+            }];
 
-    //obj.push({"key" : "tamata" , "value" : "åatata"});
+
+    // This is how a new object (indicator) is added. Logic is needed to make level dynamic based on calx.
+    exampleDataObject.push({"indicatorName" : "This is pushed later", "indicatorLink" : "/there/" , "indicatorLevel" : 5});
 
 
 
@@ -252,27 +268,27 @@
         for (var i = 0; i < Object.keys(object).length; i++) {
 
             var tr = "<tr>";
-            tr += "<td><a href=" + object[i].indicatorLink + ">" + object[i].indicatorName + "</a></td> ";
+            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].indicatorInfoModal+ ">" + object[i].indicatorName + "</a></td> ";
 
             if (object[i].indicatorLevel == 1) {
                 console.log("Level is 1");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].modalTarget + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].IndicatorDetailModal + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].indicatorLevel == 2) {
                 console.log("Level is 2");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].modalTarget + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].IndicatorDetailModal + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].indicatorLevel == 3) {
                 console.log("Level is 3");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].modalTarget + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].IndicatorDetailModal + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].indicatorLevel == 4) {
                 console.log("Level is 4");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].modalTarget + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].IndicatorDetailModal + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].indicatorLevel == 5) {
                 console.log("Level is 5");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].modalTarget + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].IndicatorDetailModal + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].indicatorLevel + "/5 </strong></span></div></div></td></tr>"
             }
             tBody.innerHTML += tr;
         }
@@ -344,7 +360,6 @@ window.onload = function() {
         dataPointsDoc.push({y: arrayItem.umlCommits , label : "Number of UML Commits" });
 
 
-
         var objectItem = {};
         objectItem.indicatorName = "test";
         objectItem.indicatorLink = "/here/";
@@ -353,8 +368,8 @@ window.onload = function() {
 
     });
 
-    createTable(objj, 'process-table' );
-    createTable(objj , 'content-table')
+    createTable(exampleDataObject, 'process-table' );
+    createTable(exampleDataObject , 'content-table')
 
 
     var chart = new CanvasJS.Chart("chartContainer", {
@@ -385,13 +400,9 @@ window.onload = function() {
     $('#commitRatio').html("Commit ratio: " + commitRatio.toFixed(2).bold().big() + '<b>%</b>');
 
 
-    //var docSizeEl = document.getElementById("docSize");
-    //docSizeEl.innerHTML = "doc Size:  " + docSize.toFixed(1).bold().big();
-
-
-
 
 // Another way to get alldata, as an array
+    /*
     var arrayData = [];
     arrayData.push({{ data.idProject }});
     arrayData.push("{{ data.ProjectName }}");
@@ -401,8 +412,7 @@ window.onload = function() {
     arrayData.push({{ data.NumberOfCommits }});
     arrayData.push({{ data.UMLCommits }});
     arrayData.push({{ data.DocumenSize }});
-
-
+*/
 
     var docChart = new CanvasJS.Chart("docChartContainer", {
         exportEnabled: true,
@@ -426,7 +436,6 @@ window.onload = function() {
     docChart.render();
 
 
-
 //From Canvasjs
 function explodePie (e) {
     if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
@@ -438,15 +447,11 @@ function explodePie (e) {
 
 }
 
-
-
-
     // Sum up score from the indicators
     for(var i = 0; i< processData.length; i++){
         console.log("sc PD: " + processData[i].indicatorLevel);
         score += processData[i].indicatorLevel;
     }
-
 
     for(var i = 0; i< contentData.length; i++){
         console.log("sc CD: " + contentData[i].indicatorLevel);

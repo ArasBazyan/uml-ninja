@@ -1,0 +1,13 @@
+finally i got it working!
+flashed latest twrp (cheeseburger or blue spark), then advanced, filemanager
+delete every "999" folder:
+sdcard
+/data/user/999
+/data/user_ce/999
+/data/user_de/999
+/data/misc_ce/999
+/data/misc_de/999
+/data/system_ce/999
+/data/system_de/999
+
+after try to backup again. it's working for me
