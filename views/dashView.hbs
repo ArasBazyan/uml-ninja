@@ -65,8 +65,6 @@
             width: 100%;
         }
     }
-
-
 </style>
 
 </head>
@@ -139,8 +137,9 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
+            <div id="mtest"> </div>
 
             <!-- MODAL - Commit Ratio INFO -->
             <div class="modal fade" id="commit-ratio-info" role="dialog">
@@ -181,8 +180,6 @@
                     </div>
                 </div>
             </div>
-
-
 
             <!-- MODAL - Doc Evolution INFO -->
             <div class="modal fade" id="doc-evolution-info" role="dialog">
@@ -232,10 +229,10 @@
 var indicatorEnum = {
   PROCESS: 'process-table',
   CONTENT: 'content-table'
-}
+};
 
 var processIndicators = [];
-var contentIndicators = []
+var contentIndicators = [];
 
 function Indicator(name,value,minVal,maxVal,link,type){
   this.name = name;
@@ -247,22 +244,39 @@ function Indicator(name,value,minVal,maxVal,link,type){
 
   this.adjustedValue = function(){
     if (this.name == "Document Evolution") {
-      return 2;
+        if (this.value >= 0 && this.value <= 6){
+            return 1;
+        }
+        if (this.value > 6 && this.value <= 12){
+            return 2;
+        }
+        if (this.value > 12 && this.value <= 18){
+            return 3;
+        }
+        if (this.value > 18 && this.value <= 24){
+            return 4;
+        }
+        if (this.value > 24){
+            return 5;
+        }
+        else {
+            return 0;
+        }
     }
     else if (this.name == "UML Commit Ratio") {
-      if (this.value >= 0 && this.value <= 2){
+        if (this.value >= 0 && this.value <= 0.02){
         return 1;
       }
-      if (this.value > 2 && this.value <= 3){
+      if (this.value > 0.02 && this.value <= 0.04){
         return 2;
       }
-      if (this.value > 3 && this.value <= 4){
+      if (this.value > 0.04 && this.value <= 0.06){
         return 3;
       }
-      if (this.value > 4 && this.value <= 6){
+      if (this.value > 0.06 && this.value <= 0.08){
         return 4;
       }
-      if (this.value > 6){
+      if (this.value > 0.08){
         return 5;
       }
       else {
@@ -274,7 +288,6 @@ function Indicator(name,value,minVal,maxVal,link,type){
       var newValue = ((value - minVal) / (maxVal - minVal)) * 5;
       return Math.round(newValue);
     }
-    
   }
 
   this.update = function(property,updatedValue){
@@ -338,11 +351,7 @@ function changeIndicatorValue (indicatorName, propertyName, updatedValue){
   }
 }
 
-// Test Indicator
-//var indic1 = new Indicator("test Indic",-2,2,4);
-
-
-    //That's how the data object should look like.
+//That's how the data object should look like.
 var exampleDataObject =
         [{
             "indicatorName": "UML Commit Ratio",
@@ -374,48 +383,54 @@ var exampleDataObject =
     exampleDataObject.push({"indicatorName" : "This is pushed later", "indicatorLink" : "/there/" , "indicatorLevel" : 5});
 
 
+// make ID a parameter
+function createModal() {
+    var mo = "<div class='modal fade' id='commit-ratio-info' role='dialog'><div class='modal-dialog'><div class='model-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>YYYYYYYYAAAAAAAA </h4></div><div class='modal-body'><h5>WWWOOOOHHHOOOOO  </h5></div><div class='modal-footer'></div></div></div></div>";
+    console.log(mo);
+    var here = $('#mtest');
+    console.log(here);
+    here.html(mo);
+}
+createModal();
+
 
     function createTable (object, tbody){
-        console.log("Adjusted value for " + object[1].name + " is " + object[1].adjustedValue());
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
+            console.log("Adjusted value for " + object[i].name + " is " + object[1].adjustedValue());
+
 
             var tr = "<tr>";
+
             tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].link+ ">" + object[i].name + "</a></td> ";
 
             if (object[i].adjustedValue() == 1) {
-                console.log("Level is 1");
+                //console.log("Level is 1");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 2) {
-                console.log("Level is 2");
+                //console.log("Level is 2");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 3) {
-                console.log("Level is 3");
+                //console.log("Level is 3");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 4) {
-                console.log("Level is 4");
+                //console.log("Level is 4");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 5) {
-                console.log("Level is 5");
+                //console.log("Level is 5");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             tBody.innerHTML += tr;
         }
     }
 
-
     /* Global variables used to manipulate UI views */
     var score = 0;
-    var commitRatio = 30;
-    var umlThreasholdDef = 50;
-    var dpThreasholdDef = 50;
-
-
-    /* End of GLobal variable section */
+    /* End of Global variable section */
 
     allData = {
         idProject : {{ data.idProject }},
@@ -448,7 +463,7 @@ var exampleDataObject =
     /* RATIO VALUES */
     var commitRatio = allData.umlCommits / allData.allCommits;
     var docSize = allData.docSize;
-    var documentEvolution = allData.docSize / allData.umlCommits;
+    var documentEvolution = allData.umlCommits / allData.docSize;
     addIndicator("AvsC",allData.aVsC, 0, 1, "avsc-info", indicatorEnum.CONTENT);
     addIndicator("ASvsC",allData.asVsC, 0, 1, "asvsc-info", indicatorEnum.CONTENT);
     addIndicator("MevsC",allData.meVsC, 0, 1, "mevsc-info", indicatorEnum.CONTENT);
@@ -459,21 +474,11 @@ var exampleDataObject =
     addIndicator("UML Commit Ratio", commitRatio, 0, 0, "commit-ratio-detail", indicatorEnum.PROCESS);
     addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);
 
-
-    console.log("Project ID  " + allData.idProject);
-
 // create graphs
 window.onload = function() {
-    var dataPointsLine = [];
-    var dataPointsLine2 = [];
     var dataPointsPie = [];
     var dataPointsDoc = [];
 
-
-
-
-    var processData = [];
-    var contentData = [];
     temp.forEach( function (arrayItem)
     {
         //data for uml commits
@@ -483,14 +488,6 @@ window.onload = function() {
         // data for  doc evolution
         dataPointsDoc.push({y: arrayItem.docSize , label : "Document Size, in MB" });
         dataPointsDoc.push({y: arrayItem.umlCommits , label : "Number of UML Commits" });
-
-
-        var objectItem = {};
-        objectItem.indicatorName = "test";
-        objectItem.indicatorLink = "/here/";
-        objectItem.indicatorLevel = 5;
-        processData.push(objectItem)
-
     });
 
     createTable(processIndicators, 'process-table' );
@@ -569,18 +566,17 @@ function explodePie (e) {
         e.dataSeries.dataPoints[e.dataPointIndex].exploded = false;
     }
     e.chart.render();
-
 }
 
     // Sum up score from the indicators
-    for(var i = 0; i< processData.length; i++){
-        console.log("sc PD: " + processData[i].indicatorLevel);
-        score += processData[i].indicatorLevel;
+    for(var i = 0; i< processIndicators.length; i++){
+        console.log("sc PD: " + processIndicators[i].adjustedValue());
+        score += processIndicators[i].adjustedValue();
     }
 
-    for(var i = 0; i< contentData.length; i++){
-        console.log("sc CD: " + contentData[i].indicatorLevel);
-        score += contentData[i].indicatorLevel;
+    for(var i = 0; i< contentIndicators.length; i++){
+        //console.log("sc CD: " + contentData[i].indicatorLevel);
+        score += contentIndicators[i].adjustedValue();
     }
 
     var scoreEl = $('#score').html("Score: " + score + '/' + 30);
