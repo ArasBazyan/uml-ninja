@@ -20,7 +20,7 @@ router.get('/:id', function(req, res, next){
     var idProject = req.params.id;
     var queryAll = "SELECT Project.*, Process.* , UML.* FROM Project INNER JOIN Process ON Process.idProject = Project.idProject INNER JOIN UML ON UML.idProject = Project.idProject WHERE Project.idProject =";
     var query = "SELECT Project.*, Process.* FROM Project INNER JOIN Process ON Process.idProject = Project.idProject WHERE Project.idProject =";
-    db.each(query + idProject, function(err, row){
+    db.each(queryAll + idProject, function(err, row){
         console.log(query)
         if (err){
             console.error(err);
