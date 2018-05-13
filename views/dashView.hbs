@@ -243,40 +243,21 @@ function Indicator(name,value,minVal,maxVal,link,type){
   this.type = type;
 
   this.adjustedValue = function(){
-    if (this.name == "Document Evolution") {
-        if (this.value >= 0 && this.value <= 6){
-            return 1;
-        }
-        if (this.value > 6 && this.value <= 12){
-            return 2;
-        }
-        if (this.value > 12 && this.value <= 18){
-            return 3;
-        }
-        if (this.value > 18 && this.value <= 24){
-            return 4;
-        }
-        if (this.value > 24){
-            return 5;
-        }
-        else {
-            return 0;
-        }
-    }
-    else if (this.name == "UML Commit Ratio") {
-        if (this.value >= 0 && this.value <= 0.02){
+      if (this.name == "UML Commit Ratio" || this.name == "Document Evolution" ) {
+        console.log(this.value);
+        if (this.value >= 0 && this.value <= 0.2){
         return 1;
       }
-      if (this.value > 0.02 && this.value <= 0.04){
+      if (this.value > 0.2 && this.value <= 0.4){
         return 2;
       }
-      if (this.value > 0.04 && this.value <= 0.06){
+      if (this.value > 0.4 && this.value <= 0.6){
         return 3;
       }
-      if (this.value > 0.06 && this.value <= 0.08){
+      if (this.value > 0.6 && this.value <= 0.8){
         return 4;
       }
-      if (this.value > 0.08){
+      if (this.value > 0.8){
         return 5;
       }
       else {
@@ -391,7 +372,6 @@ function createModal() {
     console.log(here);
     here.html(mo);
 }
-createModal();
 
 
     function createTable (object, tbody){
@@ -462,8 +442,11 @@ createModal();
 
     /* RATIO VALUES */
     var commitRatio = allData.umlCommits / allData.allCommits;
+    commitRatio = commitRatio * 10;
     var docSize = allData.docSize;
     var documentEvolution = allData.umlCommits / allData.docSize;
+
+    documentEvolution = (documentEvolution / 100) * 5;
     addIndicator("AvsC",allData.aVsC, 0, 1, "avsc-info", indicatorEnum.CONTENT);
     addIndicator("ASvsC",allData.asVsC, 0, 1, "asvsc-info", indicatorEnum.CONTENT);
     addIndicator("MevsC",allData.meVsC, 0, 1, "mevsc-info", indicatorEnum.CONTENT);
@@ -471,8 +454,8 @@ createModal();
     addIndicator("DEPvsC",allData.depVsC, 0, 1, "depvsc-info", indicatorEnum.CONTENT);
     addIndicator("DAM",allData.dam, 0, 1, "dam-info", indicatorEnum.CONTENT);
 
-    addIndicator("UML Commit Ratio", commitRatio, 0, 0, "commit-ratio-detail", indicatorEnum.PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);
+    addIndicator("UML Commit Ratio", commitRatio, 1, 0, "commit-ratio-detail", indicatorEnum.PROCESS);
+    addIndicator("Document Evolution", documentEvolution, 1, 0, "doc-evolution", indicatorEnum.PROCESS);
 
 // create graphs
 window.onload = function() {
@@ -518,8 +501,8 @@ window.onload = function() {
         }]
     });
     chart.render();
-    commitRatio = commitRatio * 100;
-    $('#commitRatio').html("Commit ratio: " + commitRatio.toFixed(2).bold().big() + '<b>%</b>');
+    //commitRatio = commitRatio * 10;
+    $('#commitRatio').html("Commit ratio: " + commitRatio.toFixed(2).bold().big());
 
 
 

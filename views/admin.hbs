@@ -169,12 +169,22 @@
                     <h3>Admin Guide </h3>
 
                     <h5>To add a new indicator, please follow the following steps:</h5>
-                    <li>Specify what type of indicator you are adding, e.g. <i>Process</i> or <i>Content</i> indicator. You specify that in the function
-                        <code> addIndicator(name, value, minValue, maxValue, type)</code><br>
-                        where <code>name</code>  is name of the indicator, <code>value</code> is the value the indicator has,
-                        <code>minValue</code> is the minimum value the indicator can have <code>maxValue</code> is the maximum value the indicator can have and
-                        <code>type</code> is the type of indicator.
-                        For example, <code>Code </code> </code>
+                    <li>Specify what type of indicator you are adding, e.g. <i>Process</i> or <i>Content</i> indicator. You specify that in the function<br>
+
+                        <code>addIndicator(name, value, minValue, maxValue, type)</code><br>
+
+
+                        where<br>
+                        <code>name</code>  is name of the indicator in String, <br>
+                        <code>value</code> is the actual integer value the indicator has, <br>
+                        <code>minValue</code> is the minimum value the indicator can have <br>
+                        <code>maxValue</code> is the maximum value the indicator can have, <br>
+                        <code>infoLink</code> is the link to the modal that contains information regarding the indicator, <br>
+                        <code>detailLink</code> is the link to the modal that contains the details regarding the indicator, <br>
+                        and <code>type</code> is the type of indicator. <br>
+                        For example, <code>addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);</code>
+                        is to add the Indicator Document Evolution.
+
 
                         <ul>
                             <li>Value is calculated this way</li>
