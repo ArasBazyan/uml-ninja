@@ -165,9 +165,38 @@
             </div>
             <div class="row">
                 <!-- UML Content Results -->
-                <div class="card">
-                    <h3> Admin Guide </h3>
-                    <h5>Description</h5>
+                <div style="padding: 30px" class="card">
+                    <h3>Admin Guide </h3>
+
+                    <h5>To add a new indicator, please follow the following steps:</h5>
+                    <li>Specify what type of indicator you are adding, e.g. <i>Process</i> or <i>Content</i> indicator. You specify that in the function<br>
+
+                        <code>addIndicator(name, value, minValue, maxValue, type)</code><br>
+
+
+                        where<br>
+                        <code>name</code>  is name of the indicator in String, <br>
+                        <code>value</code> is the actual integer value the indicator has, <br>
+                        <code>minValue</code> is the minimum value the indicator can have <br>
+                        <code>maxValue</code> is the maximum value the indicator can have, <br>
+                        <code>infoLink</code> is the link to the modal that contains information regarding the indicator, <br>
+                        <code>detailLink</code> is the link to the modal that contains the details regarding the indicator, <br>
+                        and <code>type</code> is the type of indicator. <br>
+                        For example, <code>addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);</code>
+                        is to add the Indicator Document Evolution.
+
+
+                        <ul>
+                            <li>Value is calculated this way</li>
+                            <li>More</li>
+                        </ul>
+                    </li>
+                    <br><br>
+
+
+
+                    <h5>To add a new threshold, please follow the following step:</h5>
+                    <li>In Admin page, click on <b>Add New Threshold</b> and specify the new thresholds you want to add to the existing indicators</li>
                 </div>
             </div>
         </div>
