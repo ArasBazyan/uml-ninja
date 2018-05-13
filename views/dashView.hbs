@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>">
 
 <style>
     body {
@@ -143,8 +144,8 @@
             </div>
 
             <!-- MODAL - Commit Ratio INFO -->
-            <div class="modal fade" id="commit-ratio-info" role="dialog">
-                <div class="modal-dialog">
+            <div class="modal fade" id="uml-commit-ratio-info" role="dialog">
+               <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
@@ -160,9 +161,11 @@
                     </div>
                 </div>
             </div>
+          
+
 
             <!-- MODAL - Commit Ratio DETAIL-->
-            <div class="modal fade" id="commit-ratio-detail" role="dialog">
+            <div class="modal fade" id="uml-commit-ratio-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -185,7 +188,7 @@
 
 
             <!-- MODAL - Doc Evolution INFO -->
-            <div class="modal fade" id="doc-evolution-info" role="dialog">
+            <div class="modal fade" id="document-evolution-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -204,7 +207,7 @@
             </div>
 
             <!-- MODAL - Doc Evolution DETAIL -->
-            <div class="modal fade" id="doc-evolution" role="dialog">
+            <div class="modal fade" id="document-evolution-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
@@ -217,6 +220,27 @@
                             <br>
                             <br>
                             <h4 id="docEvolution"> Doc. size ratio to UML commits </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="avsc-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">AvsC Indicator</h4>
+                        </div>
+                        <div class="modal-body">
+                            <br>
+                            <h5>Relation between the number of attributes and
+                                number of classes. This metrics is defined as AvsC =
+                                ( NAMNAM +NCM )2 where NAM is the total number of attributes in the model, NCM is the total number of classes
+                                in the model, and (NAM + NCM) > 0. </h5>
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -237,13 +261,20 @@ var indicatorEnum = {
 var processIndicators = [];
 var contentIndicators = []
 
-function Indicator(name,value,minVal,maxVal,link,type){
+function Indicator(name,value,minVal,maxVal,type){
   this.name = name;
   this.value = value;
   this.minVal = minVal;
   this.maxVal = maxVal;
-  this.link = link;
   this.type = type;
+
+  this.infoLink = function(){
+    return this.name.replace(/\W+/g, '-').toLowerCase() + "-info";
+  }
+
+  this.detailLink = function(){
+    return this.name.replace(/\W+/g, '-').toLowerCase() + "-detail";
+  }
 
   this.adjustedValue = function(){
     if (this.name == "Document Evolution") {
@@ -272,7 +303,13 @@ function Indicator(name,value,minVal,maxVal,link,type){
 
     else {
       var newValue = ((value - minVal) / (maxVal - minVal)) * 5;
-      return Math.round(newValue);
+      if (newValue < 0.5) {
+        return 1;
+      }
+      else if (newValue > 5 && this.name == "APPM") {
+        return 1; 
+      }
+      else return Math.round(newValue);
     }
     
   }
@@ -295,9 +332,9 @@ function Indicator(name,value,minVal,maxVal,link,type){
         this.maxVal = updatedValue;
         break;
 
-      case "link":
+      /*case "link":
         this.link = updatedValue;
-        break;
+        break;*/
 
       case "type":
         this.type = updatedValue;
@@ -310,8 +347,8 @@ function Indicator(name,value,minVal,maxVal,link,type){
 }
 
 // Maybe dont even need to have 2 arrays for each separate indicator type as type is already stored.
-function addIndicator (name,value,minVal,maxVal,link,type){
-  var x = new Indicator(name,value,minVal,maxVal,link,type);
+function addIndicator (name,value,minVal,maxVal,type){
+  var x = new Indicator(name,value,minVal,maxVal,type);
   switch(type){
     case indicatorEnum.PROCESS:
       processIndicators.push(x);
@@ -373,7 +410,15 @@ var exampleDataObject =
     // This is how a new object (indicator) is added. Logic is needed to make level dynamic based on calx.
     exampleDataObject.push({"indicatorName" : "This is pushed later", "indicatorLink" : "/there/" , "indicatorLevel" : 5});
 
+    /*function doModal(heading, formContent) {
+      console.log("This is called with heading " + heading + " and content " + formContent);
+      $('#avsc-info .modal-body').text(heading);
+      $('#avsc-info .modal-title').text(formContent);
+    }*/
 
+    /*$("#avsc-info").on("show.bs.collapse shown.bs.collapse",function(event){
+      alert("Test");
+    });*/
 
     function createTable (object, tbody){
         console.log("Adjusted value for " + object[1].name + " is " + object[1].adjustedValue());
@@ -381,27 +426,31 @@ var exampleDataObject =
         for (var i = 0; i < object.length; i++) {
 
             var tr = "<tr>";
-            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].link+ ">" + object[i].name + "</a></td> ";
+            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].name + "</a></td> ";
+
+            //var mymodal = $('#uml-commit-ratio-info');
+            //mymodal.find('.modal-body').text('helllloooooo');
 
             if (object[i].adjustedValue() == 1) {
                 console.log("Level is 1");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+
             }
             if (object[i].adjustedValue() == 2) {
                 console.log("Level is 2");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 3) {
                 console.log("Level is 3");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 4) {
                 console.log("Level is 4");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 5) {
                 console.log("Level is 5");
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].link + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+                tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             tBody.innerHTML += tr;
         }
@@ -449,15 +498,15 @@ var exampleDataObject =
     var commitRatio = allData.umlCommits / allData.allCommits;
     var docSize = allData.docSize;
     var documentEvolution = allData.docSize / allData.umlCommits;
-    addIndicator("AvsC",allData.aVsC, 0, 1, "avsc-info", indicatorEnum.CONTENT);
-    addIndicator("ASvsC",allData.asVsC, 0, 1, "asvsc-info", indicatorEnum.CONTENT);
-    addIndicator("MevsC",allData.meVsC, 0, 1, "mevsc-info", indicatorEnum.CONTENT);
-    addIndicator("APPM",allData.appm, 0, 1, "appm-info", indicatorEnum.CONTENT);
-    addIndicator("DEPvsC",allData.depVsC, 0, 1, "depvsc-info", indicatorEnum.CONTENT);
-    addIndicator("DAM",allData.dam, 0, 1, "dam-info", indicatorEnum.CONTENT);
+    addIndicator("AvsC",allData.aVsC, 0, 1, indicatorEnum.CONTENT);
+    addIndicator("ASvsC",allData.asVsC, 0, 1, indicatorEnum.CONTENT);
+    addIndicator("MevsC",allData.meVsC, 0, 1, indicatorEnum.CONTENT);
+    addIndicator("APPM",allData.appm, 0, 1, indicatorEnum.CONTENT);
+    addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.CONTENT);
+    addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.CONTENT);
 
-    addIndicator("UML Commit Ratio", commitRatio, 0, 0, "commit-ratio-detail", indicatorEnum.PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);
+    addIndicator("UML Commit Ratio", commitRatio, 0, 0, indicatorEnum.PROCESS);
+    addIndicator("Document Evolution", documentEvolution, 0, 0, indicatorEnum.PROCESS);
 
 
     console.log("Project ID  " + allData.idProject);
@@ -469,8 +518,9 @@ window.onload = function() {
     var dataPointsPie = [];
     var dataPointsDoc = [];
 
-
-
+    /*var testDataPoints = [];
+    testDataPoints.push({y: 20, label: "Test1"});
+    testDataPoints.push({y: 10, label: "Test2"});*/
 
     var processData = [];
     var contentData = [];
@@ -560,6 +610,8 @@ window.onload = function() {
     $('#docEvolution').html("Document Evolution: " + documentEvolution.toFixed(3).bold().big());
     docChart.render();
 
+/*docChart.options.data[0].dataPoints = testDataPoints;
+docChart.render();*/
 
 //From Canvasjs
 function explodePie (e) {
@@ -573,14 +625,14 @@ function explodePie (e) {
 }
 
     // Sum up score from the indicators
-    for(var i = 0; i< processData.length; i++){
-        console.log("sc PD: " + processData[i].indicatorLevel);
-        score += processData[i].indicatorLevel;
+    for(var i = 0; i< processIndicators.length; i++){
+        console.log("sc PD: " + processIndicators[i].indicatorLevel);
+        score += processIndicators[i].adjustedValue();
     }
 
-    for(var i = 0; i< contentData.length; i++){
-        console.log("sc CD: " + contentData[i].indicatorLevel);
-        score += contentData[i].indicatorLevel;
+    for(var i = 0; i< contentIndicators.length; i++){
+        console.log("sc CD: " + contentIndicators[i].indicatorLevel);
+        score += contentIndicators[i].adjustedValue();
     }
 
     var scoreEl = $('#score').html("Score: " + score + '/' + 30);
