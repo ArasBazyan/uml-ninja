@@ -336,6 +336,27 @@
                 </div>
             </div>
 
+                          <!-- MODAL - Doc Evolution DETAIL -->
+            <div class="modal fade" id="asvsc-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">ASvsC</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="asvsc-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="asvsc-chart-info"> ASvsC </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="avsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -893,6 +914,9 @@ window.onload = function() {
     dataPointsAvsC.push({y: allData.noc, label: "Number of Classes"});
     dataPointsAvsC.push({y: allData.noa, label: "Number of Attributes"});
 
+    dataPointsASvsC.push({y: allData.noc, label: "Number of Classes"});
+    dataPointsASvsC.push({y: allData.noc + 2, label: "Number of Associations"});
+
     var processData = [];
     var contentData = [];
     temp.forEach( function (arrayItem)
@@ -992,6 +1016,26 @@ window.onload = function() {
     });
     $('#avsc-chart-info').html("AvsC: " + contentIndicators.find(item => item.name === "AvsC").value.toFixed(3).bold().big());
     avscChart.render();
+
+    var asvscChart = new CanvasJS.Chart("asvsc-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "AvsC"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsASvsC
+        }]
+    });
+    $('#asvsc-chart-info').html("ASvsC: " + contentIndicators.find(item => item.name === "ASvsC").value.toFixed(3).bold().big());
+    asvscChart.render();
 
 /*docChart.options.data[0].dataPoints = testDataPoints;
 docChart.render();*/
