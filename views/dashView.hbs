@@ -11,7 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
 <style>
     body {
@@ -57,6 +57,16 @@
         clear: both;
     }
 
+    .modal-content-size{
+        display: table;
+        width: 900px;
+        right: 21%;
+    }
+
+    .modal-body-size{
+        padding: 0 40px 10px 0;
+    }
+
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
     @media screen and (max-width: 600px) {
         .jumbotron {
@@ -77,8 +87,8 @@
             <div style="margin: 15px auto"  class="well">
                 <h3> Dashboard </h3>
                 <p> Information about repository <b>{{ data.ProjectName }}</b></p>
-                <p> Number of contributors: <b> {{  data.Contributers }} </p></b>
-                <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a> </p></b>
+                <p> Number of contributors: <b> {{  data.Contributers }} </b></p>
+                <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b> </p>
             </div>
 
             <div class="row">
@@ -96,11 +106,10 @@
                     <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
                     <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
                     <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-
                 </div>
-
                 <div class="column">
                     <h3> Documentation Process </h3>
+                    <h4> UML Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -118,9 +127,9 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="column">
-                    <h3> UML Content - Class Diagram </h3>
+                    <h3> Documentation Content </h3>
+                    <h4> UML Content </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -146,21 +155,61 @@
             <div class="modal fade" id="uml-commit-ratio-info" role="dialog">
                <div class="modal-dialog">
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-content modal-content-size">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">UML Commit Ratio Indicator</h4>
                         </div>
-                        <div class="modal-body">
-                            <br>
-                            <h5>UML Commit Ratio is the ratio between UML commits to all commits in a project  </h5>
-                        </div>
-                        <div class="modal-footer">
+                        <div class="modal-body modal-body-size">
+                            <ul>
+                                <li> <h5> Commit Ratio info: </h5>
+                                    <p>This indicator shows the ratio between UML commits to all commits made in the project. The purpose of this indicator is to show the frequency of UML documentation updates in compare to code updates.<br>
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using GitHub commit history. The UML commit data is collected using Commit comments. A commit is counted as UML commit if the commit comment includes words such as UML, UML diagram, Documentation, Software Architecture etc.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The data is turned into ratio between UML commits and all commits, and the ratio is between 0-1.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale. The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>0.0 - <0.2 = Level 1</li>
+                                        <li>0.2 - <0.4 = Level 2 </li>
+                                        <li>0.4 - <0.6 = Level 3 </li>
+                                        <li>0.6 - <0.8 = Level 4 </li>
+                                        <li>0.8 - <1.0 = Level 5 </li>
+                                    </ul>
+                                </li>
+                                <li> <h5> How to Level Up: </h5>
+                                    <p>The larger the ratio between UML commits and all commit the higher the level is, that is, to level up, the project contributors are supposed to update the UML document with design changes.
+                                    </p>
+                                </li>
+                                <br>
+                                <li> <h4> It should be noted that:</h4>
+                                    <ul>
+                                        <li> Software Development Methodology matters. For example, if the project follows Waterfall process, the UML document might be documented at the start of the project and not be updated very often later in the project. On the other hand, if the software development methodology is Agile, the document might be updated more frequently.
+                                            UML Ninja does not have access to that data as for now. All projects are analysed equally.
+                                        </li>
+                                        <li>
+                                            It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process. UML Ninja
+                                        </li>
+                                        <li>
+                                            The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
+                                        </li>
+                                        <li>The analysis is done on the models, and not the code. UML Ninja does not check the Model-Code differences, yet.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-          
 
 
             <!-- MODAL - Commit Ratio DETAIL-->
@@ -188,16 +237,59 @@
             <div class="modal fade" id="document-evolution-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-content modal-content-size">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">Document Evolution Indicator</h4>
                         </div>
-                        <div class="modal-body">
-                            <br>
-                            <h5>Document Evolution is the ratio between UML commits to document size </h5>
-                        </div>
-                        <div class="modal-footer">
+                        <div class="modal-body modal-body-size">
+                            <ul>
+                                <li> <h5> Document Evolution Info:</h5>
+                                    <p>This indicator shows the ratio between UML document updates and the size of the document.
+                                        The purpose of this indicator is to show the evolution of the UML document, that is, to show how the document has evolved considering the number of UML document update commits.
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using UML commits and the size of the UML document at the point where the project is being evaluated. The size of the document is measured in Megabytes.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The data is turned into a ratio between UML commits and the size of the document, and the ratio is between 0-1.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale, where level 1 is the lowest level and level 5 is the highest level. The level measures how the document has evolved based the number of UML commits.
+                                        The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>0.0 - <0.2 = Level 1</li>
+                                        <li>0.2 - <0.4 = Level 2 </li>
+                                        <li>0.4 - <0.6 = Level 3 </li>
+                                        <li>0.6 - <0.8 = Level 4 </li>
+                                        <li>0.8 - <1.0 = Level 5 </li>
+                                    </ul>
+                                </li>
+                                <li> <h5> How to Level Up: </h5>
+                                    <p>The level measures document evolution based on UML document updates. The larger the ratio the higher the level is. To level up the project, the document is expected to evolve in accordance to the number of UML document updates.
+                                    </p>
+                                </li>
+                                <br>
+                                <li> <h4> It should be noted that:</h4>
+                                    <ul>
+                                        <li> Software Development Methodology matters. For example, if the project follows Waterfall process, the UML document might be documented at the start of the project and not be updated very often later in the project. On the other hand, if the software development methodology is Agile, the document might be updated more frequently.
+                                            UML Ninja does not have access to that data as for now. All projects are analysed equally.
+                                        </li>
+                                        <li>
+                                            It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process. UML Ninja
+                                        </li>
+                                        <li>
+                                            The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
+                                        </li>
+                                        <li>The analysis is done on the models, and not the code. UML Ninja does not check the Model-Code differences, yet.
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -218,6 +310,26 @@
                             <br>
                             <h4 id="docEvolution"> Doc. size ratio to UML commits </h4>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+
+              <!-- MODAL - Doc Evolution DETAIL -->
+            <div class="modal fade" id="avsc-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">AvsC</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="avsc-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="avsc-chart-info"> AvsC </h4>
+                        </div>
                         <div class="modal-footer">
                         </div>
                     </div>
@@ -227,22 +339,292 @@
             <div class="modal fade" id="avsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
-                    <div class="modal-content">
+                    <div class="modal-content modal-content-size">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                             <h4 class="modal-title">AvsC Indicator</h4>
                         </div>
-                        <div class="modal-body">
-                            <br>
-                            <h5>Relation between the number of attributes and
-                                number of classes. This metrics is defined as AvsC =
-                                ( NAMNAM +NCM )2 where NAM is the total number of attributes in the model, NCM is the total number of classes
-                                in the model, and (NAM + NCM) > 0. </h5>
-                        </div>
-                        <div class="modal-footer">
+                        <div class="modal-body modal-body-size">
+                            <ul>
+                                <li> <h5> AvsC Indicator Info </h5>
+                                    <p>The indicator is the relation between the number of attributes and
+                                        number of classes in a UML Class Diagram. The indicator is defined as <br>
+                                        (NAM / (NAM + NCM))^2 where NAM is the total number of attributes in the model, NCM is the total number of classes
+                                        in the model, and (NAM + NCM) > 0
+                                        If the value is higher, classes have more attributes and the model can be considered to be more complex. It is also possible that the model contains unnecessary
+                                        information and does therefore not correspond to the modeling purpose. On the other hand, a lower value could be
+                                        a hint for relevant but missing information.<br>
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>1.0> - 0.8 = Level 1</li>
+                                        <li>0.8> - 0.6 = Level 2 </li>
+                                        <li>0.6> - 0.4 = Level 3 </li>
+                                        <li>0.4> - 0.2 = Level 4 </li>
+                                        <li>0.2> - 0.0 = Level 5 </li>
+                                    </ul>
+                                  <li> <h5> How to Level Up: </h5>
+                                    <p>The larger value could mean a complex diagram therefore to increase this indicator level, classes need to have fewer attributes. 
+                                    </p>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="asvsc-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">ASvsC Indicator</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+                           <ul>
+                                <li> <h5> ASvsC Indicator Info </h5>
+                                    <p>The indicator is the relation between the number of associations and
+                                        number of classes in a UML Class Diagram. The indicator is defined as: <br>
+                                        (NASM / (NASM + NCM))^2 where NASM is the total number of
+                                        associations in the model, NCM is the total number of classes in the model, and (NASM + NCM) > 0.
+                                        This metric is a complexity measurement for class diagrams. The worst case is when the value tends to be 0<br>
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>1.0> - 0.8 = Level 1</li>
+                                        <li>0.8> - 0.6 = Level 2 </li>
+                                        <li>0.6> - 0.4 = Level 3 </li>
+                                        <li>0.4> - 0.2 = Level 4 </li>
+                                        <li>0.2> - 0.0 = Level 5 </li>
+                                    </ul>
+                                 <li> <h5> How to Level Up: </h5>
+                                    <p> Fewer associations between classes could increase the level of this indicator
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="mevsc-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">MEvsC Indicator</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+                            <ul>
+                                <li> <h5> MEvsC Indicator Info </h5>
+                                    <p>This indicator is the ratio between the number of methods and
+                                      number of classes in a UML Class Diagram. It is defined as ( NOPM / (NOPM + NCM))^2 where NOPM is the total number of operations in the model, NCM is the total number of classes
+                                      in the model <br>
+                                      If the value is higher, the classes have a lot of methods (operations) and the model can be considered
+                                      to be complex.<br>
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>1.0> - 0.8 = Level 1</li>
+                                        <li>0.8> - 0.6 = Level 2 </li>
+                                        <li>0.6> - 0.4 = Level 3 </li>
+                                        <li>0.4> - 0.2 = Level 4 </li>
+                                        <li>0.2> - 0.0 = Level 5 </li>
+                                    </ul>
+                                 <li> <h5> How to Level Up: </h5>
+                                    <p> Fewer methods in classes could improve the indicator level.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="appm-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">APPM Indicator</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+                            <ul>
+                                <li> <h5> APPM Indicator Info </h5>
+                                    <p>This indicator is the average number of parameters of all methods within the class <br>
+                                      Parameters require more effort from clients, and high and low numbers of parameters imply a style of design. Lorenz and Kidd suggest 0.7 parameters per method as upper threshold.
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li> >0.8 = Level 1</li>
+                                        <li>0.2 - <0.0 = Level 2 </li>
+                                        <li>0.4 - <0.2 = Level 3 </li>
+                                        <li>0.6 - <0.4 = Level 4 </li>
+                                        <li>0.8 - <0.6 = Level 5 </li>
+                                    </ul>
+                                 <li> <h5> How to Level Up: </h5>
+                                    <p> Number of parameters used in methods can be decreased to get a value around 0.7 in order to receive the highest level for this indicator.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="depvsc-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">DEPvsC Indicator</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+                           <ul>
+                                <li> <h5> DEPvsC Indicator Info </h5>
+                                    <p>This indicator is the relation between number of dependencies and
+                                      number of classes in a UML Class Diagram. This metrics is defined as DEPvsC =
+                                      (NDep / (NDep + NCM))^2 where NDep is the total number of dependencies in the model, NCM is the total number of
+                                      classes in the model, and (NDep + NCM) > 0. <br>
+                                      This is a complexity measurement for class diagram where the worst case is when the value tends to be 1 and the best case being when the value tends to be 0.
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                    </p>
+                                </li>
+                                <li> <h5> Level: </h5>
+                                    <p>The levels are calculated as follows:
+                                    </p>
+                                    <ul>
+                                        <li>1.0> - 0.8 = Level 1</li>
+                                        <li>0.8> - 0.6 = Level 2 </li>
+                                        <li>0.6> - 0.4 = Level 3 </li>
+                                        <li>0.4> - 0.2 = Level 4 </li>
+                                        <li>0.2> - 0.0 = Level 5 </li>
+                                    </ul>
+                                 <li> <h5> How to Level Up: </h5>
+                                    <p> Decrease in number of dependecies in the class diagram can help in levelling up in this indicator.
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dam-info" role="dialog">
+  <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content modal-content-size">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">DAM Indicator</h4>
+          </div>
+          <div class="modal-body modal-body-size">
+              
+             <ul>
+                  <li> <h5> DAM Indicator Info </h5>
+                      <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
+                      This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
+                      </p>
+                  </li>
+                  <li> <h5> Data collection: </h5>
+                      <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                      </p>
+                  </li>
+                  <li> <h5> Data analysis: </h5>
+                      <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                      </p>
+                  </li>
+                  <li> <h5> Level: </h5>
+                      <p>The levels are calculated as follows:
+                      </p>
+                      <ul>
+                          <li>0.0 - <0.2 = Level 1</li>
+                          <li>0.2 - <0.4 = Level 2 </li>
+                          <li>0.4 - <0.6 = Level 3 </li>
+                          <li>0.6 - <0.8 = Level 4 </li>
+                          <li>0.8 - <1.0 = Level 5 </li>
+                      </ul>
+                   <li> <h5> How to Level Up: </h5>
+                      <p> To increase levels in this indicator, its best to have equal number of private + protected attributes when compared to the total number of attributes.
+                      </p>
+                  </li>
+              </ul>
+          </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+  </div>
+
             </div>
          </div>
     </div>
@@ -275,7 +657,6 @@ function Indicator(name,value,minVal,maxVal,type){
 
   this.adjustedValue = function(){
       if (this.name == "UML Commit Ratio" || this.name == "Document Evolution" ) {
-        console.log(this.value);
         if (this.value >= 0 && this.value <= 0.2){
         return 1;
       }
@@ -424,35 +805,25 @@ function createModal() {
     function createTable (object, tbody){
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
-            console.log("Adjusted value for " + object[i].name + " is " + object[1].adjustedValue());
-
-
             var tr = "<tr>";
-
             tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].name + "</a></td> ";
 
             //var mymodal = $('#uml-commit-ratio-info');
             //mymodal.find('.modal-body').text('helllloooooo');
 
             if (object[i].adjustedValue() == 1) {
-                console.log("Level is 1");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-
             }
             if (object[i].adjustedValue() == 2) {
-                console.log("Level is 2");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 3) {
-                console.log("Level is 3");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 4) {
-                console.log("Level is 4");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             if (object[i].adjustedValue() == 5) {
-                console.log("Level is 5");
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
             }
             tBody.innerHTML += tr;
@@ -493,10 +864,11 @@ function createModal() {
 
     /* RATIO VALUES */
     var commitRatio = allData.umlCommits / allData.allCommits;
-    commitRatio = commitRatio * 10;
+    commitRatio = commitRatio * 5;
     var docSize = allData.docSize;
 
     var documentEvolution = allData.docSize / allData.umlCommits;
+    documentEvolution = documentEvolution  * 5;
     addIndicator("AvsC",allData.aVsC, 0, 1, indicatorEnum.CONTENT);
     addIndicator("ASvsC",allData.asVsC, 0, 1, indicatorEnum.CONTENT);
     addIndicator("MevsC",allData.meVsC, 0, 1, indicatorEnum.CONTENT);
@@ -504,20 +876,22 @@ function createModal() {
     addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.CONTENT);
     addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.CONTENT);
 
-    addIndicator("UML Commit Ratio", commitRatio, 0, 0, indicatorEnum.PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 0, indicatorEnum.PROCESS);
-
-
-    console.log("Project ID  " + allData.idProject);
+    addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.PROCESS);
+    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.PROCESS);
 
 // create graphs
 window.onload = function() {
     var dataPointsPie = [];
     var dataPointsDoc = [];
+    var dataPointsAvsC = [];
+    var dataPointsASvsC = [];
+    var dataPointsMEvsC = [];
+    var dataPointAPPM = [];
+    var datapointsDEPvsC = [];
+    var datapointsDAM = [];
 
-    /*var testDataPoints = [];
-    testDataPoints.push({y: 20, label: "Test1"});
-    testDataPoints.push({y: 10, label: "Test2"});*/
+    dataPointsAvsC.push({y: allData.noc, label: "Number of Classes"});
+    dataPointsAvsC.push({y: allData.noa, label: "Number of Attributes"});
 
     var processData = [];
     var contentData = [];
@@ -582,7 +956,7 @@ window.onload = function() {
         exportEnabled: true,
         animationEnabled: true,
         title: {
-            text: "All Commits vs. UML Commits"
+            text: "Document Size vs. UML Commits"
         },
         theme: "theme2",
         legend: {
@@ -599,6 +973,26 @@ window.onload = function() {
     $('#docEvolution').html("Document Evolution: " + documentEvolution.toFixed(3).bold().big());
     docChart.render();
 
+    var avscChart = new CanvasJS.Chart("avsc-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "AvsC"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsAvsC
+        }]
+    });
+    $('#avsc-chart-info').html("AvsC: " + contentIndicators.find(item => item.name === "AvsC").value.toFixed(3).bold().big());
+    avscChart.render();
+
 /*docChart.options.data[0].dataPoints = testDataPoints;
 docChart.render();*/
 
@@ -614,18 +1008,13 @@ function explodePie (e) {
 
     // Sum up score from the indicators
     for(var i = 0; i< processIndicators.length; i++){
-
-        console.log("sc PD: " + processIndicators[i].indicatorLevel);
         score += processIndicators[i].adjustedValue();
     }
-
     for(var i = 0; i< contentIndicators.length; i++){
-
-        console.log("sc CD: " + contentIndicators[i].indicatorLevel);
         score += contentIndicators[i].adjustedValue();
     }
 
-    var scoreEl = $('#score').html("Score: " + score + '/' + 30);
+    var scoreEl = $('#score').html("Score: " + score + '/' + 40);
 }
 </script>
 
