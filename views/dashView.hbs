@@ -152,7 +152,7 @@
             <div id="mtest"> </div>
 
             <!-- MODAL - Commit Ratio INFO -->
-            <div class="modal fade" id="uml-commit-ratio-info" role="dialog">
+            <div class="modal fade" id="info-modal" role="dialog">
                <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content modal-content-size">
@@ -161,7 +161,36 @@
                             <h4 class="modal-title">UML Commit Ratio Indicator</h4>
                         </div>
                         <div class="modal-body modal-body-size">
-                            <ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- MODAL - Commit Ratio DETAIL-->
+            <div class="modal fade" id="uml-commit-ratio-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Commit Ratio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="commitRatio" >Commit Ratio </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MODAL - Doc Evolution INFO -->
+
+            <ul id="umlcommitratio">
                                 <li> <h5> Commit Ratio info: </h5>
                                     <p>This indicator shows the ratio between UML commits to all commits made in the project. The purpose of this indicator is to show the frequency of UML documentation updates in compare to code updates.<br>
                                     </p>
@@ -206,44 +235,8 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- MODAL - Commit Ratio DETAIL-->
-            <div class="modal fade" id="uml-commit-ratio-detail" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Commit Ratio</h4>
-                        </div>
-                        <div class="modal-body">
-                            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-                            <br>
-                            <br>
-                            <h4 id="commitRatio" >Commit Ratio </h4>
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- MODAL - Doc Evolution INFO -->
-            <div class="modal fade" id="document-evolution-info" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content modal-content-size">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Document Evolution Indicator</h4>
-                        </div>
-                        <div class="modal-body modal-body-size">
-                            <ul>
+            
+                            <ul id="documentevolution">
                                 <li> <h5> Document Evolution Info:</h5>
                                     <p>This indicator shows the ratio between UML document updates and the size of the document.
                                         The purpose of this indicator is to show the evolution of the UML document, that is, to show how the document has evolved considering the number of UML document update commits.
@@ -290,10 +283,7 @@
                                     </ul>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                     
 
             <!-- MODAL - Doc Evolution DETAIL -->
             <div class="modal fade" id="document-evolution-detail" role="dialog">
@@ -366,7 +356,7 @@
                             <h4 class="modal-title">AvsC Indicator</h4>
                         </div>
                         <div class="modal-body modal-body-size">
-                            <ul>
+                            <ul id ="myUL">
                                 <li> <h5> AvsC Indicator Info </h5>
                                     <p>The indicator is the relation between the number of attributes and
                                         number of classes in a UML Class Diagram. The indicator is defined as <br>
@@ -817,17 +807,31 @@ function createModal() {
     here.html(mo);
 }
 
+function changeData(name){
+    var listName = name.toLowerCase().replace(/\s/g, '');
+    var x = document.getElementById(listName);
+    console.log("list name is " + listName);
+    console.log(x);
+    $('#info-modal .modal-body').text(x);
+    $('#info-modal .modal-title').text(listName);
+}
+
     /*
     $("#avsc-info").on("show.bs.collapse shown.bs.collapse",function(event){
       alert("Test");
     });
     */
 
+    $(document).on('show.bs.modal','#info-modal', function () {
+        console.log("HEYYY");
+        alert('hi');
+    })
+
     function createTable (object, tbody){
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
             var tr = "<tr>";
-            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].name + "</a></td> ";
+            tr += "<td><a data-toggle= 'modal' id="+ object[i].name+ " data-target=#info-modal>" + object[i].name + "</a></td> ";
 
             //var mymodal = $('#uml-commit-ratio-info');
             //mymodal.find('.modal-body').text('helllloooooo');
@@ -850,6 +854,12 @@ function createModal() {
             tBody.innerHTML += tr;
         }
     }
+
+
+    $("#process-table").on("click", "td", function() {
+                changeData($(this).text());
+                //alert($( this ).text());
+        });
 
     /* Global variables used to manipulate UI views */
     var score = 0;
