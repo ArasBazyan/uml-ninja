@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Documentation Ninja</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
@@ -16,7 +17,7 @@
 <style>
     body {
         font-family: Avenir, sans-serif !important;
-        background: whitesmoke;
+        background: #403c00;
     }
 
     h3 {
@@ -25,8 +26,12 @@
 
     }
     .row {
+        display: flex;
         margin-right: -12px;
         margin-left: -12px;
+    }
+    .well p{
+        margin: 0 0 2px;
     }
 
     .center {
@@ -37,18 +42,42 @@
 
     .jumbotron{
         padding: 5px !important;
+        width: 100%;
     }
     .progress-bar{
         cursor:pointer
     }
 
-    .column {
-        background-color: white;
-        margin: 6px;
+    .column{
         float: left;
-        width: 38%;
+        width: 48%;
+        padding: 16px;
+        margin: 0 0 25px 15px;
+        background-color: #dededede;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+    }
+
+    .smallColumn {
+        background-color: #c9c9c2e8;
+        margin-left: 10px;
+        float: left;
+        width: 20%;
+        height:100%;
         padding: 20px;
     }
+
+    .bigCollumn{
+        margin-left: 10px;
+        float: left;
+        width: 77%;
+        height:100%;
+        padding: 10px;
+    }
+
+
 
     /* Clear floats after the columns */
     .row:after {
@@ -57,6 +86,9 @@
         clear: both;
     }
 
+    .fa{
+        font-size: 2em;
+    }
     .modal-content-size{
         display: table;
         width: 900px;
@@ -65,6 +97,20 @@
 
     .modal-body-size{
         padding: 0 40px 10px 0;
+    }
+
+    .flex-container {
+        display: flex;
+        margin-top: 15px;
+        justify-content: center;
+    }
+
+    .flex-container > div {
+        background-color: #ececec;
+        margin-left: 15px;
+        margin-bottom: 15px;
+        padding: 15px;
+        text-align: center;
     }
 
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
@@ -81,33 +127,57 @@
 </head>
 <body>
 <div id="main" class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-12">
-            <!--  Dashboard text-->
-            <div style="margin: 15px auto"  class="well">
-                <h3> Dashboard </h3>
+    <div class="flex-container">
+        <div>
+            <i class="fa fa-github-alt"></i>
+            <p id="repoName">Repository <br><b></b></p>
+        </div>
+        <div>
+            <i class="fa fa-users"></i>
+            <p> Number of contributors:<br> <b>{{ data.Contributers }}</b></p>
+        </div>
+        <div>
+            <i class="fa fa-language"></i>
+            <p> Main programming languages:<br> <b> {{  data.Contributers }}</b></p>
+        </div>
+        <div>
+            <i class="fa fa-github"></i>
+            <p>Github API link: <br> <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b></p>
+        </div>
+    </div>
+
+            <!--  Dashboard text
+            <div style="margin: 5px auto; padding: 10px;"  class="well">
+                <h4> Dashboard </h4>
                 <p> Information about repository <b>{{ data.ProjectName }}</b></p>
                 <p> Number of contributors: <b> {{  data.Contributers }} </b></p>
                 <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b> </p>
+            </div> -->
+
+    <div class="row">
+
+    <!-- Score column style="text-align: center; width: 300px; min-height: 400px" -->
+            <div class="smallColumn" >
+                <div>
+                    <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
+                </div>
+                <h3 style="text-align: center; padding: 6px;" id="score">Score
+                </h3>
+                <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                <br>
+                <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+                <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
             </div>
 
+
+        <div class="bigCollumn">
+
+
             <div class="row">
-                <!-- Score column -->
-                <div class="column" style="text-align: center; width: 300px; min-height: 400px">
-                    <div>
-                        <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
-                    </div>
-                    <h3 style="text-align: center; padding: 6px;" id="score">Score
-                    </h3>
-                    <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    <br>
-                    <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                </div>
-                <div class="column">
+        <div class="column">
                     <h3> Documentation Process </h3>
                     <h4> UML Process </h4>
                     <div class="row marketing">
@@ -127,6 +197,55 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="column">
+                    <h3> NEW 1 </h3>
+                    <h4> UML Process </h4>
+                    <div class="row marketing">
+                        <div class="jumbotron">
+                            <div class="table-responsive">
+                                <table class="table tablesorter">
+                                    <thead>
+                                    <tr>
+                                        <th><h4>Level up</h4></th>
+                                        <th class="col-md-5"><h4>Level</h4></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="process-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="column">
+                    <h3> NEW 2 </h3>
+                    <h4> UML Process </h4>
+                    <div class="row marketing">
+                        <div class="jumbotron">
+                            <div class="table-responsive">
+                                <table class="table tablesorter">
+                                    <thead>
+                                    <tr>
+                                        <th><h4>Level up</h4></th>
+                                        <th class="col-md-5"><h4>Level</h4></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="process-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="column">
                     <h3> Documentation Content </h3>
                     <h4> UML Content </h4>
@@ -147,7 +266,15 @@
                         </div>
                     </div>
                 </div>
+
             </div>
+
+
+    </div>
+
+
+
+    </div>
 
             <div id="mtest"> </div>
 
@@ -452,9 +579,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-         </div>
-    </div>
 </div>
 
 <div class="modal fade" id="mevsc-info" role="dialog">
@@ -881,6 +1005,10 @@ function createModal() {
     //push all data in array for when it's needed
     temp.push(allData);
     console.log(temp);
+    var projName = allData.projectName;
+    var reposName = projName.substring(projName.lastIndexOf("/") + 1, projName.length);
+
+    $('#repoName').append(reposName.bold());
 
 
     /* RATIO VALUES */
