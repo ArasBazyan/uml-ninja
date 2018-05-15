@@ -20,7 +20,9 @@
       position: fixed;
       height: 200%;
       width: 100%;
-      background-color: #000000;
+      box-shadow:
+        inset 800px 0 1000px #285f2f,
+        inset -900px 0 303px #2b5a5a;
       background-image: url("");
       background-repeat: no-repeat;
       background-size: cover;
@@ -63,8 +65,8 @@
   button {
       box-sizing: border-box;
       display: inline-block;
-      background: #deba00;
-      color: #1F1F1C;
+      background: #5dab7c;
+      color: #f2f2f2;
       border: none;
       margin-right: 0.7rem;
       padding: 0 1.5rem;
@@ -118,20 +120,20 @@
         particlesJS("particles-js", {
             "particles": {
                 "number": {
-                    "value": 100,
+                    "value": 75,
                     "density": {
                         "enable": true,
                         "value_area": 1000
                     }
                 },
                 "color": {
-                    "value": "#deba00"
+                    "value": "#d6d6d6"
                 },
                 "shape": {
                     "type": "star",
                     "stroke": {
                         "width": 0,
-                        "color": "#deba00"
+                        "color": "#d6d6d6"
                     },
                     "polygon": {
                         "nb_sides": 5
@@ -165,7 +167,7 @@
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#deba00",
+                    "color": "#d6d6d6",
                     "opacity": 0.4,
                     "width": 1
                 },
