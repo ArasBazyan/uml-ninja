@@ -101,11 +101,16 @@
         border: 1px solid #e3e3e3;
         border-radius: 4px;
         -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-		box-shadow: 0px 0px 24px -8px rgba(255,255,255,1);
+		box-shadow: 0 0 10px 0 #003e27;
     }
 
     .smallColumn {
-        background-color: #c9c9c2e8;
+        background-color: #dededede;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 0 10px 0 #003e27;
+        text-align: center;
         margin-left: 10px;
         margin-top: 10px;
         float: left;
@@ -157,8 +162,13 @@
     }
 
     .nav-tabs{
-    	margin-bottom: 4px;
+    	margin-bottom: 8px;
     	border-bottom: 1px solid #adada5;
+    }
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 5px 6px;
     }
 
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
@@ -174,6 +184,7 @@
 
 </head>
 <body>
+
 <div id="main" class="container-fluid">
     <div class="flex-container">
         <div>
@@ -223,8 +234,8 @@
         <div class="bigCollumn">
         	<div class="row">
         		<div class="column">
-                    <h3> BUILDS </h3>
-                    <h4> BUILDS </h4>
+                    <h3> Documentation Process </h3>
+                    <h4> Documentation Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -243,10 +254,9 @@
                     </div>
                 </div>
 
-
                 <div class="column">
-                    <h3> BUILDS C </h3>
-                    <h4> BUILDS C </h4>
+                    <h3> Documentation Content </h3>
+                    <h4> Documentation Content </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -268,8 +278,8 @@
 
             <div class="row">
                 <div class="column">
-                    <h3> TARGETS </h3>
-                    <h4> TARGETS </h4>
+                    <h3> UML Process </h3>
+                    <h4> UML Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -292,18 +302,18 @@
 
 
                 <div class="column">
-                    <h3> TARGETS C </h3>
-                    <h4> TARGETS C </h4>
+                    <h3> UML Content </h3>
+                    <h4> UML Content </h4>
 
                     <ul class="nav nav-tabs">
-					    <li class="active"><a data-toggle="tab" href="#home">CD</a></li>
-					    <li><a data-toggle="tab" href="#menu1">SQ</a></li>
-					    <li><a data-toggle="tab" href="#menu2">UC</a></li>
-					    <li><a data-toggle="tab" href="#menu3">Menu 3</a></li>
+					    <li class="active"><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
+					    <li><a data-toggle="tab" href="#sdTab">Sequence Diagram</a></li>
+					    <li><a data-toggle="tab" href="#ucTab">Use Case Diagram</a></li>
+					    <li><a data-toggle="tab" href="#adTab">Activity Diagram</a></li>
 				  	</ul>
 
 					<div class="tab-content">
-					    <div id="home" class="tab-pane fade in active">
+					    <div id="cdTab" class="tab-pane fade in active">
 					    
 				         	<div class="row marketing">
 		                        <div class="jumbotron">
@@ -323,33 +333,22 @@
 		                    </div>
 					    </div>
 
-					    <div id="menu1" class="tab-pane fade">
-					      <h3>Menu 1</h3>
-					      <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+					    <div id="sdTab" class="tab-pane fade">
+					      <h3>Sequence Diagram Tab</h3>
+					      <p>Things</p>
 					    </div>
-					    <div id="menu2" class="tab-pane fade">
-					      <h3>Menu 2</h3>
-					      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+					    <div id="ucTab" class="tab-pane fade">
+					      <h3>Use Case Diagram Tab</h3>
+					      <p>Things</p>
 					    </div>
-					    <div id="menu3" class="tab-pane fade">
-					      <h3>Menu 3</h3>
-					      <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+					    <div id="adTab" class="tab-pane fade">
+					      <h3>Activity Diagram Tab</h3>
+					      <p>Things</p>
 					    </div>
 				    </div>
-
-
-
-
-                 
                 </div>
-
             </div>
-
-
-    </div>
-
-
-
+        </div>
     </div>
 
             <div id="mtest"> </div>
@@ -608,9 +607,6 @@
                 </div>
             </div>
          </div>
-    </div>
-</div>
-
 <div class="modal fade" id="asvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -656,7 +652,6 @@
                     </div>
                 </div>
 </div>
-
 <div class="modal fade" id="mevsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -702,10 +697,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
 <div class="modal fade" id="appm-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -748,10 +739,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
 <div class="modal fade" id="depvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -797,11 +784,7 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
-			<div class="modal fade" id="dam-info" role="dialog">
+<div class="modal fade" id="dam-info" role="dialog">
 			  <div class="modal-dialog">
 			      <!-- Modal content-->
 			      <div class="modal-content modal-content-size">
@@ -846,9 +829,6 @@
 			      </div>
 			  </div>
             </div>
-         </div>
-    </div>
-</div>
 
 <script>
 var indicatorEnum = {
