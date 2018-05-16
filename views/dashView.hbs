@@ -16,8 +16,9 @@
 <style>
     body {
     	
-    	background: 
-    	linear-gradient(45deg, hsla(130, 46%, 31%, 0.95) 0%, hsla(215, 53%, 50%, 0) 70%),   
+    	background:
+        linear-gradient(to right, #375eb5, #3199b1) !important;
+    	linear-gradient(45deg, hsla(130, 46%, 31%, 0.95) 0%, hsla(215, 53%, 50%, 0) 70%),
     	linear-gradient(135deg, hsl(128, 38%, 33%) 10%, hsla(149, 100%, 40%, 0) 80%),
         linear-gradient(225deg, hsl(184, 95%, 34%) 10%, hsla(184, 89%, 38%, 0) 80%),
         linear-gradient(315deg, hsl(186, 61%, 37%) 100%, hsla(253, 56%, 43%, 0) 70%);
@@ -1004,7 +1005,6 @@ function createModal() {
     function createTable (object, tbody){
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
-        	console.log(object[i]);
             var tr = "<tr>";
             tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].name + "</a></td> ";
 
