@@ -1,23 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Documentation Ninja</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <style>
     body {
+    	
+    	background:
+        linear-gradient(to right, #375eb5, #3199b1) !important;
+    	linear-gradient(45deg, hsla(130, 46%, 31%, 0.95) 0%, hsla(215, 53%, 50%, 0) 70%),
+    	linear-gradient(135deg, hsl(128, 38%, 33%) 10%, hsla(149, 100%, 40%, 0) 80%),
+        linear-gradient(225deg, hsl(184, 95%, 34%) 10%, hsla(184, 89%, 38%, 0) 80%),
+        linear-gradient(315deg, hsl(186, 61%, 37%) 100%, hsla(253, 56%, 43%, 0) 70%);
+
+
+/*
+    	linear-gradient(45deg, hsl(130, 43%, 27%) 0%, hsla(215, 53%, 50%, 0) 70%), 
+    	linear-gradient(135deg, hsl(128, 34%, 28%) 10%, hsla(149, 100%, 40%, 0) 80%), 
+    	 /* linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%), 
+    	linear-gradient(315deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
+    	*/
+
+
+
+/*linear-gradient(45deg, hsl(129, 41%, 26%) 0%, hsla(215, 53%, 50%, 0) 70%),         linear-gradient(135deg, hsl(126, 39%, 27%) 10%, hsla(149, 100%, 40%, 0) 80%),         linear-gradient(225deg, hsl(184, 100%, 33%) 10%, hsla(184, 89%, 38%, 0) 80%),         linear-gradient(315deg, hsl(186, 51%, 36%) 100%, hsla(253, 56%, 43%, 0) 70%) */
+
+    	/*
+	background:
+		-webkit-linear-gradient(45deg, hsla(215, 53%, 50%, 1) 0%, hsla(215, 53%, 50%, 0) 70%),
+		-webkit-linear-gradient(315deg, hsla(149, 100%, 40%, 1) 10%, hsla(149, 100%, 40%, 0) 80%),
+		-webkit-linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%),
+		-webkit-linear-gradient(135deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
+	background:
+		linear-gradient(45deg, hsla(215, 53%, 50%, 1) 0%, hsla(215, 53%, 50%, 0) 70%),
+		linear-gradient(135deg, hsla(149, 100%, 40%, 1) 10%, hsla(149, 100%, 40%, 0) 80%),
+		linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%),
+		linear-gradient(315deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
+	*/
         font-family: Avenir, sans-serif !important;
-        background: whitesmoke;
     }
+
+
+	.colorful {
+		background:
+		-webkit-linear-gradient(45deg, hsla(207, 66%, 62%, 1) 0%, hsla(207, 66%, 62%, 0) 70%),
+		-webkit-linear-gradient(315deg, hsla(141, 100%, 49%, 1) 10%, hsla(141, 100%, 49%, 0) 80%),
+		-webkit-linear-gradient(225deg, hsla(193, 100%, 46%, 1) 10%, hsla(193, 100%, 46%, 0) 80%),
+		-webkit-linear-gradient(135deg, hsla(168, 100%, 47%, 1) 100%, hsla(168, 100%, 47%, 0) 70%);
+		background:
+		linear-gradient(45deg, hsla(207, 66%, 62%, 1) 0%, hsla(207, 66%, 62%, 0) 70%),
+		linear-gradient(135deg, hsla(141, 100%, 49%, 1) 10%, hsla(141, 100%, 49%, 0) 80%),
+		linear-gradient(225deg, hsla(193, 100%, 46%, 1) 10%, hsla(193, 100%, 46%, 0) 80%),
+		linear-gradient(315deg, hsla(168, 100%, 47%, 1) 100%, hsla(168, 100%, 47%, 0) 70%);
+	}
+	
 
     h3 {
         margin-top: 0;
@@ -25,8 +71,12 @@
 
     }
     .row {
+        display: flex;
         margin-right: -12px;
         margin-left: -12px;
+    }
+    .well p{
+        margin: 0 0 2px;
     }
 
     .center {
@@ -37,17 +87,45 @@
 
     .jumbotron{
         padding: 5px !important;
+        width: 100%;
     }
     .progress-bar{
         cursor:pointer
     }
 
-    .column {
-        background-color: white;
-        margin: 6px;
+    .column{
         float: left;
-        width: 38%;
+        width: 48%;
+        padding: 16px;
+        margin: 0 0 25px 15px;
+        background-color: #dededede;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+		box-shadow: 0 0 10px 0 #003e27;
+    }
+
+    .smallColumn {
+        background-color: #dededede;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
+        box-shadow: 0 0 10px 0 #003e27;
+        text-align: center;
+        margin-left: 10px;
+        margin-top: 10px;
+        float: left;
+        width: 20%;
+        height:100%;
         padding: 20px;
+    }
+
+    .bigCollumn{
+        margin-left: 10px;
+        float: left;
+        width: 77%;
+        height:100%;
+        padding: 10px;
     }
 
     /* Clear floats after the columns */
@@ -57,6 +135,9 @@
         clear: both;
     }
 
+    .fa{
+        font-size: 2em;
+    }
     .modal-content-size{
         display: table;
         width: 900px;
@@ -65,6 +146,30 @@
 
     .modal-body-size{
         padding: 0 40px 10px 0;
+    }
+
+    .flex-container {
+        display: flex;
+        margin-top: 15px;
+        justify-content: center;
+    }
+
+    .flex-container > div {
+        background-color: #ececec;
+        margin-left: 15px;
+        margin-bottom: 10px;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .nav-tabs{
+    	margin-bottom: 8px;
+    	border-bottom: 1px solid #adada5;
+    }
+    .nav>li>a {
+        position: relative;
+        display: block;
+        padding: 5px 6px;
     }
 
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
@@ -80,35 +185,101 @@
 
 </head>
 <body>
+
 <div id="main" class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-12">
-            <!--  Dashboard text-->
-            <div style="margin: 15px auto"  class="well">
-                <h3> Dashboard </h3>
+    <div class="flex-container">
+        <div>
+            <i class="fa fa-github-alt"></i>
+            <p id="repoName">Repository <br><b></b></p>
+        </div>
+         <div>
+            <i class="fa fa-github"></i>
+            <p>Github API link: <br> <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b></p>
+        </div>
+        <div>
+            <i class="fa fa-users"></i>
+            <p> Number of contributors:<br> <b>{{ data.Contributers }}</b></p>
+        </div>
+        <div>
+            <i class="fa fa-language"></i>
+            <p> Main programming languages:<br> <b> C++, Java, Shell</b></p>
+        </div>
+    </div>
+
+            <!--  Dashboard text
+            <div style="margin: 5px auto; padding: 10px;"  class="well">
+                <h4> Dashboard </h4>
                 <p> Information about repository <b>{{ data.ProjectName }}</b></p>
                 <p> Number of contributors: <b> {{  data.Contributers }} </b></p>
                 <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b> </p>
+            </div> -->
+
+    <div class="row">
+
+    <!-- Score column style="text-align: center; width: 300px; min-height: 400px" -->
+        <div class="smallColumn" >
+            <div>
+                <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
+            </div>
+            <h3 style="text-align: center; padding: 6px;" id="score">Score
+            </h3>
+            <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <br>
+            <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+        </div>
+
+        <div class="bigCollumn">
+        	<div class="row">
+        		<div class="column">
+                    <h3> Documentation Process </h3>
+                    <h4> Documentation Process </h4>
+                    <div class="row marketing">
+                        <div class="jumbotron">
+                            <div class="table-responsive">
+                                <table class="table tablesorter">
+                                    <thead>
+                                    <tr>
+                                        <th><h4>Level up</h4></th>
+                                        <th class="col-md-5"><h4>Level</h4></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="process-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <h3> Documentation Content </h3>
+                    <h4> Documentation Content </h4>
+                    <div class="row marketing">
+                        <div class="jumbotron">
+                            <div class="table-responsive">
+                                <table class="table tablesorter">
+                                    <thead>
+                                    <tr>
+                                        <th><h4>Level up</h4></th>
+                                        <th class="col-md-5"><h4>Level</h4></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="process-table">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="row">
-                <!-- Score column -->
-                <div class="column" style="text-align: center; width: 300px; min-height: 400px">
-                    <div>
-                        <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
-                    </div>
-                    <h3 style="text-align: center; padding: 6px;" id="score">Score
-                    </h3>
-                    <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-                    <br>
-                    <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                    <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-                </div>
                 <div class="column">
-                    <h3> Documentation Process </h3>
+                    <h3> UML Process </h3>
                     <h4> UML Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
@@ -127,27 +298,59 @@
                         </div>
                     </div>
                 </div>
+
+
+
+
                 <div class="column">
-                    <h3> Documentation Content </h3>
+                    <h3> UML Content </h3>
                     <h4> UML Content </h4>
-                    <div class="row marketing">
-                        <div class="jumbotron">
-                            <div class="table-responsive">
-                                <table class="table tablesorter">
-                                    <thead>
-                                    <tr>
-                                        <th><h4>Level up</h4></th>
-                                        <th class="col-md-5"><h4>Level</h4></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="content-table">
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+
+                    <ul class="nav nav-tabs">
+					    <li class="active"><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
+					    <li><a data-toggle="tab" href="#sdTab">Sequence Diagram</a></li>
+					    <li><a data-toggle="tab" href="#ucTab">Use Case Diagram</a></li>
+					    <li><a data-toggle="tab" href="#adTab">Activity Diagram</a></li>
+				  	</ul>
+
+					<div class="tab-content">
+					    <div id="cdTab" class="tab-pane fade in active">
+					    
+				         	<div class="row marketing">
+		                        <div class="jumbotron">
+		                            <div class="table-responsive">
+		                                <table class="table tablesorter">
+		                                    <thead>
+		                                    <tr>
+		                                        <th><h4>Level up</h4></th>
+		                                        <th class="col-md-5"><h4>Level</h4></th>
+		                                    </tr>
+		                                    </thead>
+		                                    <tbody id="content-table">
+		                                    </tbody>
+		                                </table>
+		                            </div>
+		                        </div>
+		                    </div>
+					    </div>
+
+					    <div id="sdTab" class="tab-pane fade">
+					      <h3>Sequence Diagram Tab</h3>
+					      <p>Things</p>
+					    </div>
+					    <div id="ucTab" class="tab-pane fade">
+					      <h3>Use Case Diagram Tab</h3>
+					      <p>Things</p>
+					    </div>
+					    <div id="adTab" class="tab-pane fade">
+					      <h3>Activity Diagram Tab</h3>
+					      <p>Things</p>
+					    </div>
+				    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
             <div id="mtest"> </div>
 
@@ -405,9 +608,6 @@
                 </div>
             </div>
          </div>
-    </div>
-</div>
-
 <div class="modal fade" id="asvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -452,11 +652,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-         </div>
-    </div>
 </div>
-
 <div class="modal fade" id="mevsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -502,10 +698,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
 <div class="modal fade" id="appm-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -548,10 +740,6 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
 <div class="modal fade" id="depvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -597,62 +785,53 @@
                     </div>
                 </div>
             </div>
-         </div>
-    </div>
-</div>
-
 <div class="modal fade" id="dam-info" role="dialog">
-  <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content modal-content-size">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">DAM Indicator</h4>
-          </div>
-          <div class="modal-body modal-body-size">
-              
-             <ul>
-                  <li> <h5> DAM Indicator Info </h5>
-                      <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
-                      This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
-                      </p>
-                  </li>
-                  <li> <h5> Data collection: </h5>
-                      <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
-                      </p>
-                  </li>
-                  <li> <h5> Data analysis: </h5>
-                      <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
-                      </p>
-                  </li>
-                  <li> <h5> Level: </h5>
-                      <p>The levels are calculated as follows:
-                      </p>
-                      <ul>
-                          <li>0.0 - <0.2 = Level 1</li>
-                          <li>0.2 - <0.4 = Level 2 </li>
-                          <li>0.4 - <0.6 = Level 3 </li>
-                          <li>0.6 - <0.8 = Level 4 </li>
-                          <li>0.8 - <1.0 = Level 5 </li>
-                      </ul>
-                   <li> <h5> How to Level Up: </h5>
-                      <p> To increase levels in this indicator, its best to have equal number of private + protected attributes when compared to the total number of attributes.
-                      </p>
-                  </li>
-              </ul>
-          </div>
-        <div class="modal-footer">
-        </div>
-      </div>
-  </div>
-
+			  <div class="modal-dialog">
+			      <!-- Modal content-->
+			      <div class="modal-content modal-content-size">
+			          <div class="modal-header">
+			              <button type="button" class="close" data-dismiss="modal">&times;</button>
+			              <h4 class="modal-title">DAM Indicator</h4>
+			          </div>
+			          <div class="modal-body modal-body-size">
+			              
+			             <ul>
+			                  <li> <h5> DAM Indicator Info </h5>
+			                      <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
+			                      This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
+			                      </p>
+			                  </li>
+			                  <li> <h5> Data collection: </h5>
+			                      <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+			                      </p>
+			                  </li>
+			                  <li> <h5> Data analysis: </h5>
+			                      <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+			                      </p>
+			                  </li>
+			                  <li> <h5> Level: </h5>
+			                      <p>The levels are calculated as follows:
+			                      </p>
+			                      <ul>
+			                          <li>0.0 - <0.2 = Level 1</li>
+			                          <li>0.2 - <0.4 = Level 2 </li>
+			                          <li>0.4 - <0.6 = Level 3 </li>
+			                          <li>0.6 - <0.8 = Level 4 </li>
+			                          <li>0.8 - <1.0 = Level 5 </li>
+			                      </ul>
+			                   <li> <h5> How to Level Up: </h5>
+			                      <p> To increase levels in this indicator, its best to have equal number of private + protected attributes when compared to the total number of attributes.
+			                      </p>
+			                  </li>
+			              </ul>
+			          </div>
+			        <div class="modal-footer">
+			        </div>
+			      </div>
+			  </div>
             </div>
-         </div>
-    </div>
-</div>
 
 <script>
-
 var indicatorEnum = {
   PROCESS: 'process-table',
   CONTENT: 'content-table'
@@ -881,6 +1060,10 @@ function createModal() {
     //push all data in array for when it's needed
     temp.push(allData);
     console.log(temp);
+    var projName = allData.projectName;
+    var reposName = projName.substring(projName.lastIndexOf("/") + 1, projName.length);
+
+    $('#repoName').append(reposName.bold());
 
 
     /* RATIO VALUES */

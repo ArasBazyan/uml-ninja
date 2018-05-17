@@ -20,7 +20,7 @@
       position: fixed;
       height: 200%;
       width: 100%;
-      background-color: #000000;
+      background: linear-gradient(to right, #375eb5, #3199b1) !important;
       background-image: url("");
       background-repeat: no-repeat;
       background-size: cover;
@@ -37,34 +37,22 @@
       /* bring your own prefixes */
       transform: translate(-50%, -50%);
   }
-
   .center:after {
       background-color: white;
       width: 100%;
       height: 100%;
       content: '';
-      /* display: block; */
       position: fixed;
       top: 10px;
-      /* left: 10px; */
-      /* right: 10px; */
-      /* bottom: 10px; */
       z-index: -1;
-      /* margin: 20% auto 0 auto; */
-      /* position: fixed; */
-      /* top: 50%; */
-      /* left: 50%; */
       opacity: 0.15;
-      /* padding: 10px 0 50px 54px; */
-
-
   }
 
   button {
       box-sizing: border-box;
       display: inline-block;
-      background: #deba00;
-      color: #1F1F1C;
+      background: linear-gradient(to right, #375eb5, #347bb3) !important;
+      color: #f2f2f2;
       border: none;
       margin-right: 0.7rem;
       padding: 0 1.5rem;
@@ -75,12 +63,11 @@
   }
 
   button:hover{
-      opacity: 0.9;
+      opacity: 0.8;
   }
 
   .p100d {
       font-size: 0.9rem;
-
       font-family: Avenir, sans-serif;
       width: 100%;
       height: 50px;
@@ -118,20 +105,20 @@
         particlesJS("particles-js", {
             "particles": {
                 "number": {
-                    "value": 100,
+                    "value": 75,
                     "density": {
                         "enable": true,
                         "value_area": 1000
                     }
                 },
                 "color": {
-                    "value": "#deba00"
+                    "value": "#d6d6d6"
                 },
                 "shape": {
                     "type": "star",
                     "stroke": {
                         "width": 0,
-                        "color": "#deba00"
+                        "color": "#d6d6d6"
                     },
                     "polygon": {
                         "nb_sides": 5
@@ -165,7 +152,7 @@
                 "line_linked": {
                     "enable": true,
                     "distance": 150,
-                    "color": "#deba00",
+                    "color": "#d6d6d6",
                     "opacity": 0.4,
                     "width": 1
                 },
@@ -231,11 +218,11 @@
 $(document).ready(function(){
     $("#showRepos").click(function(){
       $.getJSON("http://localhost:3000/projectData", function(result){
-          console.log(result)
+          console.log(result);
           var index = 0;
           console.log(result.length)
           for (var i = 0; i < result.length; i++) {
-            $("#testRepos").append("<li id=" + i + ">" + result[i].ProjectName + "</li>");
+            $("#testRepos").append("<li <a style='cursor:pointer;' id=" + i + ">" + result[i].ProjectName + "</a></li>");
           }
         // clickable repo name
         $("#testRepos").children().click(function(){
@@ -262,8 +249,7 @@ $("#openNav").hide();
         function getUserData(callback) {
             $.get("https://api.github.com/users/" + searchterm,
                 function(data, status){
-                    console.log(status);
-
+                    //console.log(status);
                     success: callback(data, status);
                 });
         };
@@ -272,16 +258,16 @@ $("#openNav").hide();
         function getUserRepos(callback){
             $.get("https://api.github.com/users/" + searchterm + "/repos",
                     function(data, status){
-                        console.log(status);
+                        //console.log(status);
                         success: callback(data,status);
                     });
         };
 
         // callback function to show repos
         function showRepos(data, status){
-            console.log(status);
+            //console.log(status);
             for (var i = 0; i < data.length; i++) {
-                $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
+              //  $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
             };
 
             // function when user clicks a repo choice
