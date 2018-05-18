@@ -1086,6 +1086,12 @@ ShowImageInModal();*/
         }
     }
 
+    $('#mevsc-info').on('show.bs.modal', function (e) {
+    var $invoker = $(e.relatedTarget);
+    console.log('gotcha bitch ', $invoker);
+    console.log('gotcha bitch ', $invoker[0].getAttribute("0"));
+});
+
     /* Global variables used to manipulate UI views */
     var score = 0;
     /* End of Global variable section */
