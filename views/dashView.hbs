@@ -247,7 +247,7 @@
                                         <th class="col-md-5"><h4>Level</h4></th>
                                     </tr>
                                     </thead>
-                                    <tbody id="process-table">
+                                    <tbody id="doc-process-table">
                                     </tbody>
                                 </table>
                             </div>
@@ -268,7 +268,7 @@
                                         <th class="col-md-5"><h4>Level</h4></th>
                                     </tr>
                                     </thead>
-                                    <tbody id="process-table">
+                                    <tbody id="doc-content-table">
                                     </tbody>
                                 </table>
                             </div>
@@ -291,7 +291,7 @@
                                         <th class="col-md-5"><h4>Level</h4></th>
                                     </tr>
                                     </thead>
-                                    <tbody id="process-table">
+                                    <tbody id="uml-process-table">
                                     </tbody>
                                 </table>
                             </div>
@@ -299,23 +299,18 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="column">
                     <h3> UML Content </h3>
                     <h4> UML Content </h4>
 
                     <ul class="nav nav-tabs">
-					    <li class="active"><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
-					    <li><a data-toggle="tab" href="#sdTab">Sequence Diagram</a></li>
-					    <li><a data-toggle="tab" href="#ucTab">Use Case Diagram</a></li>
-					    <li><a data-toggle="tab" href="#adTab">Activity Diagram</a></li>
+					    <li class="active"><a data-toggle="tab" href="#ovTab">Overview</a></li>
+					    <li><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
+					    <li><a data-toggle="tab" href="#scTab">Sequence Diagram</a></li>
 				  	</ul>
 
 					<div class="tab-content">
-					    <div id="cdTab" class="tab-pane fade in active">
-					    
+					    <div id="ovTab" class="tab-pane fade in active">
 				         	<div class="row marketing">
 		                        <div class="jumbotron">
 		                            <div class="table-responsive">
@@ -326,7 +321,7 @@
 		                                        <th class="col-md-5"><h4>Level</h4></th>
 		                                    </tr>
 		                                    </thead>
-		                                    <tbody id="content-table">
+		                                    <tbody id="uml-content-table">
 		                                    </tbody>
 		                                </table>
 		                            </div>
@@ -334,17 +329,41 @@
 		                    </div>
 					    </div>
 
-					    <div id="sdTab" class="tab-pane fade">
-					      <h3>Sequence Diagram Tab</h3>
-					      <p>Things</p>
+					    <div id="cdTab" class="tab-pane fade">
+					      <div class="row marketing">
+                                <div class="jumbotron">
+                                    <div class="table-responsive">
+                                        <table class="table tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th><h4>Level up</h4></th>
+                                                <th class="col-md-5"><h4>Level</h4></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="uml-content-table-cd">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 					    </div>
-					    <div id="ucTab" class="tab-pane fade">
-					      <h3>Use Case Diagram Tab</h3>
-					      <p>Things</p>
-					    </div>
-					    <div id="adTab" class="tab-pane fade">
-					      <h3>Activity Diagram Tab</h3>
-					      <p>Things</p>
+					    <div id="scTab" class="tab-pane fade">
+					      <div class="row marketing">
+                                <div class="jumbotron">
+                                    <div class="table-responsive">
+                                        <table class="table tablesorter">
+                                            <thead>
+                                            <tr>
+                                                <th><h4>Level up</h4></th>
+                                                <th class="col-md-5"><h4>Level</h4></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody id="uml-content-table-sc">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
 					    </div>
 				    </div>
                 </div>
@@ -833,12 +852,20 @@
 
 <script>
 var indicatorEnum = {
-  PROCESS: 'process-table',
-  CONTENT: 'content-table'
+  UML_PROCESS: 'uml-process-table',
+  UML_CONTENT: 'uml-content-table',
+  UML_CONTENT_CD: 'uml-content-table-cd',
+  UML_CONTENT_SC: 'uml-content-table-sc',
+  DOC_PROCESS: 'doc-process-table',
+  DOC_CONTENT: 'doc-content-table'
 };
 
-var processIndicators = [];
-var contentIndicators = [];
+var umlProcessIndicators = [];
+var umlContentIndicators = [];
+var docProcessIndicators = [];
+var docContentIndicators = [];
+var umlContentIndicatorsCD = [];
+var umlContentIndicatorsSC = [];
 
 function Indicator(name,value,minVal,maxVal,type){
   this.name = name;
@@ -925,24 +952,40 @@ function Indicator(name,value,minVal,maxVal,type){
 function addIndicator (name,value,minVal,maxVal,type){
   var x = new Indicator(name,value,minVal,maxVal,type);
   switch(type){
-    case indicatorEnum.PROCESS:
-      processIndicators.push(x);
+    case indicatorEnum.UML_PROCESS:
+      umlProcessIndicators.push(x);
       break;
 
-    case indicatorEnum.CONTENT:
-      contentIndicators.push(x);
+    case indicatorEnum.UML_CONTENT:
+      umlContentIndicators.push(x);
+      break;
+
+    case indicatorEnum.UML_CONTENT_CD:
+    umlContentIndicatorsCD.push(x);
+    break;
+
+    case indicatorEnum.UML_CONTENT_SC:
+    umlContentIndicatorsSC.push(x);
+    break;
+
+    case indicatorEnum.DOC_PROCESS:
+    docProcessIndicators.push(x);
+    break;
+
+    case indicatorEnum.DOC_CONTENT:
+    docContentIndicators.push(x);
   }
 }
 
 function changeIndicatorValue (indicatorName, propertyName, updatedValue){
-  var processIndex = processIndicators.indexOf(indicatorName);
-  var contentIndex = contentIndicators.indexOf(indicatorName);
+  var processIndex = umlProcessIndicators.indexOf(indicatorName);
+  var contentIndex = umlContentIndicators.indexOf(indicatorName);
 
   if (processIndex != -1){
-    processIndicators[processIndex].update (propertyName,updatedValue);
+    umlProcessIndicators[processIndex].update (propertyName,updatedValue);
   }
   else if (contentIndex != 1){
-    contentIndicators[contentIndex].update(propertyName,updatedValue);
+    umlContentIndicators[contentIndex].update(propertyName,updatedValue);
   }
 
   else {
@@ -1002,6 +1045,19 @@ function createModal() {
     });
     */
 
+    /*var testingMat = "<ul> <li> <h5> Commit Ratio info: </h5> <p>This indicator shows the ratio between UML commits to all commits made in the project. The purpose of this indicator is to show the frequency of UML documentation updates in compare to code updates.<br></p></li><li> <h5> Data collection: </h5><p>The data is collected using GitHub commit history. The UML commit data is collected using Commit comments. A commit is counted as UML commit if the commit comment includes words such as UML, UML diagram, Documentation, Software Architecture etc.</p></li></ul>";
+    function ShowImageInModal() {
+        jQuery.noConflict();
+    (function ($) {
+        document.getElementById("mevsc-info").querySelector(".modal-body").innerHTML = testingMat;
+        //var mymodal = $('#mevsc-info');
+        //mymodal.find('.modal-body').text('helllloooooo');
+        $('#mevsc-info').modal('show');
+    }
+    )(jQuery);
+    }
+ShowImageInModal();*/
+
     function createTable (object, tbody){
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
@@ -1052,8 +1108,11 @@ function createModal() {
         noc : {{ data.NOC }},
         noa : {{ data.NOA }},
         nom : {{ data.NOM }},
-        diagramLoc : "{{ data.diagramLoc }}"
-
+        classDiagram : "{{ data.classDiagram_link }}",
+        sequenceDiagram : "{{ data.sequenceDiagram_link }}",
+        usecaseDiagram : "{{ data.usecaseDiagram_link }}",
+        stateDiagram : "{{ data.stateDiagram_link }}",
+        activityDiagram : "{{ data.activityDiagram_link}}"
     };
 
     temp = [];
@@ -1070,18 +1129,27 @@ function createModal() {
     var commitRatio = allData.umlCommits / allData.allCommits;
     commitRatio = commitRatio * 5;
     var docSize = allData.docSize;
+    var numDiagrams = 0;
+    if (allData.classDiagram != "") numDiagrams++;
+    if (allData.sequenceDiagram != "") numDiagrams++;
+    if (allData.activityDiagram != "") numDiagrams++;
+    if (allData.stateDiagram != "") numDiagrams++;
+    if (allData.usecaseDiagram != "") numDiagrams++;
+
+    console.log("here is activity diagram " + allData.activityDiagram);
+
 
     var documentEvolution = allData.docSize / allData.umlCommits;
     documentEvolution = documentEvolution  * 5;
-    addIndicator("AvsC",allData.aVsC, 0, 1, indicatorEnum.CONTENT);
-    addIndicator("ASvsC",allData.asVsC, 0, 1, indicatorEnum.CONTENT);
-    addIndicator("MevsC",allData.meVsC, 0, 1, indicatorEnum.CONTENT);
-    addIndicator("APPM",allData.appm, 0, 1, indicatorEnum.CONTENT);
-    addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.CONTENT);
-    addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.CONTENT);
-
-    addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.PROCESS);
+    addIndicator("AvsC",allData.aVsC, 0, 1, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("ASvsC",allData.asVsC, 0, 1, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("MevsC",allData.meVsC, 0, 1, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("APPM",allData.appm, 0, 1, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.UML_CONTENT_CD);
+    addIndicator("Number of Diagrams", numDiagrams, 0,5,indicatorEnum.UML_CONTENT)
+    addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.UML_PROCESS);
+    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.UML_PROCESS);
 
 // create graphs
 window.onload = function() {
@@ -1113,8 +1181,13 @@ window.onload = function() {
         dataPointsDoc.push({y: arrayItem.umlCommits , label : "Number of UML Commits" });
     });
 
-    createTable(processIndicators, 'process-table' );
-    createTable(contentIndicators , 'content-table');
+    createTable(umlProcessIndicators, 'uml-process-table');
+    createTable(umlContentIndicators , 'uml-content-table');
+    createTable(umlContentIndicatorsCD , 'uml-content-table-cd');
+    createTable(umlContentIndicatorsSC , 'uml-content-table-sc');
+
+    createTable(docProcessIndicators, 'doc-process-table');
+    createTable(docContentIndicators, 'doc-content-table');
 
 
     var chart = new CanvasJS.Chart("chartContainer", {
@@ -1197,7 +1270,7 @@ window.onload = function() {
             dataPoints: dataPointsAvsC
         }]
     });
-    $('#avsc-chart-info').html("AvsC: " + contentIndicators.find(item => item.name === "AvsC").value.toFixed(3).bold().big());
+    $('#avsc-chart-info').html("AvsC: " + umlContentIndicatorsCD.find(item => item.name === "AvsC").value.toFixed(3).bold().big());
     avscChart.render();
 
     var asvscChart = new CanvasJS.Chart("asvsc-chart", {
@@ -1217,7 +1290,7 @@ window.onload = function() {
             dataPoints: dataPointsASvsC
         }]
     });
-    $('#asvsc-chart-info').html("ASvsC: " + contentIndicators.find(item => item.name === "ASvsC").value.toFixed(3).bold().big());
+    $('#asvsc-chart-info').html("ASvsC: " + umlContentIndicatorsCD.find(item => item.name === "ASvsC").value.toFixed(3).bold().big());
     asvscChart.render();
 
 /*docChart.options.data[0].dataPoints = testDataPoints;
@@ -1234,14 +1307,23 @@ function explodePie (e) {
 }
 
     // Sum up score from the indicators
-    for(var i = 0; i< processIndicators.length; i++){
-        score += processIndicators[i].adjustedValue();
+    for(var i = 0; i< umlProcessIndicators.length; i++){
+        score += umlProcessIndicators[i].adjustedValue();
     }
-    for(var i = 0; i< contentIndicators.length; i++){
-        score += contentIndicators[i].adjustedValue();
+    for(var i = 0; i< umlContentIndicators.length; i++){
+        score += umlContentIndicators[i].adjustedValue();
+    }
+    for(var i = 0; i< umlContentIndicatorsCD.length; i++){
+        score += umlContentIndicatorsCD[i].adjustedValue();
+    }
+    for(var i = 0; i< docProcessIndicators.length; i++){
+        score += docProcessIndicators[i].adjustedValue();
+    }
+    for(var i = 0; i< docContentIndicators.length; i++){
+        score += docContentIndicators[i].adjustedValue();
     }
 
-    var scoreEl = $('#score').html("Score: " + score + '/' + 40);
+    var scoreEl = $('#score').html("Score: " + score + '/' + 45);
 }
 </script>
 
