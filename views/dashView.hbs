@@ -195,7 +195,7 @@
         </div>
         <div>
             <i class="fa fa-language"></i>
-            <p> Main programming languages:<br> <b> C++, Java, Shell</b></p>
+            <p id="mainPL"> Main programming languages:<br> <b> C++ </b></p>
         </div>
     </div>
 
@@ -231,7 +231,6 @@
             <div class="row">
                 <div class="column">
                     <h3> Documentation Process </h3>
-                    <h4> Documentation Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -258,15 +257,10 @@
                             </label>
                         </div>
                     </div>
-
-
-
-
                 </div>
 
                 <div class="column">
                     <h3> Documentation Content </h3>
-                    <h4> Documentation Content </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -296,7 +290,6 @@
             <div class="row">
                 <div class="column">
                     <h3> UML Process </h3>
-                    <h4> UML Process </h4>
                     <div class="row marketing">
                         <div class="jumbotron">
                             <div class="table-responsive">
@@ -315,13 +308,8 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="column">
                     <h3> UML Content </h3>
-                    <h4> UML Content </h4>
-
                     <ul class="nav nav-tabs">
 					    <li class="active"><a data-toggle="tab" href="#ovTab">Overview</a></li>
 					    <li><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
@@ -336,12 +324,48 @@
 		                                <table class="table tablesorter">
 		                                    <thead>
 		                                    <tr>
-		                                        <th><h4>Level up</h4></th>
-		                                        <th class="col-md-5"><h4>Level</h4></th>
+		                                        <th><h4>Type of Diagram</h4></th>
+		                                        <th class="col-md-5"><h4>Contains</h4></th>
 		                                    </tr>
 		                                    </thead>
 		                                    <tbody id="uml-content-table">
 		                                    </tbody>
+                                            <tr>
+                                                <td> <a data-toggle="tab" href="#cdTab">CLass Diagram</a></td>
+                                                <td>
+                                                    <label>
+                                                        <i id="containsCD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                                        <i id="notContainsCD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                            <td><a data-toggle="tab" href="#scTab">Sequence Diagram</a></td>
+                                            <td>
+                                                <label>
+                                                    <i id="containsSD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                                    <i id="notContainsSD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                                </label>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a>Activity Diagram</a></td>
+                                                <td>
+                                                    <label>
+                                                        <i id="containsAD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                                        <i id="notContainsAD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td><a>Use Case Diagram</a></td>
+                                                <td>
+                                                    <label>
+                                                        <i id="containsUD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                                        <i id="notContainsUD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                                    </label>
+                                                </td>
+                                            </tr>
 		                                </table>
 		                            </div>
 		                        </div>
@@ -1357,9 +1381,12 @@ ShowImageInModal();*/
     addIndicator("APPM",allData.appm, 0, 1, indicatorEnum.UML_CONTENT_CD);
     addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.UML_CONTENT_CD);
     addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.UML_CONTENT_CD);
-    addIndicator("Number of Diagrams", numDiagrams, 0,5,indicatorEnum.UML_CONTENT)
     addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.UML_PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.UML_PROCESS);
+    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.DOC_PROCESS);
+
+
+    addIndicator("Document Commit Ratio", numDiagrams, 0,5,indicatorEnum.DOC_PROCESS)
+
 
 // create graphs
 window.onload = function() {
@@ -1414,6 +1441,30 @@ window.onload = function() {
     createTable(docContentIndicators, 'doc-content-table');
 
 
+    allData.isVersionControlled === 1 ? ($('#versionControlled').show() , score+=2) : ($('#notVerionControlled').show(),$('#mainPL').append("<b>, Java</b>"));
+    allData.isEditable === 1 ? (($('#docEditable').show() , score+=2), $('#mainPL').append("<b>, Javascript</b>")) : $('#notEditable').show();
+
+    console.log(allData.classDiagram);
+    console.log(allData.activityDiagram);
+    console.log(allData.usecaseDiagram)
+
+    allData.classDiagram != "" ? ($('#containsCD').show() , score+=2 ) : $('#notContainsCD').show();
+    allData.sequenceDiagram != "" ? ($('#containsSD').show() , score+=2) : $('#notContainsSD').show();
+    allData.activityDiagram != "" ? ($('#containsAD').show() , score+=2) : $('#notContainsAD').show();
+    allData.usecaseDiagram != "" ? ($('#containsUD').show() , score+=2) : $('#notContainsUD').show();
+
+
+
+    /*
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+
+
     if(allData.isVersionControlled === 1){
         $('#versionControlled').show();
         score+=2;
@@ -1429,7 +1480,7 @@ window.onload = function() {
     if (allData.isEditable === 0){
         $('#notEditable').show();
     }
-
+*/
 
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
@@ -1645,7 +1696,7 @@ function explodePie (e) {
     }
     var scoreEl = $('#score').html("Over all score: " + score + '/' + 44);
 
-    $('#umlScore').html("UML score: " + (score - 14) + '/' + 40 );
+    $('#umlScore').html("UML score: " + (score - 10) + '/' + 40 );
     var scoreEl = $('#score').html("Score: " + score + '/' + 45);
 
 }
