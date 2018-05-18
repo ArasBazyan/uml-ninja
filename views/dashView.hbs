@@ -598,6 +598,87 @@
                 </div>
             </div>
 
+            <!-- MODAL - Doc Evolution DETAIL -->
+            <div class="modal fade" id="mevsc-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">MevsC</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="mevsc-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="mevsc-chart-info"> MevsC </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="appm-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">APPM</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="appm-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="appm-chart-info"> APPM </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="depvsc-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">DEPvsC</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="depvsc-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="depvsc-chart-info"> DEPvsC </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="dam-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">DAM</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="dam-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="dam-chart-info"> DAM </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="modal fade" id="avsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -985,6 +1066,16 @@ function Indicator(name,value,minVal,maxVal,type){
   this.maxVal = maxVal;
   this.type = type;
 
+  this.longName = function(){
+    if (this.name == "AvsC") return "Attributes vs Class";
+    else if (this.name == "ASvsC") return "Associations vs Class";
+    else if (this.name == "MevsC") return "Methods vs Class";
+    else if (this.name == "APPM") return "Average Parameters per Method";
+    else if (this.name == "DEPvsC") return "Dependencies vs Class";
+    else if (this.name == "DAM") return "Data Access Metrics";
+
+    else return this.name;
+  }
   this.infoLink = function(){
     return this.name.replace(/\W+/g, '-').toLowerCase() + "-info";
   }
@@ -1173,7 +1264,7 @@ ShowImageInModal();*/
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
             var tr = "<tr>";
-            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].name + "</a></td> ";
+            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
 
             //var mymodal = $('#uml-commit-ratio-info');
             //mymodal.find('.modal-body').text('helllloooooo');
@@ -1277,15 +1368,29 @@ window.onload = function() {
     var dataPointsAvsC = [];
     var dataPointsASvsC = [];
     var dataPointsMEvsC = [];
-    var dataPointAPPM = [];
-    var datapointsDEPvsC = [];
-    var datapointsDAM = [];
+    var dataPointsAPPM = [];
+    var dataPointsDEPvsC = [];
+    var dataPointsDAM = [];
 
     dataPointsAvsC.push({y: allData.noc, label: "Number of Classes"});
     dataPointsAvsC.push({y: allData.noa, label: "Number of Attributes"});
 
     dataPointsASvsC.push({y: allData.noc, label: "Number of Classes"});
     dataPointsASvsC.push({y: allData.noc + 2, label: "Number of Associations"});
+
+    dataPointsMEvsC.push({y: allData.nom, label: "Number of Methods"});
+    dataPointsMEvsC.push({y: allData.noc, label: "Number of Classes"});
+
+    dataPointsAPPM.push({y: allData.nom * 2 + 2, label: "Number of Parameters"});
+    dataPointsAPPM.push({y: allData.nom, label: "Number of Methods"});
+
+    dataPointsDEPvsC.push({y: allData.noc + 3, label: "Number of Dependencies"});
+    dataPointsDEPvsC.push({y: allData.noc, label: "Number of Classes"});
+
+    dataPointsDAM.push({y: allData.noa - 2, label: "Private Attributes"});
+    dataPointsDAM.push({y:allData.noa - 4, label: "Protected Attributes"});
+    dataPointsDAM.push({y: allData.noa, label: "Total Attributes"});
+
 
     var processData = [];
     var contentData = [];
@@ -1428,6 +1533,86 @@ window.onload = function() {
     });
     $('#asvsc-chart-info').html("ASvsC: " + umlContentIndicatorsCD.find(item => item.name === "ASvsC").value.toFixed(3).bold().big());
     asvscChart.render();
+
+    var mevscChart = new CanvasJS.Chart("mevsc-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "MevsC"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsMEvsC
+        }]
+    });
+    $('#mevsc-chart-info').html("MevsC: " + umlContentIndicatorsCD.find(item => item.name === "MevsC").value.toFixed(3).bold().big());
+    mevscChart.render();
+
+    var appmChart = new CanvasJS.Chart("appm-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "APPM"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsAPPM
+        }]
+    });
+    $('#appm-chart-info').html("APPM: " + umlContentIndicatorsCD.find(item => item.name === "APPM").value.toFixed(3).bold().big());
+    appmChart.render();
+
+    var depvscChart = new CanvasJS.Chart("depvsc-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "DEPvsC"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsDEPvsC
+        }]
+    });
+    $('#depvsc-chart-info').html("DEPvsC: " + umlContentIndicatorsCD.find(item => item.name === "DEPvsC").value.toFixed(3).bold().big());
+    depvscChart.render();
+
+    var damChart = new CanvasJS.Chart("dam-chart", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "DAM"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            startAngle: 240,
+            dataPoints: dataPointsDAM
+        }]
+    });
+    $('#dam-chart-info').html("DAM: " + umlContentIndicatorsCD.find(item => item.name === "DAM").value.toFixed(3).bold().big());
+    damChart.render();
 
 /*docChart.options.data[0].dataPoints = testDataPoints;
 docChart.render();*/
