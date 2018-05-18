@@ -150,6 +150,7 @@
         display: block;
         padding: 5px 6px;
     }
+
     /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
     @media screen and (max-width: 600px) {
         .jumbotron {
@@ -226,11 +227,25 @@
                                     </tr>
                                     </thead>
                                     <tbody id="process-table">
+                                    <td> <a data-toggle="modal" data-target="#doc-process-version-control-info">Version Control</a></td>
+                                    <td>
+                                        <label>
+                                            <i id="versionControlled" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                            <i id="notVerionControlled" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                        </label>
+                                    </td>
                                     </tbody>
                                 </table>
                             </div>
+                            <label>
+
+                            </label>
                         </div>
                     </div>
+
+
+
+
                 </div>
 
                 <div class="column">
@@ -775,7 +790,7 @@
                           
                          <ul>
                               <li> <h5> DAM Indicator Info </h5>
-                                  <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
+                                  <p>This indicator is the ratio between number of private and protected attributes and total number of attributes (data access metric). <br>
                                   This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
                                   </p>
                               </li>
@@ -808,6 +823,51 @@
                   </div>
               </div>
             </div>
+
+
+
+
+<!-- MODAL - Document Process Version Control INFO -->
+<div class="modal fade" id="doc-process-version-control-info" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal-content-size">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Version Control Info</h4>
+            </div>
+            <div class="modal-body modal-body-size">
+
+                <ul>
+                    <li> <h5> Process Document Version Control Info </h5>
+                        <p>This indicator checks if the document is under version control.
+                        </p>
+                    </li>
+                    <li> <h5> Data collection: </h5>
+                        <p>The data is collected using information on the document versions.
+                        </p>
+                    </li>
+                    <li> <h5> Data analysis: </h5>
+                        <p>The raw output is a boolean, True if the document is under version control and False otherwise.
+                        </p>
+                    </li>
+                    <li> <h5> Score </h5>
+                        <ul>
+                            <li>If the document is under version control, the project receives 2 points, otherwise no points</li>
+                            <li>If the document is under version control, the a green check appears next to the indicator,
+                                otherwise a red cross appears next to the indicator </li>
+
+                        </ul>
+                    <li> <h5> How to get the 2 points </h5>
+                        <p> Make the project documentation under a version control system
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
 var indicatorEnum = {
@@ -1001,7 +1061,9 @@ function createModal() {
         noc : {{ data.NOC }},
         noa : {{ data.NOA }},
         nom : {{ data.NOM }},
-        diagramLoc : "{{ data.diagramLoc }}"
+        diagramLoc : "{{ data.diagramLoc }}",
+        isVersionControlled : {{data.isVersionControlled}},
+        isEditable : {{data.isEditable}}
     };
     temp = [];
     //push all data in array for when it's needed
@@ -1051,6 +1113,15 @@ window.onload = function() {
     });
     createTable(processIndicators, 'process-table' );
     createTable(contentIndicators , 'content-table');
+
+    if(allData.isVersionControlled === 1){
+        $('#versionControlled').show();
+    }
+    if (allData.isVersionControlled === 0){
+        $('#notVerionControlled').show();
+    }
+
+
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
         animationEnabled: true,
