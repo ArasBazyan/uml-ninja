@@ -198,10 +198,12 @@
     <!-- Score column style="text-align: center; width: 300px; min-height: 400px" -->
         <div class="smallColumn" >
             <div>
-                <img src="/img/ninja.png"  class="center" alt=ninjaa.png height="150" width="150">
+                <img src="/img/github.gif"  class="center" alt=ninja.png height="150" width="190">
             </div>
-            <h3 style="text-align: center; padding: 6px;" id="score">Score
-            </h3>
+            <h3 style="text-align: center; padding: 6px;" id="score">Score</h3>
+
+            <h3 style="text-align: center; padding: 6px; margin-top: 10px" id="umlScore">Score</h3>
+
             <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
             <br>
             <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
@@ -262,6 +264,13 @@
                                     </tr>
                                     </thead>
                                     <tbody id="process-table">
+                                    <td> <a data-toggle="modal" data-target="#doc-content-editable-info">Document Editable</a></td>
+                                    <td>
+                                        <label>
+                                            <i id="docEditable" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
+                                            <i id="notEditable" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                        </label>
+                                    </td>
                                     </tbody>
                                 </table>
                             </div>
@@ -827,47 +836,94 @@
 
 
 
-<!-- MODAL - Document Process Version Control INFO -->
-<div class="modal fade" id="doc-process-version-control-info" role="dialog">
-    <div class="modal-dialog">
-        <!-- Modal content-->
-        <div class="modal-content modal-content-size">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Version Control Info</h4>
+            <!-- MODAL - Document Process Version Control INFO -->
+            <div class="modal fade" id="doc-process-version-control-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Version Control Info</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+
+                            <ul>
+                                <li> <h5> Process Document Version Control Info </h5>
+                                    <p>This indicator checks if the document is under version control.
+                                    </p>
+                                </li>
+                                <li> <h5> Data collection: </h5>
+                                    <p>The data is collected using information on the document versions.
+                                    </p>
+                                </li>
+                                <li> <h5> Data analysis: </h5>
+                                    <p>The raw output is a boolean, True if the document is under version control and False otherwise.
+                                    </p>
+                                </li>
+                                <li> <h5> Score </h5>
+                                    <ul>
+                                        <li>If the document is under version control, the project receives 2 points, otherwise no points</li>
+                                        <li>If the document is under version control, the a green check appears next to the indicator,
+                                            otherwise a red cross appears next to the indicator </li>
+
+                                    </ul>
+                                <li> <h5> How to get the 2 points </h5>
+                                    <p> Make the project documentation under a version control system
+                                    </p>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body modal-body-size">
 
-                <ul>
-                    <li> <h5> Process Document Version Control Info </h5>
-                        <p>This indicator checks if the document is under version control.
-                        </p>
-                    </li>
-                    <li> <h5> Data collection: </h5>
-                        <p>The data is collected using information on the document versions.
-                        </p>
-                    </li>
-                    <li> <h5> Data analysis: </h5>
-                        <p>The raw output is a boolean, True if the document is under version control and False otherwise.
-                        </p>
-                    </li>
-                    <li> <h5> Score </h5>
-                        <ul>
-                            <li>If the document is under version control, the project receives 2 points, otherwise no points</li>
-                            <li>If the document is under version control, the a green check appears next to the indicator,
-                                otherwise a red cross appears next to the indicator </li>
 
-                        </ul>
-                    <li> <h5> How to get the 2 points </h5>
-                        <p> Make the project documentation under a version control system
-                        </p>
-                    </li>
-                </ul>
 
-            </div>
-        </div>
-    </div>
-</div>
+
+                <!-- MODAL - Document Content Editable  INFO -->
+                <div class="modal fade" id="doc-content-editable-info" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content modal-content-size">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Document Editable Info</h4>
+                            </div>
+                            <div class="modal-body modal-body-size">
+
+                                <ul>
+                                    <li> <h5> Process Document Editable Info </h5>
+                                        <p>This indicator checks if the document is editable or not. That is, to if the document is dynamic or static.
+                                            A dynamic document can be in Word or be an online document that can be edited nd updated
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data collection: </h5>
+                                        <p>The data is collected using file extension, e.g. .pdf, .docx etc.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data analysis: </h5>
+                                        <p>The raw output is a boolean, True if the document is editable and False otherwise.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Score </h5>
+                                        <ul>
+                                            <li>If the document is editable, the project receives 2 points, otherwise no points.
+                                                That is because an editable file allows updates and changes and it prevents having clone and duplicate document</li>
+                                            <li>If the document is editable, then a green check appears next to the indicator,
+                                                otherwise a red cross appears next to the indicator </li>
+
+                                        </ul>
+                                    <li> <h5> How to get the 2 points </h5>
+                                        <p> Make the project documentation editable.
+                                        </p>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 <script>
 var indicatorEnum = {
@@ -1114,11 +1170,21 @@ window.onload = function() {
     createTable(processIndicators, 'process-table' );
     createTable(contentIndicators , 'content-table');
 
+
     if(allData.isVersionControlled === 1){
         $('#versionControlled').show();
+        score+=2;
     }
     if (allData.isVersionControlled === 0){
         $('#notVerionControlled').show();
+    }
+
+    if(allData.isEditable === 1){
+        $('#docEditable').show();
+        score+=2;
+    }
+    if (allData.isEditable === 0){
+        $('#notEditable').show();
     }
 
 
@@ -1234,7 +1300,10 @@ function explodePie (e) {
     for(var i = 0; i< contentIndicators.length; i++){
         score += contentIndicators[i].adjustedValue();
     }
-    var scoreEl = $('#score').html("Score: " + score + '/' + 40);
+    var scoreEl = $('#score').html("Over all score: " + score + '/' + 44);
+
+    $('#umlScore').html("UML score: " + (score - 14) + '/' + 40 );
+
 }
 </script>
 
