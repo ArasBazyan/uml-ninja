@@ -313,7 +313,6 @@
                     <ul class="nav nav-tabs">
 					    <li class="active"><a data-toggle="tab" href="#ovTab">Overview</a></li>
 					    <li><a data-toggle="tab" href="#cdTab">Class Diagram</a></li>
-					    <li><a data-toggle="tab" href="#scTab">Sequence Diagram</a></li>
 				  	</ul>
 
 					<div class="tab-content">
@@ -336,6 +335,8 @@
                                                     <label>
                                                         <i id="containsCD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
                                                         <i id="notContainsCD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
+                                                        <a id="cdLink" style=" display: none; font-size: 32px; margin-left: 15px" class="fa fa-image"></a>
+
                                                     </label>
                                                 </td>
                                             </tr>
@@ -379,29 +380,11 @@
                                         <table class="table tablesorter">
                                             <thead>
                                             <tr>
-                                                <th><h4>Level up</h4></th>
+                                                <th><h4>Level up </h4></th>
                                                 <th class="col-md-5"><h4>Level</h4></th>
                                             </tr>
                                             </thead>
                                             <tbody id="uml-content-table-cd">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-					    </div>
-					    <div id="scTab" class="tab-pane fade">
-					      <div class="row marketing">
-                                <div class="jumbotron">
-                                    <div class="table-responsive">
-                                        <table class="table tablesorter">
-                                            <thead>
-                                            <tr>
-                                                <th><h4>Level up</h4></th>
-                                                <th class="col-md-5"><h4>Level</h4></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody id="uml-content-table-sc">
                                             </tbody>
                                         </table>
                                     </div>
@@ -413,8 +396,6 @@
             </div>
         </div>
     </div>
-
-            <div id="mtest"> </div>
 
             <!-- MODAL - Commit Ratio INFO -->
             <div class="modal fade" id="uml-commit-ratio-info" role="dialog">
@@ -432,7 +413,7 @@
                                     </p>
                                 </li>
                                 <li> <h5> Data collection: </h5>
-                                    <p>The data is collected using GitHub commit history. The UML commit data is collected using Commit comments. A commit is counted as UML commit if the commit comment includes words such as UML, UML diagram, Documentation, Software Architecture etc.
+                                    <p>The data is collected using GitHub commit history. The UML commit data is collected using Commit comments. A commit is counted as UML commit if the commit comment includes words such as UML, UML diagram, UML changes, class diagram changes etc.
                                     </p>
                                 </li>
                                 <li> <h5> Data analysis: </h5>
@@ -443,11 +424,11 @@
                                     <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale. The levels are calculated as follows:
                                     </p>
                                     <ul>
-                                        <li>0.0 - <0.2 = Level 1</li>
-                                        <li>0.2 - <0.4 = Level 2 </li>
-                                        <li>0.4 - <0.6 = Level 3 </li>
-                                        <li>0.6 - <0.8 = Level 4 </li>
-                                        <li>0.8 - <1.0 = Level 5 </li>
+                                        <li>0.0 - =<0.2 = Level 1</li>
+                                        <li>0.2 - =<0.4 = Level 2 </li>
+                                        <li>0.4 - =<0.6 = Level 3 </li>
+                                        <li>0.6 - =<0.8 = Level 4 </li>
+                                        <li>0.8 - =<1.0 = Level 5 </li>
                                     </ul>
                                 </li>
                                 <li> <h5> How to Level Up: </h5>
@@ -461,7 +442,7 @@
                                             UML Ninja does not have access to that data as for now. All projects are analysed equally.
                                         </li>
                                         <li>
-                                            It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process. UML Ninja
+                                            It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process.
                                         </li>
                                         <li>
                                             The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
@@ -484,19 +465,91 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Commit Ratio</h4>
+                            <h4 class="modal-title">UML Commit Ratio</h4>
                         </div>
                         <div class="modal-body">
                             <div id="chartContainer" style="height: 370px; width: 100%;"></div>
                             <br>
                             <br>
-                            <h4 id="commitRatio" >Commit Ratio </h4>
+                            <h4 id="commitRatio" >UML Commit Ratio </h4>
                         </div>
                         <div class="modal-footer">
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+            <!-- MODAL Doc Process - Document Commit Ratio -  DETAIL-->
+            <div class="modal fade" id="document-commit-ratio-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Document Commit Ratio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="docCommitRatioChartContainer" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="docCommitRatio" >Document Commit Ratio </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- MODAL Doc Process - Document Contribution Ratio -  DETAIL-->
+            <div class="modal fade" id="document-contribution-ratio-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Document Contribution Ratio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="docContributionChartContainer" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="docContributionRatio" >Document Contribution Ratio </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- MODAL UML Process - UML Contribution Ratio -  DETAIL-->
+            <div class="modal fade" id="uml-contribution-ratio-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">UML Contribution Ratio</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="umlContributionChartContainer" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="umlContributionRatio" >UML Contribution Ratio </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- MODAL - Doc Evolution INFO -->
             <div class="modal fade" id="document-evolution-info" role="dialog">
@@ -527,11 +580,11 @@
                                         The levels are calculated as follows:
                                     </p>
                                     <ul>
-                                        <li>0.0 - <0.2 = Level 1</li>
-                                        <li>0.2 - <0.4 = Level 2 </li>
-                                        <li>0.4 - <0.6 = Level 3 </li>
-                                        <li>0.6 - <0.8 = Level 4 </li>
-                                        <li>0.8 - <1.0 = Level 5 </li>
+                                        <li>0.0 - =<0.2 = Level 1</li>
+                                        <li>0.2 - =<0.4 = Level 2 </li>
+                                        <li>0.4 - =<0.6 = Level 3 </li>
+                                        <li>0.6 - =<0.8 = Level 4 </li>
+                                        <li>0.8 - =<1.0 = Level 5 </li>
                                     </ul>
                                 </li>
                                 <li> <h5> How to Level Up: </h5>
@@ -580,7 +633,7 @@
                 </div>
             </div>
 
-              <!-- MODAL - Doc Evolution DETAIL -->
+              <!-- MODAL - avsc DETAIL -->
             <div class="modal fade" id="avsc-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -601,7 +654,7 @@
                 </div>
             </div>
 
-                          <!-- MODAL - Doc Evolution DETAIL -->
+              <!-- MODAL - asvsc DETAIL -->
             <div class="modal fade" id="asvsc-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -622,7 +675,7 @@
                 </div>
             </div>
 
-            <!-- MODAL - Doc Evolution DETAIL -->
+            <!-- MODAL - mevsc DETAIL -->
             <div class="modal fade" id="mevsc-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -751,7 +804,7 @@
                 </div>
             </div>
          </div>
-<div class="modal fade" id="asvsc-info" role="dialog">
+            <div class="modal fade" id="asvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content modal-content-size">
@@ -795,8 +848,8 @@
                         </div>
                     </div>
                 </div>
-</div>
-<div class="modal fade" id="mevsc-info" role="dialog">
+            </div>
+            <div class="modal fade" id="mevsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content modal-content-size">
@@ -841,7 +894,7 @@
                     </div>
                 </div>
             </div>
-<div class="modal fade" id="appm-info" role="dialog">
+            <div class="modal fade" id="appm-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content modal-content-size">
@@ -883,7 +936,7 @@
                     </div>
                 </div>
             </div>
-<div class="modal fade" id="depvsc-info" role="dialog">
+            <div class="modal fade" id="depvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content modal-content-size">
@@ -928,53 +981,50 @@
                     </div>
                 </div>
             </div>
-<div class="modal fade" id="dam-info" role="dialog">
-			  <div class="modal-dialog">
-			      <!-- Modal content-->
-			      <div class="modal-content modal-content-size">
-			          <div class="modal-header">
-			              <button type="button" class="close" data-dismiss="modal">&times;</button>
-			              <h4 class="modal-title">DAM Indicator</h4>
-			          </div>
-			          <div class="modal-body modal-body-size">
-			              
-			             <ul>
-			                  <li> <h5> DAM Indicator Info </h5>
-			                      <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
-			                      This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
-			                      </p>
-			                  </li>
-			                  <li> <h5> Data collection: </h5>
-			                      <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
-			                      </p>
-			                  </li>
-			                  <li> <h5> Data analysis: </h5>
-			                      <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
-			                      </p>
-			                  </li>
-			                  <li> <h5> Level: </h5>
-			                      <p>The levels are calculated as follows:
-			                      </p>
-			                      <ul>
-			                          <li>0.0 - <0.2 = Level 1</li>
-			                          <li>0.2 - <0.4 = Level 2 </li>
-			                          <li>0.4 - <0.6 = Level 3 </li>
-			                          <li>0.6 - <0.8 = Level 4 </li>
-			                          <li>0.8 - <1.0 = Level 5 </li>
-			                      </ul>
-			                   <li> <h5> How to Level Up: </h5>
-			                      <p> To increase levels in this indicator, its best to have equal number of private + protected attributes when compared to the total number of attributes.
-			                      </p>
-			                  </li>
-			              </ul>
-			          </div>
-			        <div class="modal-footer">
-			        </div>
-			      </div>
-			  </div>
+            <div class="modal fade" id="dam-info" role="dialog">
+              <div class="modal-dialog">
+                  <!-- Modal content-->
+                  <div class="modal-content modal-content-size">
+                      <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h4 class="modal-title">DAM Indicator</h4>
+                      </div>
+                      <div class="modal-body modal-body-size">
+                         <ul>
+                              <li> <h5> DAM Indicator Info </h5>
+                                  <p>This indicator is the ration between number of private and protected attributes and total number of attributes (data access metric). <br>
+                                  This indicator is used to measure the encapsulation. If the value is close to 1, the encapsulation tends to be good.
+                                  </p>
+                              </li>
+                              <li> <h5> Data collection: </h5>
+                                  <p>The data is collected using analysis of a UML Class Diagram pertaining to the project.
+                                  </p>
+                              </li>
+                              <li> <h5> Data analysis: </h5>
+                                  <p>The raw output is a value between 0 and 1 which is converted on a scale from 1-5.
+                                  </p>
+                              </li>
+                              <li> <h5> Level: </h5>
+                                  <p>The levels are calculated as follows:
+                                  </p>
+                                  <ul>
+                                      <li>0.0 - <0.2 = Level 1</li>
+                                      <li>0.2 - <0.4 = Level 2 </li>
+                                      <li>0.4 - <0.6 = Level 3 </li>
+                                      <li>0.6 - <0.8 = Level 4 </li>
+                                      <li>0.8 - <1.0 = Level 5 </li>
+                                  </ul>
+                               <li> <h5> How to Level Up: </h5>
+                                  <p> To increase levels in this indicator, its best to have equal number of private + protected attributes when compared to the total number of attributes.
+                                  </p>
+                              </li>
+                          </ul>
+                      </div>
+                    <div class="modal-footer">
+                    </div>
+                  </div>
+              </div>
             </div>
-
-
 
 
             <!-- MODAL - Document Process Version Control INFO -->
@@ -1003,12 +1053,12 @@
                                 </li>
                                 <li> <h5> Score </h5>
                                     <ul>
-                                        <li>If the document is under version control, the project receives 2 points, otherwise no points</li>
+                                        <li>If the document is under version control, the project receives 2.5 points, otherwise no points</li>
                                         <li>If the document is under version control, the a green check appears next to the indicator,
                                             otherwise a red cross appears next to the indicator </li>
 
                                     </ul>
-                                <li> <h5> How to get the 2 points </h5>
+                                <li> <h5> How to get the 2.5 points </h5>
                                     <p> Make the project documentation under a version control system
                                     </p>
                                 </li>
@@ -1018,8 +1068,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
                 <!-- MODAL - Document Content Editable  INFO -->
@@ -1034,7 +1082,7 @@
                             <div class="modal-body modal-body-size">
 
                                 <ul>
-                                    <li> <h5> Process Document Editable Info </h5>
+                                    <li> <h5> Process Document Editable Indicator </h5>
                                         <p>This indicator checks if the document is editable or not. That is, to if the document is dynamic or static.
                                             A dynamic document can be in Word or be an online document that can be edited nd updated
                                         </p>
@@ -1049,18 +1097,208 @@
                                     </li>
                                     <li> <h5> Score </h5>
                                         <ul>
-                                            <li>If the document is editable, the project receives 2 points, otherwise no points.
+                                            <li>If the document is editable, the project receives 2.5 points, otherwise no points.
                                                 That is because an editable file allows updates and changes and it prevents having clone and duplicate document</li>
                                             <li>If the document is editable, then a green check appears next to the indicator,
                                                 otherwise a red cross appears next to the indicator </li>
 
                                         </ul>
-                                    <li> <h5> How to get the 2 points </h5>
+                                    <li> <h5> How to get the 2.5 points </h5>
                                         <p> Make the project documentation editable.
                                         </p>
                                     </li>
                                 </ul>
 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- MODAL doc Process- Document Contribution Ratio  INFO -->
+                <div class="modal fade" id="document-contribution-ratio-info" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content modal-content-size">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Document Contribution Indicator</h4>
+                            </div>
+                            <div class="modal-body modal-body-size">
+
+                                <ul>
+                                    <li> <h5> Document Contribution Info </h5>
+                                        <p>This indicator checks the ratio between members who contribute to documentation to all project contributors.
+                                            The aim of this indicator is show how many percent of all members actively contribute to documentation.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data collection: </h5>
+                                        <p>The data is collected using GitHub API, to gather number of project contributors and people who update the documentation.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data analysis: </h5>
+                                        <p>The data is turned into ratio between document contributors to all project members, and the ratio is between 0-1.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Level: </h5>
+                                        <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale. The levels are calculated as follows:
+                                        </p>
+                                        <ul>
+                                            <li>0.0 - =<0.2 = Level 1</li>
+                                            <li>0.2 - =<0.4 = Level 2 </li>
+                                            <li>0.4 - =<0.6 = Level 3 </li>
+                                            <li>0.6 - =<0.8 = Level 4 </li>
+                                            <li>0.8 - =<1.0 = Level 5 </li>
+                                        </ul>
+                                    </li>
+                                    <li> <h5> How to Level Up: </h5>
+                                        <p>The larger the ratio the higher the level is, that is, to level up, more of the the project contributors are expected to update documentation.
+                                        </p>
+                                    </li>
+                                    <br>
+                                    <li> <h4> It should be noted that:</h4>
+                                        <ul>
+                                            <li> Software Development Methodology matters. For example, if the project follows Waterfall process, the UML document might be documented at the start of the project and not be updated very often later in the project. On the other hand, if the software development methodology is Agile, the document might be updated more frequently.
+                                                UML Ninja does not have access to that data as for now. All projects are analysed equally.
+                                            </li>
+                                            <li>
+                                                It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process.
+                                            </li>
+                                            <li>
+                                                The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
+                                            </li>
+                                            <li>The analysis is done on the models, and not the code. UML Ninja does not check the Model-Code differences, yet.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- MODAL UML Process- UML Contribution Ratio  INFO -->
+                <div class="modal fade" id="uml-contribution-ratio-info" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content modal-content-size">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">UML Contribution Indicator</h4>
+                            </div>
+                            <div class="modal-body modal-body-size">
+
+                                <ul>
+                                    <li> <h5> UML Contribution Info </h5>
+                                        <p>This indicator checks the ratio between members who contribute to UML to all project contributors.
+                                            The aim of this indicator is show how many percent of all members actively contribute to UML documentation.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data collection: </h5>
+                                        <p>The data is collected using GitHub API, to gather number of project contributors and people who update the UML diagrams.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data analysis: </h5>
+                                        <p>The data is turned into ratio between UML contributors to all project members, and the ratio is between 0-1.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Level: </h5>
+                                        <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale. The levels are calculated as follows:
+                                        </p>
+                                        <ul>
+                                            <li>0.0 - =<0.2 = Level 1</li>
+                                            <li>0.2 - =<0.4 = Level 2 </li>
+                                            <li>0.4 - =<0.6 = Level 3 </li>
+                                            <li>0.6 - =<0.8 = Level 4 </li>
+                                            <li>0.8 - =<1.0 = Level 5 </li>
+                                        </ul>
+                                    </li>
+                                    <li> <h5> How to Level Up: </h5>
+                                        <p>The larger the ratio the higher the level is, that is, to level up, more of the the project contributors are expected to update UML diagrams.
+                                        </p>
+                                    </li>
+                                    <br>
+                                    <li> <h4> It should be noted that:</h4>
+                                        <ul>
+                                            <li> Software Development Methodology matters. For example, if the project follows Waterfall process, the UML document might be documented at the start of the project and not be updated very often later in the project. On the other hand, if the software development methodology is Agile, the document might be updated more frequently.
+                                                UML Ninja does not have access to that data as for now. All projects are analysed equally.
+                                            </li>
+                                            <li>
+                                                It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process.
+                                            </li>
+                                            <li>
+                                                The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
+                                            </li>
+                                            <li>The analysis is done on the models, and not the code. UML Ninja does not check the Model-Code differences, yet.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- MODAL - Commit Ratio INFO -->
+                <div class="modal fade" id="document-commit-ratio-info" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content modal-content-size">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Document Commit Ratio Indicator</h4>
+                            </div>
+                            <div class="modal-body modal-body-size">
+                                <ul>
+                                    <li> <h5> Document Commit Ratio info: </h5>
+                                        <p>This indicator shows the ratio between Document commits to all commits made in the project. The purpose of this indicator is to show the frequency of documentation updates in compare to code updates.<br>
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data collection: </h5>
+                                        <p>The data is collected using GitHub commit history. The document commit data is collected using Commit comments. A commit is counted as document commit if the commit comment includes words such as documentation update, documentation, document change etc.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Data analysis: </h5>
+                                        <p>The data is turned into ratio between Document commits and all commits, and the ratio is between 0-1.
+                                        </p>
+                                    </li>
+                                    <li> <h5> Level: </h5>
+                                        <p>The levels are calculated by analysing the ratio data and translating it to a 1-5 scale. The levels are calculated as follows:
+                                        </p>
+                                        <ul>
+                                            <li>0.0 - =<0.2 = Level 1</li>
+                                            <li>0.2 - =<0.4 = Level 2 </li>
+                                            <li>0.4 - =<0.6 = Level 3 </li>
+                                            <li>0.6 - =<0.8 = Level 4 </li>
+                                            <li>0.8 - =<1.0 = Level 5 </li>
+                                        </ul>
+                                    </li>
+                                    <li> <h5> How to Level Up: </h5>
+                                        <p>The larger the ratio between document commits and all commit, the higher the level is, that is, to level up, the project contributors are supposed to update the UML document with design changes.
+                                        </p>
+                                    </li>
+                                    <br>
+                                    <li> <h4> It should be noted that:</h4>
+                                        <ul>
+                                            <li> Software Development Methodology matters. For example, if the project follows Waterfall process, the UML document might be documented at the start of the project and not be updated very often later in the project. On the other hand, if the software development methodology is Agile, the document might be updated more frequently.
+                                                UML Ninja does not have access to that data as for now. All projects are analysed equally.
+                                            </li>
+                                            <li>
+                                                It could be that all the UML and architecture design decisions are documented at the start of the project and the document is not updated throughout the process.
+                                            </li>
+                                            <li>
+                                                The size of the project matters. For example, projects that have 1 developer only and/or a few commits may have Level 5 for the indicator, but that does not necessarily mean the documentation practice is followed accordingly.
+                                            </li>
+                                            <li>The analysis is done on the models, and not the code. UML Ninja does not check the Model-Code differences, yet.
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -1109,7 +1347,9 @@ function Indicator(name,value,minVal,maxVal,type){
   }
 
   this.adjustedValue = function(){
-      if (this.name == "UML Commit Ratio" || this.name == "Document Evolution" ) {
+      console.log(this.name)
+      console.log(this.value);
+      if (this.name == "UML Commit Ratio" || this.name == "Document Evolution" || this.name == "Document Commit Ratio" ) {
         if (this.value >= 0 && this.value <= 0.2){
         return 1;
       }
@@ -1265,33 +1505,11 @@ function createModal() {
     here.html(mo);
 }
 
-    /*
-    $("#avsc-info").on("show.bs.collapse shown.bs.collapse",function(event){
-      alert("Test");
-    });
-    */
-
-    /*var testingMat = "<ul> <li> <h5> Commit Ratio info: </h5> <p>This indicator shows the ratio between UML commits to all commits made in the project. The purpose of this indicator is to show the frequency of UML documentation updates in compare to code updates.<br></p></li><li> <h5> Data collection: </h5><p>The data is collected using GitHub commit history. The UML commit data is collected using Commit comments. A commit is counted as UML commit if the commit comment includes words such as UML, UML diagram, Documentation, Software Architecture etc.</p></li></ul>";
-    function ShowImageInModal() {
-        jQuery.noConflict();
-    (function ($) {
-        document.getElementById("mevsc-info").querySelector(".modal-body").innerHTML = testingMat;
-        //var mymodal = $('#mevsc-info');
-        //mymodal.find('.modal-body').text('helllloooooo');
-        $('#mevsc-info').modal('show');
-    }
-    )(jQuery);
-    }
-ShowImageInModal();*/
-
     function createTable (object, tbody){
         var tBody = document.getElementById(tbody);
         for (var i = 0; i < object.length; i++) {
             var tr = "<tr>";
             tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
-
-            //var mymodal = $('#uml-commit-ratio-info');
-            //mymodal.find('.modal-body').text('helllloooooo');
 
             if (object[i].adjustedValue() == 1) {
                 tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
@@ -1312,12 +1530,6 @@ ShowImageInModal();*/
         }
     }
 
-    $('#mevsc-info').on('show.bs.modal', function (e) {
-    var $invoker = $(e.relatedTarget);
-    console.log('gotcha bitch ', $invoker);
-    console.log('gotcha bitch ', $invoker[0].getAttribute("0"));
-});
-
     /* Global variables used to manipulate UI views */
     var score = 0;
     /* End of Global variable section */
@@ -1328,8 +1540,11 @@ ShowImageInModal();*/
         projectURL : "{{ data.ProjectUrl }}",
         contributors : {{ data.Contributers }},
         documentName : "{{ data.DocumentName }}",
+        docContributors : {{ data.docContributors }},
         allCommits : {{ data.NumberOfCommits }},
         umlCommits : {{ data.UMLCommits }},
+        docCommits : {{ data.docCommits }},
+        umlContributors : {{ data.umlContributors }},
         docSize : {{ data.DocumenSize }},
         aVsC : {{ data.AvsC }},
         asVsC : {{ data.ASvsC }},
@@ -1347,32 +1562,30 @@ ShowImageInModal();*/
         activityDiagram : "{{ data.activityDiagram_link}}",
         isVersionControlled : {{data.isVersionControlled}},
         isEditable : {{data.isEditable}}
+
     };
 
-    temp = [];
+temp = [];
     //push all data in array for when it's needed
     temp.push(allData);
     console.log(temp);
     var projName = allData.projectName;
     var reposName = projName.substring(projName.lastIndexOf("/") + 1, projName.length);
-
     $('#repoName').append(reposName.bold());
-
 
     /* RATIO VALUES */
     var commitRatio = allData.umlCommits / allData.allCommits;
+    var docCommitRatio = allData.docCommits / allData.allCommits;
+    var umlContributionRatio = allData.umlContributors / allData.contributors;
+    var docContributionRatio = allData.docContributors / allData.contributors;
     commitRatio = commitRatio * 5;
-    var docSize = allData.docSize;
+    docCommitRatio = docCommitRatio * 5;
     var numDiagrams = 0;
     if (allData.classDiagram != "") numDiagrams++;
     if (allData.sequenceDiagram != "") numDiagrams++;
     if (allData.activityDiagram != "") numDiagrams++;
     if (allData.stateDiagram != "") numDiagrams++;
     if (allData.usecaseDiagram != "") numDiagrams++;
-
-    console.log("here is activity diagram " + allData.activityDiagram);
-
-
     var documentEvolution = allData.docSize / allData.umlCommits;
     documentEvolution = documentEvolution  * 5;
     addIndicator("AvsC",allData.aVsC, 0, 1, indicatorEnum.UML_CONTENT_CD);
@@ -1382,10 +1595,10 @@ ShowImageInModal();*/
     addIndicator("DEPvsC",allData.depVsC, 1, 0, indicatorEnum.UML_CONTENT_CD);
     addIndicator("DAM",allData.dam, 0, 1, indicatorEnum.UML_CONTENT_CD);
     addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.UML_PROCESS);
-    addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.DOC_PROCESS);
-
-
-    addIndicator("Document Commit Ratio", numDiagrams, 0,5,indicatorEnum.DOC_PROCESS)
+    //addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.DOC_PROCESS);
+    addIndicator("Document Commit Ratio", docCommitRatio, 0, 1, indicatorEnum.DOC_PROCESS);
+    addIndicator("Document Contribution Ratio", docContributionRatio, 0, 1, indicatorEnum.DOC_PROCESS);
+    addIndicator("UML Contribution Ratio", umlContributionRatio, 0, 1, indicatorEnum.UML_PROCESS);
 
 
 // create graphs
@@ -1398,6 +1611,9 @@ window.onload = function() {
     var dataPointsAPPM = [];
     var dataPointsDEPvsC = [];
     var dataPointsDAM = [];
+    var dataPointsDocCommit = [];
+    var dataPointsDocContribution = [];
+    var dataPointsUMLContribution = [];
 
     dataPointsAvsC.push({y: allData.noc, label: "Number of Classes"});
     dataPointsAvsC.push({y: allData.noa, label: "Number of Attributes"});
@@ -1419,18 +1635,26 @@ window.onload = function() {
     dataPointsDAM.push({y: allData.noa, label: "Total Attributes"});
 
 
-    var processData = [];
-    var contentData = [];
-    temp.forEach( function (arrayItem)
-    {
-        //data for uml commits
-        dataPointsPie.push({y: arrayItem.allCommits , name : "All Commits" });
-        dataPointsPie.push({y: arrayItem.umlCommits , name : "UML Commits" });
+    dataPointsDocCommit.push({y: allData.allCommits , label : "All Commits" });
+    dataPointsDocCommit.push({y: allData.docCommits , label : "Document Commits" });
 
-        // data for  doc evolution
-        dataPointsDoc.push({y: arrayItem.docSize , label : "Document Size, in MB" });
-        dataPointsDoc.push({y: arrayItem.umlCommits , label : "Number of UML Commits" });
-    });
+
+    dataPointsDocContribution.push({y: allData.docContributors, label : "Document Contributors" });
+    dataPointsDocContribution.push({y: allData.contributors , label : "All Contributors" });
+
+
+
+    dataPointsPie.push({y: allData.allCommits , label : "All Commits" });
+    dataPointsPie.push({y: allData.umlCommits , label : "UML Commits" });
+
+
+    dataPointsUMLContribution.push({y: allData.contributors , label : "All Contributors" });
+    dataPointsUMLContribution.push({y: allData.umlContributors , label : "UMl Contributors" });
+
+
+    // data for  doc evolution
+    dataPointsDoc.push({y: allData.docSize , label : "Document Size, in MB" });
+    dataPointsDoc.push({y: allData.umlCommits , label : "Number of UML Commits" });
 
     createTable(umlProcessIndicators, 'uml-process-table');
     createTable(umlContentIndicators , 'uml-content-table');
@@ -1441,46 +1665,19 @@ window.onload = function() {
     createTable(docContentIndicators, 'doc-content-table');
 
 
-    allData.isVersionControlled === 1 ? ($('#versionControlled').show() , score+=2) : ($('#notVerionControlled').show(),$('#mainPL').append("<b>, Java</b>"));
-    allData.isEditable === 1 ? (($('#docEditable').show() , score+=2), $('#mainPL').append("<b>, Javascript</b>")) : $('#notEditable').show();
-
-    console.log(allData.classDiagram);
-    console.log(allData.activityDiagram);
-    console.log(allData.usecaseDiagram)
-
-    allData.classDiagram != "" ? ($('#containsCD').show() , score+=2 ) : $('#notContainsCD').show();
+    allData.isVersionControlled === 1 ? ($('#versionControlled').show() , score+=2.5) : ($('#notVerionControlled').show(),$('#mainPL').append("<b>, Java</b>"));
+    allData.isEditable === 1 ? (($('#docEditable').show() , score+=2.5), $('#mainPL').append("<b>, Javascript</b>")) : $('#notEditable').show();
+    allData.classDiagram != "" ? ($('#containsCD').show() , score+=2): $('#notContainsCD').show();
     allData.sequenceDiagram != "" ? ($('#containsSD').show() , score+=2) : $('#notContainsSD').show();
     allData.activityDiagram != "" ? ($('#containsAD').show() , score+=2) : $('#notContainsAD').show();
     allData.usecaseDiagram != "" ? ($('#containsUD').show() , score+=2) : $('#notContainsUD').show();
 
-
-
-    /*
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-    allData.isEditable === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
-
-
-    if(allData.isVersionControlled === 1){
-        $('#versionControlled').show();
-        score+=2;
-    }
-    if (allData.isVersionControlled === 0){
-        $('#notVerionControlled').show();
+    if(allData.classDiagram != 'www.test.classdiagram.com'){
+        $("#cdLink").show();
+        $("#cdLink").attr("target", '_blank');
+        $("#cdLink").attr("href", allData.classDiagram);
     }
 
-    if(allData.isEditable === 1){
-        $('#docEditable').show();
-        score+=2;
-    }
-    if (allData.isEditable === 0){
-        $('#notEditable').show();
-    }
-*/
 
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
@@ -1494,35 +1691,15 @@ window.onload = function() {
             itemclick: explodePie
         },
         data: [{
-            type: "doughnut",
-            showInLegend: true,
+            type: "column",
+            showInLegend: false,
             startAngle: 240,
-            percentFormatString: "#0.##",
-            toolTipContent: "{y}",
-            yValueFormatString: "##0 Commits",
-            indexLabel: "#percent%",
             dataPoints: dataPointsPie
-
         }]
     });
     chart.render();
-    //commitRatio = commitRatio * 10;
     $('#commitRatio').html("Commit ratio: " + commitRatio.toFixed(2).bold().big());
 
-
-
-// Another way to get alldata, as an array
-    /*
-    var arrayData = [];
-    arrayData.push({{ data.idProject }});
-    arrayData.push("{{ data.ProjectName }}");
-    arrayData.push("{{ data.ProjectUrl }}");
-    arrayData.push({{ data.Contributers }});
-    arrayData.push("{{ data.DocumentName }}");
-    arrayData.push({{ data.NumberOfCommits }});
-    arrayData.push({{ data.UMLCommits }});
-    arrayData.push({{ data.DocumenSize }});
-*/
 
     var docChart = new CanvasJS.Chart("docChartContainer", {
         exportEnabled: true,
@@ -1634,10 +1811,10 @@ window.onload = function() {
         theme: "theme2",
         legend: {
             cursor : "pointer",
-            itemclick: explodePie
         },
         data: [{
             type: "column",
+            showInLegend: false,
             startAngle: 240,
             dataPoints: dataPointsDEPvsC
         }]
@@ -1654,10 +1831,10 @@ window.onload = function() {
         theme: "theme2",
         legend: {
             cursor : "pointer",
-            itemclick: explodePie
         },
         data: [{
             type: "column",
+            showInLegend: false,
             startAngle: 240,
             dataPoints: dataPointsDAM
         }]
@@ -1665,8 +1842,76 @@ window.onload = function() {
     $('#dam-chart-info').html("DAM: " + umlContentIndicatorsCD.find(item => item.name === "DAM").value.toFixed(3).bold().big());
     damChart.render();
 
-/*docChart.options.data[0].dataPoints = testDataPoints;
-docChart.render();*/
+    //  Document Commit Ratio Chart
+    var docCommitRatioChartContainer = new CanvasJS.Chart("docCommitRatioChartContainer", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "All Commits vs. Document Update Commits"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+        },
+        data: [{
+            type: "column",
+            showInLegend: false,
+            startAngle: 240,
+            dataPoints: dataPointsDocCommit
+
+        }]
+    });
+    $('#docCommitRatio').html("Document Commit Ratio: " + docCommitRatio.toFixed(2).bold().big());
+    docCommitRatioChartContainer.render();
+
+
+
+    //  Document Contribution Ratio Chart
+    var docContributionRatioChartContainer = new CanvasJS.Chart("docContributionChartContainer", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "All Commits vs. Document Update Commits"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+        },
+        data: [{
+            type: "column",
+            showInLegend: false,
+            startAngle: 240,
+            dataPoints: dataPointsDocContribution
+
+        }]
+    });
+    $('#docContributionRatio').html("Document Contribution Ratio: " + docContributionRatio.toFixed(2).bold().big());
+    docContributionRatioChartContainer.render();
+
+    // UML Contributor ratio Chart
+    var umlContributionChartContainer = new CanvasJS.Chart("umlContributionChartContainer", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title: {
+            text: "All Contributors vs. UML Contributors"
+        },
+        theme: "theme2",
+        legend: {
+            cursor : "pointer",
+            itemclick: explodePie
+        },
+        data: [{
+            type: "column",
+            showInLegend: false,
+            startAngle: 240,
+            dataPoints: dataPointsUMLContribution
+
+        }]
+    });
+    umlContributionChartContainer.render();
+    $('#umlContributionRatio').html("UML Contribution ratio: " + umlContributionRatio.toFixed(2).bold().big());
+
+
 
 //From Canvasjs
 function explodePie (e) {
