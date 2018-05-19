@@ -8,178 +8,19 @@
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-<style>
-    body {
-        
-        background:
-        linear-gradient(to right, #375eb5, #3199b1) !important;
-        linear-gradient(45deg, hsla(130, 46%, 31%, 0.95) 0%, hsla(215, 53%, 50%, 0) 70%),
-        linear-gradient(135deg, hsl(128, 38%, 33%) 10%, hsla(149, 100%, 40%, 0) 80%),
-        linear-gradient(225deg, hsl(184, 95%, 34%) 10%, hsla(184, 89%, 38%, 0) 80%),
-        linear-gradient(315deg, hsl(186, 61%, 37%) 100%, hsla(253, 56%, 43%, 0) 70%);
-
-
-/*
-        linear-gradient(45deg, hsl(130, 43%, 27%) 0%, hsla(215, 53%, 50%, 0) 70%), 
-        linear-gradient(135deg, hsl(128, 34%, 28%) 10%, hsla(149, 100%, 40%, 0) 80%), 
-         /* linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%), 
-        linear-gradient(315deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
-        */
-/*linear-gradient(45deg, hsl(129, 41%, 26%) 0%, hsla(215, 53%, 50%, 0) 70%),         linear-gradient(135deg, hsl(126, 39%, 27%) 10%, hsla(149, 100%, 40%, 0) 80%),         linear-gradient(225deg, hsl(184, 100%, 33%) 10%, hsla(184, 89%, 38%, 0) 80%),         linear-gradient(315deg, hsl(186, 51%, 36%) 100%, hsla(253, 56%, 43%, 0) 70%) */
-        /*
-    background:
-        -webkit-linear-gradient(45deg, hsla(215, 53%, 50%, 1) 0%, hsla(215, 53%, 50%, 0) 70%),
-        -webkit-linear-gradient(315deg, hsla(149, 100%, 40%, 1) 10%, hsla(149, 100%, 40%, 0) 80%),
-        -webkit-linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%),
-        -webkit-linear-gradient(135deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
-    background:
-        linear-gradient(45deg, hsla(215, 53%, 50%, 1) 0%, hsla(215, 53%, 50%, 0) 70%),
-        linear-gradient(135deg, hsla(149, 100%, 40%, 1) 10%, hsla(149, 100%, 40%, 0) 80%),
-        linear-gradient(225deg, hsla(184, 89%, 38%, 1) 10%, hsla(184, 89%, 38%, 0) 80%),
-        linear-gradient(315deg, hsla(253, 56%, 43%, 1) 100%, hsla(253, 56%, 43%, 0) 70%);
-    */
-        font-family: Avenir, sans-serif !important;
-    }
-    .colorful {
-        background:
-        -webkit-linear-gradient(45deg, hsla(207, 66%, 62%, 1) 0%, hsla(207, 66%, 62%, 0) 70%),
-        -webkit-linear-gradient(315deg, hsla(141, 100%, 49%, 1) 10%, hsla(141, 100%, 49%, 0) 80%),
-        -webkit-linear-gradient(225deg, hsla(193, 100%, 46%, 1) 10%, hsla(193, 100%, 46%, 0) 80%),
-        -webkit-linear-gradient(135deg, hsla(168, 100%, 47%, 1) 100%, hsla(168, 100%, 47%, 0) 70%);
-        background:
-        linear-gradient(45deg, hsla(207, 66%, 62%, 1) 0%, hsla(207, 66%, 62%, 0) 70%),
-        linear-gradient(135deg, hsla(141, 100%, 49%, 1) 10%, hsla(141, 100%, 49%, 0) 80%),
-        linear-gradient(225deg, hsla(193, 100%, 46%, 1) 10%, hsla(193, 100%, 46%, 0) 80%),
-        linear-gradient(315deg, hsla(168, 100%, 47%, 1) 100%, hsla(168, 100%, 47%, 0) 70%);
-    }
-    
-    h3 {
-        margin-top: 0;
-        margin-bottom: 12px;
-
-    }
-    .row {
-        display: flex;
-        margin-right: -12px;
-        margin-left: -12px;
-    }
-    .well p{
-        margin: 0 0 2px;
-    }
-
-    .center {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .jumbotron{
-        padding: 5px !important;
-        width: 100%;
-    }
-    .progress-bar{
-        cursor:pointer
-    }
-
-    .column{
-        float: left;
-        width: 48%;
-        padding: 16px;
-        margin: 0 0 25px 15px;
-        background-color: #dededede;
-        border: 1px solid #e3e3e3;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-        box-shadow: 0 0 10px 0 #003e27;
-    }
-
-    .smallColumn {
-        background-color: #dededede;
-        border: 1px solid #e3e3e3;
-        border-radius: 4px;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.05);
-        box-shadow: 0 0 10px 0 #003e27;
-        text-align: center;
-        margin-left: 10px;
-        margin-top: 10px;
-        float: left;
-        width: 20%;
-        height:100%;
-        padding: 20px;
-    }
-
-    .bigCollumn{
-        margin-left: 10px;
-        float: left;
-        width: 77%;
-        height:100%;
-        padding: 10px;
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    .fa{
-        font-size: 2em;
-    }
-    .modal-content-size{
-        display: table;
-        width: 900px;
-        right: 21%;
-    }
-
-    .modal-body-size{
-        padding: 0 40px 10px 0;
-    }
-
-    .flex-container {
-        display: flex;
-        margin-top: 15px;
-        justify-content: center;
-    }
-
-    .flex-container > div {
-        background-color: #ececec;
-        margin-left: 15px;
-        margin-bottom: 10px;
-        padding: 15px;
-        text-align: center;
-    }
-
-    .nav-tabs{
-        margin-bottom: 8px;
-        border-bottom: 1px solid #adada5;
-    }
-    .nav>li>a {
-        position: relative;
-        display: block;
-        padding: 5px 6px;
-    }
-
-    /* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
-    @media screen and (max-width: 600px) {
-        .jumbotron {
-            padding: 5px !important;
-        }
-        .column {
-            width: 100%;
-        }
-    }
-</style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/dash.css">
 
 </head>
 <body>
-
-<div id="main" class="container-fluid">
+<div class="container-fluid">
+    <div style="display:none;" class="fireworks">
+        <div class="before"></div>
+        <div class="after"></div>
+    </div>
     <div class="flex-container">
         <div>
             <i class="fa fa-github-alt"></i>
@@ -195,7 +36,8 @@
         </div>
         <div>
             <i class="fa fa-language"></i>
-            <p id="mainPL"> Main programming languages:<br> <b> C++ </b></p>
+            <!-- This is not taken from DB. Only for UI -->
+            <p> Main programming languages:<br><b>Java, C++</b></p>
         </div>
     </div>
 
@@ -212,21 +54,35 @@
     <!-- Score column style="text-align: center; width: 300px; min-height: 400px" -->
         <div class="smallColumn" >
             <div>
-                <img src="/img/github.gif"  class="center" alt=ninja.png height="150" width="190">
+                <img src="/img/github.gif"  class="center" alt=ninja.png height="140" width="175">
             </div>
-            <h3 style="text-align: center; padding: 6px;" id="score">Score</h3>
+            <div class="scores">
+                <h4> The level of your project is... </h4>
+                <h1 style="font-weight: bold" id="projectLevel"></h1>
+                <hr>
+                <div>
+                    Overall Score
+                    <h5 id="score"></h5>
+                    <h1 id="OScorePercentage"></h1>
+                </div>
+                <hr>
+                <span>
+                    UML Score
+                    <h5 id="umlScore"></h5>
+                    <h1 id="umlScorePercentage"></h1>
+                </span>
+            </div>
+            <hr>
 
-            <h3 style="text-align: center; padding: 6px; margin-top: 10px" id="umlScore">Score</h3>
-
-            <a style="margin-left: auto; margin-right: auto;" href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="Score of UML Documentation Practices in my project " data-hashtags="UMLninja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-            <br>
-            <br> <a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
-            <br><a target="_blank" href="https://bellekens.com/uml-best-practices/">UML Best Practices </a><br>
+            <div style="font-size: 2em">
+                <!-- Facebook -->
+                <a style="margin-left: 15px; color: #1867af;" class="fbSharelink" data-shareurl=""><i style="padding-right: 20px;" class="fa fa-facebook-square"></i></a>
+                <!-- Twitter -->
+                <a class="twitterShareLink">
+                    <i style="color: #1867af;" class="fa fa-twitter-square"></i>
+                </a>
+            </div>
         </div>
-
         <div class="bigCollumn">
             <div class="row">
                 <div class="column">
@@ -341,7 +197,7 @@
                                                 </td>
                                             </tr>
                                             <tr>
-                                            <td><a data-toggle="tab" href="#scTab">Sequence Diagram</a></td>
+                                            <td><a>Sequence Diagram</a></td>
                                             <td>
                                                 <label>
                                                     <i id="containsSD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
@@ -803,7 +659,7 @@
                     </div>
                 </div>
             </div>
-         </div>
+
             <div class="modal fade" id="asvsc-info" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
@@ -1053,12 +909,12 @@
                                 </li>
                                 <li> <h5> Score </h5>
                                     <ul>
-                                        <li>If the document is under version control, the project receives 2.5 points, otherwise no points</li>
+                                        <li>If the document is under version control, the project receives 2 points, otherwise no points</li>
                                         <li>If the document is under version control, the a green check appears next to the indicator,
                                             otherwise a red cross appears next to the indicator </li>
 
                                     </ul>
-                                <li> <h5> How to get the 2.5 points </h5>
+                                <li> <h5> How to get the 2 points </h5>
                                     <p> Make the project documentation under a version control system
                                     </p>
                                 </li>
@@ -1097,13 +953,12 @@
                                     </li>
                                     <li> <h5> Score </h5>
                                         <ul>
-                                            <li>If the document is editable, the project receives 2.5 points, otherwise no points.
+                                            <li>If the document is editable, the project receives 2 points, otherwise no points.
                                                 That is because an editable file allows updates and changes and it prevents having clone and duplicate document</li>
                                             <li>If the document is editable, then a green check appears next to the indicator,
                                                 otherwise a red cross appears next to the indicator </li>
-
                                         </ul>
-                                    <li> <h5> How to get the 2.5 points </h5>
+                                    <li> <h5> How to get the 2 points </h5>
                                         <p> Make the project documentation editable.
                                         </p>
                                     </li>
@@ -1113,7 +968,6 @@
                         </div>
                     </div>
                 </div>
-
 
 
                 <!-- MODAL doc Process- Document Contribution Ratio  INFO -->
@@ -1303,7 +1157,8 @@
                         </div>
                     </div>
                 </div>
-
+</div>
+</body>
 <script>
 var indicatorEnum = {
   UML_PROCESS: 'uml-process-table',
@@ -1347,8 +1202,6 @@ function Indicator(name,value,minVal,maxVal,type){
   }
 
   this.adjustedValue = function(){
-      console.log(this.name)
-      console.log(this.value);
       if (this.name == "UML Commit Ratio" || this.name == "Document Evolution" || this.name == "Document Commit Ratio" ) {
         if (this.value >= 0 && this.value <= 0.2){
         return 1;
@@ -1399,10 +1252,6 @@ function Indicator(name,value,minVal,maxVal,type){
       case "maxVal":
         this.maxVal = updatedValue;
         break;
-
-      /*case "link":
-        this.link = updatedValue;
-        break;*/
 
       case "type":
         this.type = updatedValue;
@@ -1459,76 +1308,30 @@ function changeIndicatorValue (indicatorName, propertyName, updatedValue){
   }
 }
 
-//That's how the data object should look like.
-var exampleDataObject =
-        [{
-            "indicatorName": "UML Commit Ratio",
-            "indicatorInfoModal": "commit-ratio-info",
-            "IndicatorDetailModal": "commit-ratio-detail",
-            "indicatorLevel": 1
-        },
-            {
-                "indicatorName": "Document Evolution",
-                "indicatorInfoModal": "/doc-evolution/",
-                "IndicatorDetailModal": "doc-evolution",
-                "indicatorLevel": 2
-            },
-            {
-                "indicatorName": "Document Evolution",
-                "indicatorInfoModal": "/doc-evolution/",
-                "IndicatorDetailModal": "doc-evolution",
-                "indicatorLevel": 3
-            },
-            {
-                "indicatorName": "Document Evolution",
-                "indicatorInfoModal": "/doc-evolution/",
-                "IndicatorDetailModal": "doc-evolution",
-                "indicatorLevel": 4
-            }];
+function createTable (object, tbody){
+    var tBody = document.getElementById(tbody);
+    for (var i = 0; i < object.length; i++) {
+        var tr = "<tr>";
+        tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
 
-
-    // This is how a new object (indicator) is added. Logic is needed to make level dynamic based on calx.
-    exampleDataObject.push({"indicatorName" : "This is pushed later", "indicatorLink" : "/there/" , "indicatorLevel" : 5});
-
-    /*function doModal(heading, formContent) {
-      console.log("This is called with heading " + heading + " and content " + formContent);
-      $('#avsc-info .modal-body').text(heading);
-      $('#avsc-info .modal-title').text(formContent);
-    }*/
-
-// make ID a parameter
-function createModal() {
-    var mo = "<div class='modal fade' id='commit-ratio-info' role='dialog'><div class='modal-dialog'><div class='model-content'><div class='modal-header'><button type='button' class='close' data-dismiss='modal'>&times;</button><h4 class='modal-title'>YYYYYYYYAAAAAAAA </h4></div><div class='modal-body'><h5>WWWOOOOHHHOOOOO  </h5></div><div class='modal-footer'></div></div></div></div>";
-    console.log(mo);
-    var here = $('#mtest');
-    console.log(here);
-    here.html(mo);
-}
-
-    function createTable (object, tbody){
-        var tBody = document.getElementById(tbody);
-        for (var i = 0; i < object.length; i++) {
-            var tr = "<tr>";
-            tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
-
-            if (object[i].adjustedValue() == 1) {
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-            }
-            if (object[i].adjustedValue() == 2) {
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-            }
-            if (object[i].adjustedValue() == 3) {
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-            }
-            if (object[i].adjustedValue() == 4) {
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-            }
-            if (object[i].adjustedValue() == 5) {
-                tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
-            }
-            tBody.innerHTML += tr;
+        if (object[i].adjustedValue() == 1) {
+            tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
         }
+        if (object[i].adjustedValue() == 2) {
+            tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 40%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+        }
+        if (object[i].adjustedValue() == 3) {
+            tr += " <td><div class='progress'><div class='progress-bar progress-bar-warning' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 60%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+        }
+        if (object[i].adjustedValue() == 4) {
+            tr += " <td><div class='progress'><div class='progress-bar progress-bar-info' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 80%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+        }
+        if (object[i].adjustedValue() == 5) {
+            tr += " <td><div class='progress'><div class='progress-bar progress-bar-success' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 100%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
+        }
+        tBody.innerHTML += tr;
     }
+}
 
     /* Global variables used to manipulate UI views */
     var score = 0;
@@ -1603,6 +1406,16 @@ temp = [];
 
 // create graphs
 window.onload = function() {
+    $('.fbSharelink').click( function() {
+        window.open('https://www.facebook.com/sharer/sharer.php?u='+ document.URL, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+        return false;
+    });
+
+    $('.twitterShareLink').click( function() {
+        window.open('https://twitter.com/share?url='+ document.URL+ "&amp;text=Check out the level of my documentation! &amp;hashtags=DocumentNinja");
+        return false;
+    });
+
     var dataPointsPie = [];
     var dataPointsDoc = [];
     var dataPointsAvsC = [];
@@ -1650,34 +1463,26 @@ window.onload = function() {
 
     dataPointsUMLContribution.push({y: allData.contributors , label : "All Contributors" });
     dataPointsUMLContribution.push({y: allData.umlContributors , label : "UMl Contributors" });
-
-
     // data for  doc evolution
     dataPointsDoc.push({y: allData.docSize , label : "Document Size, in MB" });
     dataPointsDoc.push({y: allData.umlCommits , label : "Number of UML Commits" });
-
     createTable(umlProcessIndicators, 'uml-process-table');
     createTable(umlContentIndicators , 'uml-content-table');
     createTable(umlContentIndicatorsCD , 'uml-content-table-cd');
     createTable(umlContentIndicatorsSC , 'uml-content-table-sc');
-
     createTable(docProcessIndicators, 'doc-process-table');
     createTable(docContentIndicators, 'doc-content-table');
-
-
-    allData.isVersionControlled === 1 ? ($('#versionControlled').show() , score+=2.5) : ($('#notVerionControlled').show(),$('#mainPL').append("<b>, Java</b>"));
-    allData.isEditable === 1 ? (($('#docEditable').show() , score+=2.5), $('#mainPL').append("<b>, Javascript</b>")) : $('#notEditable').show();
+    allData.isVersionControlled === 1 ? ($('#versionControlled').show() , score+=2) : $('#notVerionControlled').show();
+    allData.isEditable === 1 ? ($('#docEditable').show() , score+=2) : $('#notEditable').show();
     allData.classDiagram != "" ? ($('#containsCD').show() , score+=2): $('#notContainsCD').show();
     allData.sequenceDiagram != "" ? ($('#containsSD').show() , score+=2) : $('#notContainsSD').show();
     allData.activityDiagram != "" ? ($('#containsAD').show() , score+=2) : $('#notContainsAD').show();
     allData.usecaseDiagram != "" ? ($('#containsUD').show() , score+=2) : $('#notContainsUD').show();
-
     if(allData.classDiagram != 'www.test.classdiagram.com'){
         $("#cdLink").show();
         $("#cdLink").attr("target", '_blank');
         $("#cdLink").attr("href", allData.classDiagram);
     }
-
 
     var chart = new CanvasJS.Chart("chartContainer", {
         exportEnabled: true,
@@ -1699,7 +1504,6 @@ window.onload = function() {
     });
     chart.render();
     $('#commitRatio').html("Commit ratio: " + commitRatio.toFixed(2).bold().big());
-
 
     var docChart = new CanvasJS.Chart("docChartContainer", {
         exportEnabled: true,
@@ -1864,8 +1668,6 @@ window.onload = function() {
     $('#docCommitRatio').html("Document Commit Ratio: " + docCommitRatio.toFixed(2).bold().big());
     docCommitRatioChartContainer.render();
 
-
-
     //  Document Contribution Ratio Chart
     var docContributionRatioChartContainer = new CanvasJS.Chart("docContributionChartContainer", {
         exportEnabled: true,
@@ -1911,8 +1713,6 @@ window.onload = function() {
     umlContributionChartContainer.render();
     $('#umlContributionRatio').html("UML Contribution ratio: " + umlContributionRatio.toFixed(2).bold().big());
 
-
-
 //From Canvasjs
 function explodePie (e) {
     if(typeof (e.dataSeries.dataPoints[e.dataPointIndex].exploded) === "undefined" || !e.dataSeries.dataPoints[e.dataPointIndex].exploded) {
@@ -1939,11 +1739,29 @@ function explodePie (e) {
     for(var i = 0; i< docContentIndicators.length; i++){
         score += docContentIndicators[i].adjustedValue();
     }
-    var scoreEl = $('#score').html("Over all score: " + score + '/' + 44);
 
-    $('#umlScore').html("UML score: " + (score - 10) + '/' + 40 );
-    var scoreEl = $('#score').html("Score: " + score + '/' + 45);
+    $('#score').append(score + '/' + 62);
+    var scorePercentage = ((score / 62) * 100);
+    $('#OScorePercentage').append(scorePercentage.toFixed().bold().big() + "%");
+    var umlScorePercentage = ((score - 14) / 48) * 100;
+    $('#umlScore').append((score - 14) + '/' + 48 );
+    $('#umlScorePercentage').append( umlScorePercentage.toFixed().bold().big() + "%");
 
+    if (scorePercentage <= 20){
+        $('#projectLevel').append('Basic!')
+    } else if(scorePercentage > 20 && scorePercentage <= 50){
+        $('#projectLevel').append('<div style="font-size: 40px">Developing!<div/>')
+    }else if(scorePercentage > 50 && scorePercentage < 60){
+        $('#projectLevel').append('Good!');
+    }else if(scorePercentage > 60 && scorePercentage <= 80){
+        $('#projectLevel').append('Great!!');
+    }else if(scorePercentage > 80){
+        $('#projectLevel').append('Excellent!!!')
+    }
+
+    if(scorePercentage >= 50){
+        $('.fireworks').delay(1000).show(0).delay(6000).fadeOut("slow");
+    }
 }
 </script>
 
