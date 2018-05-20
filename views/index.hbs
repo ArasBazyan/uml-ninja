@@ -80,16 +80,59 @@
       padding: 0;
   }
 
+  #toast {
+      visibility: hidden;
+      max-width: 800px;
+      min-width: 540px;
+      margin-left: -300px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      border-radius: 2px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      font-size: 17px;
+  }
+
+  #toast.show {
+      visibility: visible;
+      -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+      animation: fadein 0.5s, fadeout 0.5s 2.5s;
+  }
+
+  @-webkit-keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+  }
+
+  @keyframes fadein {
+      from {bottom: 0; opacity: 0;}
+      to {bottom: 30px; opacity: 1;}
+  }
+
+  @-webkit-keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+  }
+
+  @keyframes fadeout {
+      from {bottom: 30px; opacity: 1;}
+      to {bottom: 0; opacity: 0;}
+  }
+
 </style>
 
   </head>
 	<body>
-    <div id="particles-js"></div>
+    <div style="margin-top: -50%;" id="particles-js"></div>
     <section id="info" style="top: 20%;" class="center">
         <div style="display: inherit; color: white; padding: 6px; height:50%">
             <p style="text-align: center">Welcome to UML Ninja</p>
-            <p>Please press <q>Show test repos</q> button and select a project.</p>
-            <p>After exploring the tool, please answer the online questionnaire at <b><a href="https://goo.gl/forms/CH2SyLWHTbuNGOLz2" target="_blank" > this Link.</a></b></p>
+            <p>Please press <q>Show Test Repos</q> button and select a project.</p>
+            <p>After exploring the tool, please answer the online questionnaire at the following <b><a href="https://goo.gl/forms/CH2SyLWHTbuNGOLz2" target="_blank" >Link.</a></b></p>
             <p>If you need assistant, please refer to the <b><a href="/tutorial">Tutorial</a></b> page.</p>
         </div>
     </section>
@@ -97,8 +140,9 @@
     <section class="center">
         <p id="repoDetails" style="color: white; margin: 34px auto; text-align: center; height:50%">  Please enter a Github username </p>
         <div>
-            <input class="p100d" type="text" placeholder="Github Username" id="term"><br>
-            <button id="search" style="cursor: no-drop" class="p100d" disabled>Search</button>
+            <input class="p100d" type="text" placeholder="Github Username" id="term" onkeydown = "if (event.keyCode == 13) document.getElementById('search').click()"><br>
+            <button id="search" class="p100d" >Search</button>
+            <div id="toast">The functionality to analyse documentation of those Github projects does not exist but UML Ninja allows for the possibility to do so.</div>
             <button id="showRepos" class="p100d">Show Test Repos</button>
         </div>
         <p id="testRepos" style="color: white; margin: 20px auto; text-align: center;"></p>
@@ -246,30 +290,39 @@ $(document).ready(function(){
 
 $("#openNav").hide();
     $("#search").click(function(){
+
         $('#repoDetails').empty();
+        $("#info").fadeOut('fast');
         var searchterm = $("#term").val() ? $("#term").val() : "";
         function getUserRepos(callback){
             $.get("https://api.github.com/users/" + searchterm + "/repos",
                 function(data, status){
-                    //Show 10 Projs
-                    data = data.slice(0,10);
+                    //Show 15 Projs
+                    data = data.slice(0,15);
                     success: callback(data,status);
                 });
         };
 
         function showRepos(data, status){
             for (var i = 0; i < data.length; i++) {
-                $("#repoDetails").append("<li data-balloon='Based on Overall score' data-balloon-pos='up' id='repo" + i + "'>" + data[i].name + "</li>");
+                $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
             };
             // function when user clicks a repo choice
             $("#repoDetails").children().click(function(){
                 var repoChoice = $("#"+this.id).html();
+                toastFunction();
+
             });
         };
         getUserRepos(showRepos);
     });
 
 });
+function toastFunction() {
+    var x = document.getElementById("toast");
+    x.className = "show";
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);
+}
     </script>
     </body>
 </html>
