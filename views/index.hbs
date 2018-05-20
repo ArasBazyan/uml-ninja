@@ -10,6 +10,7 @@
       margin: 0;
       height: 100%;
       width: 100%;
+      font-size: 17px;
   }
 
   /*  Particles.js container.
@@ -30,7 +31,7 @@
 
   .center {
       position: absolute;
-      top: 50%;
+      top: 60%;
       left: 50%;
       width: 40%;
 
@@ -47,6 +48,7 @@
       z-index: -1;
       opacity: 0.15;
   }
+
 
   button {
       box-sizing: border-box;
@@ -67,7 +69,7 @@
   }
 
   .p100d {
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-family: Avenir, sans-serif;
       width: 100%;
       height: 50px;
@@ -75,6 +77,7 @@
       display: block;
       border: none;
       text-align: center;
+      padding: 0;
   }
 
 </style>
@@ -82,20 +85,26 @@
   </head>
 	<body>
     <div id="particles-js"></div>
+    <section id="info" style="top: 20%;" class="center">
+        <div style="display: inherit; color: white; padding: 6px; height:50%">
+            <p style="text-align: center">Welcome to UML Ninja</p>
+            <p>Please press <q>Show test repos</q> button and select a project.</p>
+            <p>After exploring the tool, please answer the online questionnaire at <b><a href="https://goo.gl/forms/CH2SyLWHTbuNGOLz2" target="_blank" > this Link.</a></b></p>
+            <p>If you need assistant, please refer to the <b><a href="/tutorial">Tutorial</a></b> page.</p>
+        </div>
+    </section>
 
     <section class="center">
-        <p id="repoDetails" style="color: white; margin: 40px auto; text-align: center; height:50%">  Please enter a Github username </p>
+        <p id="repoDetails" style="color: white; margin: 34px auto; text-align: center; height:50%">  Please enter a Github username </p>
         <div>
             <input class="p100d" type="text" placeholder="Github Username" id="term"><br>
-            <button id="search" class="p100d">Search</button>
+            <button id="search" style="cursor: no-drop" class="p100d" disabled>Search</button>
             <button id="showRepos" class="p100d">Show Test Repos</button>
         </div>
         <p id="testRepos" style="color: white; margin: 20px auto; text-align: center;"></p>
     </section>
 
     <div id="username"></div>
-
-
 
     <script type="text/javascript">
 
@@ -213,79 +222,50 @@
             "retina_detect": true
         });
 
-
-
 $(document).ready(function(){
     $("#showRepos").click(function(){
-      $.getJSON("http://204.48.31.89:80/projectData", function(result){
+        $("#testRepos").empty();
+        $("#info").fadeOut('fast');
+        $.getJSON("http://204.48.31.89:80/projectData", function(result){
           console.log(result);
           var index = 0;
           console.log(result.length)
           for (var i = 0; i < result.length; i++) {
             $("#testRepos").append("<li <a style='cursor:pointer;' id=" + i + ">" + result[i].ProjectName + "</a></li>");
           }
-        // clickable repo name
         $("#testRepos").children().click(function(){
             // selected repo
             var repoChoice = $(this.id);
             var pid = $("#"+this.id).attr('id');
             pid = parseInt(pid) + 1;
             console.log(pid);
-            //alert(repoChoice);
            window.location = "/dash/" + pid;
         });
     });
-
 });
 
 $("#openNav").hide();
-
-    // execute when user clicks on search button
     $("#search").click(function(){
-        // find out the searchterm
-        var searchterm = $("#term").val() ? $("#term").val() : "github";
-        //alert(searchterm);
-        // get user
-        function getUserData(callback) {
-            $.get("https://api.github.com/users/" + searchterm,
+        $('#repoDetails').empty();
+        var searchterm = $("#term").val() ? $("#term").val() : "";
+        function getUserRepos(callback){
+            $.get("https://api.github.com/users/" + searchterm + "/repos",
                 function(data, status){
-                    //console.log(status);
-                    success: callback(data, status);
+                    //Show 10 Projs
+                    data = data.slice(0,10);
+                    success: callback(data,status);
                 });
         };
 
-        // get repos
-        function getUserRepos(callback){
-            $.get("https://api.github.com/users/" + searchterm + "/repos",
-                    function(data, status){
-                        //console.log(status);
-                        success: callback(data,status);
-                    });
-        };
-
-        // callback function to show repos
         function showRepos(data, status){
-            //console.log(status);
             for (var i = 0; i < data.length; i++) {
-              //  $("#repoDetails").append("<li id='repo" + i + "'>" + data[i].name + "</li>");
+                $("#repoDetails").append("<li data-balloon='Based on Overall score' data-balloon-pos='up' id='repo" + i + "'>" + data[i].name + "</li>");
             };
-
             // function when user clicks a repo choice
             $("#repoDetails").children().click(function(){
-
-                // clear out any prior details - no longer required
-                // $("#langDetails").children().remove();
-
-                // get the chosen repo id by reference to the id of the element in list that was clicked
                 var repoChoice = $("#"+this.id).html();
-
-                alert(repoChoice);
-
-
-
             });
         };
-
         getUserRepos(showRepos);
     });
 
