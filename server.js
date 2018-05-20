@@ -38,6 +38,9 @@ mcon.connect(function(err) {
 var index = require('./routes/index');
 var dash = require('./routes/dash');
 var admin = require('./routes/admin');
+var why = require('./routes/why');
+var tutorial = require('./routes/tutorial');
+var aboutUs = require('./routes/aboutUs');
 
 var uri = "mongodb+srv://nimishAras:thesis_project@cluster0-gj7hf.mongodb.net/test";
 
@@ -69,6 +72,9 @@ app.use(function(req, res, next) {
 app.use('/', index);
 app.use('/dash', dash);
 app.use('/admin', admin);
+app.use('/why', why);
+app.use('/tutorial', tutorial);
+app.use('/aboutUs', aboutUs);
 
 
 
