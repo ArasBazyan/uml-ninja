@@ -1,255 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Admin Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js"></script>
-    <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 
-
-<style>
-    body {
-        font-family: Avenir, sans-serif !important;
-        background: linear-gradient(to right, #375eb5, #3199b1) !important;
-    }
-
-    /* Clear floats after the columns */
-    .row:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-    .jumbotron {
-        margin-top: 10px;
-    }
-
-    .btn{
-        color: white;
-        background: linear-gradient(to right, #4567b1, #4187c3) !important;
-        margin-top: 15px;
-        border: none;
-    }
-
-    .btn:hover{
-        color: white;
-        opacity:0.9;
-    }
-</style>
+    <style>
+        body {
+            font-family: Avenir, sans-serif !important;
+            background: linear-gradient(to right, #375eb5, #3199b1) !important;
+        }
+        .jumbotron {
+            margin-top: 10px;
+        }
+    </style>
 
 </head>
 <body>
 
-<!--
 <div class="container">
     <div class="jumbotron">
-        <h2>UML Ninja Admin Page</h2>
-        <p>Here you can add new analyzers and thresholds</p>
-        <button class="btn" data-toggle="modal" data-target="#addAnalyzerModal">Add New Analyzer</button>
-        <button class="btn" data-toggle="modal" data-target="#addThreasholdModal">Add New Threshold</button>
-        <form  id="checkform" style="margin-top: 20px">
-            <p id="pfilter" style="display: none;"><b>Custom analysis</b></p>
+        <h2>Admin Information Page</h2>
+        <h4>This page include information for people who wish to extend this tool, by adding new data, new indicators, new graphs etc.</h4>
+        <h3>To add a new indicator to one of the tables in the UI, please follow the following steps:</h3>
+        <h4>Use the following function to set up the table in the UI.</h4>
+        <code>function createTable (object, tbody)</code><br>
+        <code>object</code> is the indicator array that holds the indicators you require.
+        <code>tbody</code> is the table to which you want to display the the indicators.
+        <code>tbody</code> can be one of the following
+        <ul>
+            <li><b>uml-process-table </b> Indicators will be populated in the UML Process box</li>
+            <li><b>uml-content-table </b> Indicators will be populated in the UML Content box</li>
+            <li><b>uml-content-table-cd </b> Indicators will be populated in the UML Content box, Class Diagram tab</li>
+            <li><b>doc-process-table </b> Indicators will be populated in the Document Process box</li>
+            <li><b>doc-content-table </b> Indicators will be populated in the Document Content box</li>
+        </ul><br>
 
+        <h3>To add an info modal for an indicator</h3>
+        <h5>Use this code in the body tag to create a info modal. In this code we use the indicator "Readability of doc" as an example.
+            The id of the indicator should be in lower case with spaces being replaced by '-' followed by '-info' at the end.
+            The title of the info modal goes in the modal-title tag whereas the body of the modal goes in the modal-body tag.</h5>
+        <xmp>
+            <!-- MODAL - Indicator INFO -->
+            <div class="modal fade" id="readability-of-doc-info" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content modal-content-size">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Readability Indicator</h4>
+                        </div>
+                        <div class="modal-body modal-body-size">
+                            INSERT BODY CONTENT HERE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xmp>
+        <h5>Upon creating an indicator and populating it in the table using the above stated method, the hyperlink on its name will automatically redirect you to the info modal created for that indicator. </h5><br>
 
-             checkboxes
-            <label class="checkbox-inline">
-                <input id="checkbox1"  value="DP" type="checkbox" /> Documentation
-            </label>
-          <label class="checkbox-inline">
-              <input type="checkbox" value="UML">UML
-          </label>
-          <label class="checkbox-inline">
-              <input type="checkbox" value="Filter3">Filter 3
-          </label>
-          <label class="checkbox-inline">
-              <input type="checkbox" value="Filter4">Filter 4
-          </label>
-
-
-        </form>
-        <button class="btn" id="filterButton" style="display: none;">Apply Analysis</button>
-    </div>
-</div>
--->
-
-
-<div class="container">
-    <div class="jumbotron">
-        <h3>Admin Guide </h3>
-        <h5>To add a new indicator, please follow the following steps:</h5>
-        <li>Specify what type of indicator you are adding, e.g. <i>Process</i> or <i>Content</i> indicator. You specify that in the function<br>
-            <code>addIndicator(name, value, minValue, maxValue, type)</code><br>
-
-            where<br>
-            <code>name</code>  is name of the indicator in String, <br>
-            <code>value</code> is the actual integer value the indicator has, <br>
-            <code>minValue</code> is the minimum value the indicator can have <br>
-            <code>maxValue</code> is the maximum value the indicator can have, <br>
-            <code>infoLink</code> is the link to the modal that contains information regarding the indicator, <br>
-            <code>detailLink</code> is the link to the modal that contains the details regarding the indicator, <br>
-            and <code>type</code> is the type of indicator. <br>
-            For example, <code>addIndicator("Document Evolution", documentEvolution, 0, 0, "doc-evolution", indicatorEnum.PROCESS);</code>
-            is to add the Indicator Document Evolution.
-
-
+        <h3>To add a graph modal for an indicator</h3>
+        <h5>Use this code to create a graph for the indicator Readability of Doc.
+            The id of the indicator should be the indicator name written in lower case with spaces being replaced by '-' followed by '-detail' at the end.
+            The title of the graph modal goes in the modal-title tag.
+            The body of the graph is in modal-body which contain the id of the chart which will be displayed.
+            The body of the graph also contains a tag < h4 > in which on you can add information regarding the raw data of the indicator.</h5>
+        <xmp>
+            <!-- MODAL - Readability of doc DETAIL -->
+            <div class="modal fade" id="readability-of-doc-detail" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Readability of Doc</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="readability-of-doc-chart" style="height: 370px; width: 100%;"></div>
+                            <br>
+                            <br>
+                            <h4 id="readability-chart-info"> Readability of Doc:  </h4>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </xmp>
+        <h5>The next steps would be to create the actual graph with the data required.</h5>
+        <ul>
+            <li>In the window.onload() function, create an array that will hold the data for the graph-
+                var dataPointsReadability = [];</li>
+            <li>Insert data points in the array using this method-
+                dataPointsReadability.push({y: dataRequired, label: "Data Title"});
+                y - The y variable holds the actual value of the data.
+                label - This variable holds the label for that data point.</li>
+            <li>Use the following code to create the graph
+                <code>
+                    <scrip>
+                    var readabilityChart = new CanvasJS.Chart("readability-of-doc-chart", {
+                    exportEnabled: true,
+                    animationEnabled: true,
+                    title: {
+                    text: "Readability"
+                    },
+                    theme: "theme2",
+                    legend: {
+                    cursor : "pointer",
+                    itemclick: explodePie
+                    },
+                    data: [{
+                    type: "column",
+                    startAngle: 240,
+                    dataPoints: dataPointsReadability
+                    }]
+                    });
+                    $('#readability-chart-info').html("Redability: " + rawValue);
+                    readabilityChart.render();
+                    </scrip>
+                </code>
+                <h5><code>new.CanvasJS.Chart(object)</code> The parameter in this function should be the same as the id of the modal-body of the graph modal created up.</h5>
+                <h5><code>title: {text: x}</code> - The x can be replaced by whatever the title of the graph needs to be.</h5>
+                <h5><code>data[{dataPoints: dataToShow}]</code> - The dataToshow can be replaced by the data point array that the graph will comprise of.</h5>
+                <h5><code>$('#readability-chart-info').html("Readability: " + rawValue)</code>-The rawValue can be replaced by the raw value of the indicator that needs to be displayed.</h5>
+                <h5><code>readabilityChart.render() </code>- This line is required to create and render the graph.</h5>
+            </li>
+            <li>
+                Upon clicking the level bar of the indicator, the graph modal will be automatically created.
+            </li>
+        </ul>
+        <h3>Database Schema </h3>
+        <h4>The database file in this web application is a sqlite database with the name "UML_Ninja". The database contains 3 tables:</h4>
+        <li>
+            <b>Project</b>- The project table holds general information regarding the projects we use to demonstrate the functionality of the tool. The columns include:
             <ul>
-                <li>Value is calculated this way</li>
-                <li>More</li>
+                <li>idProject - Generated id of each project</li>
+                <li>ProjectName - The name of the project</li>
+                <li>ProjectUrl - The URL of the project on Github</li>
+                <li>Contributers - The number of contributers for each project</li>
             </ul>
         </li>
-        <br><br>
-
-        <h5>To add a new threshold, please follow the following step:</h5>
-        <li>In Admin page, click on <b>Add New Threshold</b> and specify the new thresholds you want to add to the existing indicators</li>
+        <li>
+            <b>Process</b>- The process table contains raw data of indicators that are based upon the Documentation Process. The columns in this table include:
+            <ul>
+                <li>idDocument - Generated id for each document in each project</li>
+                <li>idProject - Similar to the id of the project inserted in the Project table</li>
+                <li>DocumentName - Name of the documentation</li>
+                <li>8 Indicator - The rest of the 8 columns hold values that are either raw values of indicators or data regarding the project that is used for calculation of other indicators. </li>
+            </ul>
+        </li>
+        <li>
+            <b>UML</b>- The UML table contains raw data of indicators that are based upon the content of the Documentation. The columns in this table include:
+            <ul>
+                <li>idUML - Generated id for each UML documentation of the project</li>
+                <li>idProject - Similar to the id of the project inserted in the Project table</li>
+                <li>..._link - There are 4 column names ending with '-link' that hold the link to various UML diagrams of the project</li>
+                <li>9 Indicator - The rest of the 9 columns hold values that are either raw values of content indicators or data regarding the project that is used for calculation of other indicators.</li>
+            </ul>
+        </li>
+        <h3>To access data from the database</h3>
+        <h5>The code below shows an example of accessing data from the database</h5>
+        <code>allData = {
+            idFromDataBase : { { data.idProject } },
+            projectNameFromDataBase : "{ {data.ProjectName} }"}
+        </code>
+        <h5><code>idFromDatabase</code>, <code>projectNameFromDataBase</code> - These names can be replaced by anything that you as a developer would want to choose.</h5>
+        <h5><code>{ { data.idProject } }</code>-This line will return the value for idProject of the project from the database</h5>
+        <h5><code>"{ {data.ProjectName} }"</code> - This line will return the project name of the project from the database. The line is put in double quotes as the database returns a String value.</h5>
+        <br>
     </div>
 </div>
-
-
-
-
-<div id="main" class="container-fluid">
-    <div class="row content">
-        <div class="col-sm-12">
-
-            <!-- MODAL TO ADD NEW ANALYZER -->
-            <div class="modal fade" id="addAnalyzerModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add Analyzer</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label class="col-form-label">Analyzer Name</label>
-                                    <input type="text" class="form-control" id="analyzer-name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Threshold</label>
-                                    <input type="text" class="form-control" id="threshold-number">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="saveAnalyzer" data-dismiss="modal">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- MODAL TO ADD NEW THREASHOLD -->
-            <div class="modal fade" id="addThreasholdModal" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Add New Threashold</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Some text</p>
-                            <form>
-                                <div class="form-group">
-                                    <label class="col-form-label">Documentation Process</label>
-                                    <input type="text" class="form-control" id="dpThreashold">
-                                </div>
-                                <div class="form-group">
-                                    <label for="message-text" class="col-form-label">UML Threashold</label>
-                                    <input type="text" class="form-control" id="umlThreashold">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" id="applyThreashold" data-dismiss="modal">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-
-    // Add new analysis filter
-    $("#saveAnalyzer").click(function () {
-        var val = $("#analyzer-name").val();
-        if (val == "") {
-            alert("Please provide a name to your analyzer");
-        } else {
-            $("#checkform").append('<input type="checkbox" value="' + val + '"/>' + " " + val + "<br>");
-        }
-
-        if ($('#checkform' + ' input[type="checkbox"]').length > 0 ){
-            $("#pfilter").css("display" , "block");
-            $('#filterButton').css("display" , "block")
-        }
-    });
-
-    // Check filter checkboxes
-    function checkChecked(formname) {
-        var anyBoxesChecked = false;
-        $('#' + formname + ' input[type="checkbox"]').each(function() {
-            if ($(this).is(":checked")) {
-                var filter = $(this).attr("value")
-                if(filter == "DP"){
-
-                    console.log("Call function to analyze DP");
-                }
-                if(filter == "UML"){
-                    console.log("Call function for UML");
-                }
-
-                console.log($(this).val());
-
-                anyBoxesChecked = true;
-            }
-        });
-
-        if (anyBoxesChecked == false) {
-            alert("Please select at least one filter")
-            //console.log("gotta check some boxes first ")
-        }
-    }
-
-    $("#filterButton").click( function () {
-        checkChecked('checkform');
-    });
-
-
-    $("#applyThreashold").click( function () {
-        var dpThreashold = $('#dpThreashold').val();
-        var umlThreashold = $('#umlThreashold').val();
-        if (dpThreashold == "") {
-            dpThreashold = dpThreasholdDef;
-            console.log("dpThreashold is Empty");
-        }
-        if (umlThreashold == "") {
-            umlThreashold = umlThreasholdDef;
-            console.log("mlThreashold is Empty");
-        }
-
-        if (dpThreashold > dpThreasholdDef) {
-            console.log("Larger Threshold");
-        }
-        if (dpThreashold > dpThreasholdDef && umlThreashold > umlThreasholdDef) {
-            console.log("Both Larger")
-        }
-    });
-
-</script>
-
-<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </body>
 </html>

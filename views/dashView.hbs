@@ -3,21 +3,20 @@
 <head>
     <title>Documentation Ninja</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
     <script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/dash.css">
-
+    <link rel="stylesheet" type="text/css" href="/css/balloon.css">
 </head>
 <body>
 <div class="container-fluid">
-    <div style="display:none;" class="fireworks">
+    <div style="position: relative; display:none;float: left;left: 10%;top: 404px; opacity:0.8;" class="fireworks">
         <div class="before"></div>
         <div class="after"></div>
     </div>
@@ -49,38 +48,40 @@
                 <p> Github API link: <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b> </p>
             </div> -->
 
-    <div class="row">
+    <div class="row row-fluid">
 
     <!-- Score column style="text-align: center; width: 300px; min-height: 400px" -->
         <div class="smallColumn" >
             <div>
-                <img src="/img/github.gif"  class="center" alt=ninja.png height="140" width="175">
+                <img style="margin-top: 15px;" src="/img/github.gif"  class="center" alt=ninja.png height="140" width="175">
             </div>
             <div class="scores">
-                <h4> The level of your project is... </h4>
-                <h1 style="font-weight: bold" id="projectLevel"></h1>
+
+                <di>
+                    <h4 style="margin-top: 10px"> The level of your project is... </h4>
+                    <h1 data-balloon="Based on Overall score" data-balloon-pos="up"  style="font-weight: bold" id="projectLevel"></h1>
+                </di>
                 <hr>
-                <div>
+                <div data-balloon="Documentation and UML score combined" data-balloon-pos="up" >
                     Overall Score
                     <h5 id="score"></h5>
                     <h1 id="OScorePercentage"></h1>
                 </div>
                 <hr>
-                <span>
+                <div data-balloon="Score for UML indicators only" data-balloon-pos="up">
                     UML Score
                     <h5 id="umlScore"></h5>
                     <h1 id="umlScorePercentage"></h1>
-                </span>
+                </div>
             </div>
             <hr>
-
+            <p>Share this dashboard on social media</p>
             <div style="font-size: 2em">
                 <!-- Facebook -->
-                <a style="margin-left: 15px; color: #1867af;" class="fbSharelink" data-shareurl=""><i style="padding-right: 20px;" class="fa fa-facebook-square"></i></a>
+                <a class="fbSharelink" style="color: #1867af; cursor: pointer"  data-shareurl=""><i class="fa fa-facebook-square"></i></a>
                 <!-- Twitter -->
-                <a class="twitterShareLink">
-                    <i style="color: #1867af;" class="fa fa-twitter-square"></i>
-                </a>
+                <a style="padding-right: 30px; "></a>
+                <a class="twitterShareLink" style="color: #1867af; cursor:pointer; margin-right: 10px"><i class="fa fa-twitter-square"></i></a>
             </div>
         </div>
         <div class="bigCollumn">
@@ -143,7 +144,7 @@
                 </div>
             </div>
 
-            <div class="row">
+            <div class="row row-fluid">
                 <div class="column">
                     <h3> UML Process </h3>
                     <div class="row marketing">
@@ -186,7 +187,7 @@
 		                                    <tbody id="uml-content-table">
 		                                    </tbody>
                                             <tr>
-                                                <td> <a data-toggle="tab" href="#cdTab">CLass Diagram</a></td>
+                                                <td> <a data-toggle="tab" href="#cdTab">Class Diagram</a></td>
                                                 <td>
                                                     <label>
                                                         <i id="containsCD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
@@ -1404,8 +1405,11 @@ temp = [];
     addIndicator("UML Contribution Ratio", umlContributionRatio, 0, 1, indicatorEnum.UML_PROCESS);
 
 
+
 // create graphs
 window.onload = function() {
+
+
     $('.fbSharelink').click( function() {
         window.open('https://www.facebook.com/sharer/sharer.php?u='+ document.URL, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
         return false;
@@ -1748,19 +1752,19 @@ function explodePie (e) {
     $('#umlScorePercentage').append( umlScorePercentage.toFixed().bold().big() + "%");
 
     if (scorePercentage <= 20){
-        $('#projectLevel').append('Basic!')
+        $('#projectLevel').append('BASIC!')
     } else if(scorePercentage > 20 && scorePercentage <= 50){
-        $('#projectLevel').append('<div style="font-size: 40px">Developing!<div/>')
+        $('#projectLevel').append('<h1 style="font-weight: bolder; font-size: 1em" class="devLev">DEVELOPING!<h1/>')
     }else if(scorePercentage > 50 && scorePercentage < 60){
-        $('#projectLevel').append('Good!');
+        $('#projectLevel').append('GOOD!');
     }else if(scorePercentage > 60 && scorePercentage <= 80){
-        $('#projectLevel').append('Great!!');
+        $('#projectLevel').append('GREAT!!');
     }else if(scorePercentage > 80){
-        $('#projectLevel').append('Excellent!!!')
+        $('#projectLevel').append('EXCELLENT!!!');
     }
 
     if(scorePercentage >= 50){
-        $('.fireworks').delay(1000).show(0).delay(6000).fadeOut("slow");
+        $('.fireworks').delay(1000).show(0).delay(4000).fadeOut("slow");
     }
 }
 </script>
