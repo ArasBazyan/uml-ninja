@@ -56,27 +56,26 @@
                 <img style="margin-top: 15px;" src="/img/github.gif"  class="center" alt=ninja.png height="140" width="175">
             </div>
             <div class="scores">
-
-                <di>
-                    <h4 style="margin-top: 10px"> The level of your project is... </h4>
-                    <h1 data-balloon="Based on Overall score" data-balloon-pos="up"  style="font-weight: bold" id="projectLevel"></h1>
-                </di>
+                <div data-balloon="Based on Overall score" data-balloon-pos="up" >
+                    The level of your project is...
+                    <h1 id="projectLevel"></h1>
+                </div>
                 <hr>
                 <div data-balloon="Documentation and UML score combined" data-balloon-pos="up" >
                     Overall Score
-                    <h5 id="score"></h5>
+                    <h4 id="score"></h4>
                     <h1 id="OScorePercentage"></h1>
                 </div>
                 <hr>
                 <div data-balloon="Score for UML indicators only" data-balloon-pos="up">
                     UML Score
-                    <h5 id="umlScore"></h5>
+                    <h4 id="umlScore"></h4>
                     <h1 id="umlScorePercentage"></h1>
                 </div>
             </div>
             <hr>
             <p>Share this dashboard on social media</p>
-            <div style="font-size: 2em">
+            <div style="font-size: 1.5em">
                 <!-- Facebook -->
                 <a class="fbSharelink" style="color: #1867af; cursor: pointer"  data-shareurl=""><i class="fa fa-facebook-square"></i></a>
                 <!-- Twitter -->
@@ -1754,7 +1753,7 @@ function explodePie (e) {
     if (scorePercentage <= 20){
         $('#projectLevel').append('BASIC!')
     } else if(scorePercentage > 20 && scorePercentage <= 50){
-        $('#projectLevel').append('<h1 style="font-weight: bolder; font-size: 1em" class="devLev">DEVELOPING!<h1/>')
+        $('#projectLevel').append('<h1 style="font-weight: bolder; font-size: 0.7em" class="devLev">DEVELOPING!<h1/>')
     }else if(scorePercentage > 50 && scorePercentage < 60){
         $('#projectLevel').append('GOOD!');
     }else if(scorePercentage > 60 && scorePercentage <= 80){
