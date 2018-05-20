@@ -45,10 +45,12 @@ background:
             linear-gradient(315deg, hsla(168, 100%, 47%, 1) 100%, hsla(168, 100%, 47%, 0) 70%);
 }
 
+h1 {
+    font-weight: bolder;
+}
 h3 {
     margin-top: 0;
     margin-bottom: 12px;
-
 }
 .row {
     display: flex;
