@@ -79,7 +79,7 @@ h3 {
     float: left;
     width: 48%;
     padding: 16px;
-    margin: 0 0 25px 15px;
+    margin: 0 0 15px 15px;
     background-color: #dededede;
     border: 1px solid #e3e3e3;
     border-radius: 4px;
@@ -136,6 +136,7 @@ h3 {
 }
 
 .flex-container > div {
+    width: 240px;
     background-color: #ececec;
     margin-left: 15px;
     margin-bottom: 10px;
@@ -353,7 +354,7 @@ h1{
 .twitterShareLink:hover{
     opacity: 0.8;
 }
-.fbShareLink:hover{
+.fbSharelink:hover{
     opacity: 0.8;
 }
 

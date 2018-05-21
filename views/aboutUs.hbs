@@ -15,6 +15,48 @@
         .jumbotron {
             margin-top: 10px;
         }
+
+        .flex-container {
+            display: flex;
+            margin-top: 15px;
+        }
+
+        .flex-container > div {
+            background-color: #ececec;
+            margin-left: 15%;
+            margin-bottom: 10px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 0 4px 0 #cacaca;
+        }
+
+        .hr-text {
+            line-height: 1em;
+            position: relative;
+            outline: 0;
+            border: 0;
+            color: black;
+            text-align: center;
+            height: 1.5em;
+            opacity: .5;
+        }
+        .hr-text:before {
+            content: '';
+            background: linear-gradient(to right, transparent, #818078, transparent);
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 100%;
+            height: 1px;
+        }
+        .hr-text:after {
+            content: attr(data-content);
+            position: relative;
+            display: inline-block;
+            padding: 0 .5em;
+            line-height: 1.5em;
+            background-color: #eeeeee;
+        }
     </style>
 
 </head>
@@ -26,10 +68,36 @@
         <h5>We are two students from University of Gothenburg currently studying Software Engineering in our final year.
             We are doing our bachelor's Thesis project and this tool is a part of it.
         </h5>
-        <h5>We have been working on this Thesis under the supervision of professor Michel Chudron and Truong Ho Quang.</h5><br>
-        <h5>Contact Information:</h5>
-        <li><b>Aras Bazyan </b> <a href="mailto:aras.bazyan@gmail.com">aras.bazyan@gmail.com</a></li><br>
-        <li><b>Nimish Krashak </b><a href="mailto:guskrasni@student.gu.se">guskrasni@student.gu.se</a></li><br>
+        <h5>We have been working on this Thesis under the supervision of professor Michel Chaudron and Truong Ho-Quang.</h5><br>
+        <div class="flex-container">
+            <div style="width: 280px;">
+                <img src="/img/nishnish.jpg" width="250" height="250" ><br>
+                <br><p>Nimish Krashak</p>
+                <a href="mailto:guskrasni@student.gu.se">guskrasni@student.gu.se</a><br>
+            </div>
+            <div>
+                <img src="/img/aras.jpg" width="250" height="250"><br>
+                <br><p>Aras Bazyan</p>
+                <a href="mailto:aras.bazyan@gmail.com">aras.bazyan@gmail.com</a><br>
+            </div>
+        </div>
+
+        <hr class="hr-text" data-content="Supervisors">
+
+        <div class="flex-container">
+            <div style="width: 280px;">
+                <img src="/img/Michel.jpeg"><br>
+                <br><p>Michel Chaudron</p>
+                <a href="mailto:m.r.v.chaudron@gmail.com">m.r.v.chaudron@gmail.com</a><br>
+                <p>+46 31 772 11 65</p>
+            </div>
+            <div style="width: 280px;">
+                <img src="/img/Truong.jpg" width="250" height="230"><br>
+                <br><p>Truong Ho-Quang</p>
+                <a href="mailto:truongh@chalmers.se">truongh@chalmers.se</a><br>
+                <p>+46 31-772 6174</p>
+            </div>
+        </div>
     </div>
 </div>
 </body>

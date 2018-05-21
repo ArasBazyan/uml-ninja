@@ -16,22 +16,25 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div style="position: relative; display:none;float: left;left: 10%;top: 404px; opacity:0.8;" class="fireworks">
+    <div style="display:none" class="fireworks">
         <div class="before"></div>
         <div class="after"></div>
     </div>
     <div class="flex-container">
         <div>
             <i class="fa fa-github-alt"></i>
-            <p id="repoName">Repository <br><b></b></p>
+            <p>Repository </p>
+            <a id="repoName"></a>
         </div>
          <div>
             <i class="fa fa-github"></i>
-            <p>Github API link: <br> <b><a href="{{ data.ProjectUrl }}">{{ data.ProjectUrl }}</a></b></p>
+            <p>Github API link: </p>
+            <a id="apiLink"></a>
         </div>
         <div>
             <i class="fa fa-users"></i>
-            <p> Number of contributors:<br> <b>{{ data.Contributers }}</b></p>
+            <p> Number of contributors:</p>
+            <a id="contributorsLink"></a>
         </div>
         <div>
             <i class="fa fa-language"></i>
@@ -56,18 +59,19 @@
                 <img style="margin-top: 15px;" src="/img/github.gif"  class="center" alt=ninja.png height="140" width="175">
             </div>
             <div class="scores">
-                <div data-balloon="Based on Overall score" data-balloon-pos="up" >
+                <div data-balloon="Based on Overall Score" data-balloon-pos="up" >
                     The level of your project is...
-                    <h1 id="projectLevel"></h1>
                 </div>
+                <h1 id="projectLevel"></h1>
+                <div id="projectLevelRange"></div>
                 <hr>
-                <div data-balloon="Documentation and UML score combined" data-balloon-pos="up" >
+                <div data-balloon="Documentation and UML Level scores combined" data-balloon-pos="up" >
                     Overall Score
                     <h4 id="score"></h4>
                     <h1 id="OScorePercentage"></h1>
                 </div>
                 <hr>
-                <div data-balloon="Score for UML indicators only" data-balloon-pos="up">
+                <div data-balloon="Combined Level scores for UML indicators only" data-balloon-pos="up">
                     UML Score
                     <h4 id="umlScore"></h4>
                     <h1 id="umlScorePercentage"></h1>
@@ -191,7 +195,9 @@
                                                     <label>
                                                         <i id="containsCD" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
                                                         <i id="notContainsCD" style="display: none; font-size: 40px; color: darkred" class="fa fa-times-circle"></i>
-                                                        <a id="cdLink" style=" display: none; font-size: 32px; margin-left: 15px" class="fa fa-image"></a>
+                                                        <a  data-toggle= "modal" data-target="#img-cd" id="cdModalLink" style=" display: none; font-size: 32px; margin-left: 15px" class="fa fa-image">
+                                                        </a>
+
 
                                                     </label>
                                                 </td>
@@ -1110,7 +1116,7 @@
                             <div class="modal-body modal-body-size">
                                 <ul>
                                     <li> <h5> Document Commit Ratio info: </h5>
-                                        <p>This indicator shows the ratio between Document commits to all commits made in the project. The purpose of this indicator is to show the frequency of documentation updates in compare to code updates.<br>
+                                        <p>This indicator shows the ratio between Document commits to all commits made in the project.<br>
                                         </p>
                                     </li>
                                     <li> <h5> Data collection: </h5>
@@ -1157,7 +1163,26 @@
                         </div>
                     </div>
                 </div>
-</div>
+                <!-- MODAL IMAGE - Class Diagram  -->
+                <div class="modal fade" id="img-cd" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Evaluated Class Diagram</h4>
+                            </div>
+                            <div style="text-align: center" class="modal-body">
+                                <img id="cdImg" width="575">
+                                <hr>
+                                <a id="cdLink">Image Link</a>
+                            </div>
+                            <div class="modal-footer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
 </body>
 <script>
 var indicatorEnum = {
@@ -1374,7 +1399,20 @@ temp = [];
     console.log(temp);
     var projName = allData.projectName;
     var reposName = projName.substring(projName.lastIndexOf("/") + 1, projName.length);
-    $('#repoName').append(reposName.bold());
+    var repoNameEl =  $('#repoName');
+    var apiLink = $('#apiLink');
+    var contributorsLinkEl = $('#contributorsLink');
+    var repoLink = "https://github.com/"+ projName;
+    var contibutorsLink = "https://github.com/" + projName +"/graphs/contributors";
+    repoNameEl.attr("target" , '_blank');
+    repoNameEl.attr("href" , repoLink);
+    repoNameEl.append(reposName.bold());
+    apiLink.attr("target" , '_blank');
+    apiLink.attr("href" , allData.projectURL);
+    apiLink.append(reposName.bold());
+    contributorsLinkEl.attr("target" , "_blank");
+    contributorsLinkEl.attr("href" , contibutorsLink);
+    contributorsLinkEl.append(allData.contributors);
 
     /* RATIO VALUES */
     var commitRatio = allData.umlCommits / allData.allCommits;
@@ -1415,7 +1453,7 @@ window.onload = function() {
     });
 
     $('.twitterShareLink').click( function() {
-        window.open('https://twitter.com/share?url='+ document.URL+ "&amp;text=Check out the level of my documentation! &amp;hashtags=DocumentNinja");
+        window.open('https://twitter.com/share?url='+ document.URL+ "&amp;text=Check out the level of my documentation! &amp;hashtags=UMLNinja");
         return false;
     });
 
@@ -1481,8 +1519,13 @@ window.onload = function() {
     allData.sequenceDiagram != "" ? ($('#containsSD').show() , score+=2) : $('#notContainsSD').show();
     allData.activityDiagram != "" ? ($('#containsAD').show() , score+=2) : $('#notContainsAD').show();
     allData.usecaseDiagram != "" ? ($('#containsUD').show() , score+=2) : $('#notContainsUD').show();
+
+    var cdLink = allData.classDiagram;
+    console.log(cdLink);
+
+    $('#cdImg').attr("src",cdLink);
     if(allData.classDiagram != 'www.test.classdiagram.com'){
-        $("#cdLink").show();
+        $("#cdModalLink").show();
         $("#cdLink").attr("target", '_blank');
         $("#cdLink").attr("href", allData.classDiagram);
     }
@@ -1750,16 +1793,24 @@ function explodePie (e) {
     $('#umlScore').append((score - 14) + '/' + 48 );
     $('#umlScorePercentage').append( umlScorePercentage.toFixed().bold().big() + "%");
 
+    //$('#projectLevel').append("<div style='text-align: center; height: 14px; width: 97%;' class='progress'><div class='progress-bar progress-bar-danger' role='progressbar' style='text-align: center;  width: 20%'</div></div>");
+
     if (scorePercentage <= 20){
         $('#projectLevel').append('BASIC!')
+        $('#projectLevelRange').append("<div  style=' font-weight: lighter; font-size: 12px; opacity:0.5;'><b>Basic</b> > Developing > Good > Great > Excellent</div>");
     } else if(scorePercentage > 20 && scorePercentage <= 50){
         $('#projectLevel').append('<h1 style="font-weight: bolder; font-size: 0.7em" class="devLev">DEVELOPING!<h1/>')
+        $('#projectLevelRange').append("<div  style=' font-weight: lighter; font-size: 12px; opacity:0.5;'>Basic > <b>Developing</b> > Good > Great > Excellent</div>");
     }else if(scorePercentage > 50 && scorePercentage < 60){
         $('#projectLevel').append('GOOD!');
+        $('#projectLevelRange').append("<div  style=' font-weight: lighter; font-size: 12px; opacity:0.5;'>Basic > Developing > <b>Good</b> > Great > Excellent</div>");
     }else if(scorePercentage > 60 && scorePercentage <= 80){
         $('#projectLevel').append('GREAT!!');
+        $('#projectLevelRange').append("<div  style=' font-weight: lighter; font-size: 12px; opacity:0.5;'>Basic > Developing > Good > <b>Great</b> > Excellent</div>");
     }else if(scorePercentage > 80){
         $('#projectLevel').append('EXCELLENT!!!');
+        $('#projectLevelRange').append("<div  style=' font-weight: lighter; font-size: 12px; opacity:0.5;'><>Basic > Developing > Good > Great > <b>Excellent</b></div>");
+
     }
 
     if(scorePercentage >= 50){
