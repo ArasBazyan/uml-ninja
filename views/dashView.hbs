@@ -102,7 +102,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="doc-process-table">
-                                    <td> <a data-toggle="modal" data-target="#doc-process-version-control-info">Version Control</a></td>
+                                    <td> <a style="cursor: pointer"  data-toggle="modal" data-target="#doc-process-version-control-info">Version Control</a></td>
                                     <td>
                                         <label>
                                             <i id="versionControlled" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
@@ -132,7 +132,7 @@
                                     </tr>
                                     </thead>
                                     <tbody id="doc-content-table">
-                                    <td> <a data-toggle="modal" data-target="#doc-content-editable-info">Document Editable</a></td>
+                                    <td> <a style="cursor: pointer" data-toggle="modal" data-target="#doc-content-editable-info">Document Editable</a></td>
                                     <td>
                                         <label>
                                             <i id="docEditable" style="display: none; font-size: 40px; color: green" class="fa fa-check-circle"></i>
@@ -367,19 +367,19 @@
 
 
             <!-- MODAL Doc Process - Document Contribution Ratio -  DETAIL-->
-            <div class="modal fade" id="document-contribution-ratio-detail" role="dialog">
+            <div class="modal fade" id="document-contributor-ratio-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">Document Contribution Ratio</h4>
+                            <h4 class="modal-title">Document Contributor Ratio</h4>
                         </div>
                         <div class="modal-body">
                             <div id="docContributionChartContainer" style="height: 370px; width: 100%;"></div>
                             <br>
                             <br>
-                            <h4 id="docContributionRatio" >Document Contribution Ratio </h4>
+                            <h4 id="docContributionRatio" >Document Contributor Ratio </h4>
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -391,19 +391,19 @@
 
 
             <!-- MODAL UML Process - UML Contribution Ratio -  DETAIL-->
-            <div class="modal fade" id="uml-contribution-ratio-detail" role="dialog">
+            <div class="modal fade" id="uml-contributor-ratio-detail" role="dialog">
                 <div class="modal-dialog">
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title">UML Contribution Ratio</h4>
+                            <h4 class="modal-title">UML Contributor Ratio</h4>
                         </div>
                         <div class="modal-body">
                             <div id="umlContributionChartContainer" style="height: 370px; width: 100%;"></div>
                             <br>
                             <br>
-                            <h4 id="umlContributionRatio" >UML Contribution Ratio </h4>
+                            <h4 id="umlContributionRatio" >UML Contributor Ratio </h4>
                         </div>
                         <div class="modal-footer">
                         </div>
@@ -977,18 +977,18 @@
 
 
                 <!-- MODAL doc Process- Document Contribution Ratio  INFO -->
-                <div class="modal fade" id="document-contribution-ratio-info" role="dialog">
+                <div class="modal fade" id="document-contributor-ratio-info" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content modal-content-size">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Document Contribution Indicator</h4>
+                                <h4 class="modal-title">Document Contributor Indicator</h4>
                             </div>
                             <div class="modal-body modal-body-size">
 
                                 <ul>
-                                    <li> <h5> Document Contribution Info </h5>
+                                    <li> <h5> Document Contributor Info </h5>
                                         <p>This indicator checks the ratio between members who contribute to documentation to all project contributors.
                                             The aim of this indicator is show how many percent of all members actively contribute to documentation.
                                         </p>
@@ -1041,18 +1041,18 @@
 
 
                 <!-- MODAL UML Process- UML Contribution Ratio  INFO -->
-                <div class="modal fade" id="uml-contribution-ratio-info" role="dialog">
+                <div class="modal fade" id="uml-contributor-ratio-info" role="dialog">
                     <div class="modal-dialog">
                         <!-- Modal content-->
                         <div class="modal-content modal-content-size">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">UML Contribution Indicator</h4>
+                                <h4 class="modal-title">UML Contributor Indicator</h4>
                             </div>
                             <div class="modal-body modal-body-size">
 
                                 <ul>
-                                    <li> <h5> UML Contribution Info </h5>
+                                    <li> <h5> UML Contributor Info </h5>
                                         <p>This indicator checks the ratio between members who contribute to UML to all project contributors.
                                             The aim of this indicator is show how many percent of all members actively contribute to UML documentation.
                                         </p>
@@ -1337,7 +1337,7 @@ function createTable (object, tbody){
     var tBody = document.getElementById(tbody);
     for (var i = 0; i < object.length; i++) {
         var tr = "<tr>";
-        tr += "<td><a data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
+        tr += "<td><a style='cursor: pointer;' data-toggle= 'modal' data-target=#" + object[i].infoLink()+ ">" + object[i].longName() + "</a></td> ";
 
         if (object[i].adjustedValue() == 1) {
             tr += " <td><div class='progress'><div class='progress-bar progress-bar-danger' data-toggle= 'modal' data-target=#" + object[i].detailLink() + " role='progressbar' style='width: 20%' > <span><strong>" + object[i].adjustedValue() + "/5 </strong></span></div></div></td></tr>"
@@ -1438,8 +1438,8 @@ temp = [];
     addIndicator("UML Commit Ratio", commitRatio, 0, 1, indicatorEnum.UML_PROCESS);
     //addIndicator("Document Evolution", documentEvolution, 0, 1, indicatorEnum.DOC_PROCESS);
     addIndicator("Document Commit Ratio", docCommitRatio, 0, 1, indicatorEnum.DOC_PROCESS);
-    addIndicator("Document Contribution Ratio", docContributionRatio, 0, 1, indicatorEnum.DOC_PROCESS);
-    addIndicator("UML Contribution Ratio", umlContributionRatio, 0, 1, indicatorEnum.UML_PROCESS);
+    addIndicator("Document Contributor Ratio", docContributionRatio, 0, 1, indicatorEnum.DOC_PROCESS);
+    addIndicator("UML Contributor Ratio", umlContributionRatio, 0, 1, indicatorEnum.UML_PROCESS);
 
 
 
@@ -1757,7 +1757,7 @@ window.onload = function() {
         }]
     });
     umlContributionChartContainer.render();
-    $('#umlContributionRatio').html("UML Contribution ratio: " + umlContributionRatio.toFixed(2).bold().big());
+    $('#umlContributionRatio').html("UML Contributor ratio: " + umlContributionRatio.toFixed(2).bold().big());
 
 //From Canvasjs
 function explodePie (e) {

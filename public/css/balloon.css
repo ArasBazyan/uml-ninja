@@ -3,7 +3,7 @@ button[data-balloon] {
 
 [data-balloon] {
     position: relative;
-    cursor: pointer; }
+    }
 [data-balloon]:after {
     filter: alpha(opacity=0);
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
