@@ -270,10 +270,8 @@ $(document).ready(function(){
     $("#showRepos").click(function(){
         $("#testRepos").empty();
         $("#info").fadeOut('fast');
-        $.getJSON("http://204.48.31.89:80/projectData", function(result){
-          console.log(result);
+        $.getJSON("http://localhost:8000/projectData", function(result){
           var index = 0;
-          console.log(result.length)
           for (var i = 0; i < result.length; i++) {
             $("#testRepos").append("<li <a style='cursor:pointer;' id=" + i + ">" + result[i].ProjectName + "</a></li>");
           }
@@ -282,7 +280,6 @@ $(document).ready(function(){
             var repoChoice = $(this.id);
             var pid = $("#"+this.id).attr('id');
             pid = parseInt(pid) + 1;
-            console.log(pid);
            window.location = "/dash/" + pid;
         });
     });

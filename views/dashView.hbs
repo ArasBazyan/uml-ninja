@@ -1396,7 +1396,6 @@ function createTable (object, tbody){
 temp = [];
     //push all data in array for when it's needed
     temp.push(allData);
-    console.log(temp);
     var projName = allData.projectName;
     var reposName = projName.substring(projName.lastIndexOf("/") + 1, projName.length);
     var repoNameEl =  $('#repoName');
@@ -1521,8 +1520,6 @@ window.onload = function() {
     allData.usecaseDiagram != "" ? ($('#containsUD').show() , score+=2) : $('#notContainsUD').show();
 
     var cdLink = allData.classDiagram;
-    console.log(cdLink);
-
     $('#cdImg').attr("src",cdLink);
     if(allData.classDiagram != 'www.test.classdiagram.com'){
         $("#cdModalLink").show();
